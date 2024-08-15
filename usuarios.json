@@ -1,0 +1,23 @@
+[
+    {
+        "nombres":  "Juan",
+        "apellidos": "Perez",
+        "fecha_de_nacimiento": "1990/05/14",
+        "correo": "juanperez@gmail.com",
+        "contraseña" : "123456"
+    },
+    {
+        "nombres":  "Maria",
+        "apellidos": "Gomez",
+        "fecha_de_nacimiento": "1995/07/23",
+        "correo": "mariago@gmail.com",
+        "contraseña" : "123456"
+    },
+    {
+        "nombres":  "Pedro",
+        "apellidos": "Rodriguez",
+        "fecha_de_nacimiento": "1985/02/10",
+        "correo": "pedro@gmail.com",
+        "contraseña" : "123456"
+    }
+]
