@@ -8,8 +8,7 @@
 using namespace std;
 using json = nlohmann::json;
 
-//Declaracion de variables globales
-
+void menu_principal();
 void administrador();
 void user();
 void cargar_usuarios();
@@ -31,6 +30,8 @@ void login() {
         cout << "Usuario o contraseña incorrectos" << endl;
     }
 }
+
+
 
 //Aqui empezare a crear los nodos de las estructuras de datos
 
@@ -126,6 +127,30 @@ public:
 
 ListaSimple listaUsuarios;
 
+void registro() {
+    cout << "Registrando usuario..." << endl;
+    cout << "Ingrese su nombre: ";
+    string nombres;
+    cin >> nombres;
+    cout << "Ingrese su apellido: ";
+    string apellidos;
+    cin >> apellidos;
+    cout << "Ingrese su fecha de nacimiento" << endl;
+    cout << "Formato YYYY/MM/DD: " ;
+    string fecha_de_nacimiento;
+    cin >> fecha_de_nacimiento;
+    cout << "Ingrese su correo: ";
+    string correo;
+    cin >> correo;
+    cout << "Ingrese su contraseña: ";
+    string contraseña;
+    cin >> contraseña;
+
+    listaUsuarios.append(nombres, apellidos, fecha_de_nacimiento, correo, contraseña);
+    cout << "Usuario registrado exitosamente" << endl;
+    menu_principal();
+}
+
 
 void administrador() {
     cout << "Menú de administrador" << endl;
@@ -161,6 +186,7 @@ void administrador() {
             break;
         case 6:
             cout << "Saliendo..." << endl;
+            menu_principal();
             break;
         default:
             cout << "Opción inválida" << endl;
@@ -235,6 +261,12 @@ void user() {
 
 int main() {
     SetConsoleOutputCP(CP_UTF8);
+    menu_principal();
+
+    return 0;  // Agregar un return 0 para indicar terminación exitosa
+}
+
+void menu_principal(){
 
     cout << "Bienvenido al sistema" << endl;
     cout << "Seleccione una opción" << endl;
@@ -255,10 +287,14 @@ int main() {
             login();
             break;
         case 2:
-            cout << "Registrando usuario..." << endl;
+            registro();
             break;
         case 3:
             cout << "Mostrando información..." << endl;
+            cout << "Nombre: Samuel Nehemias Coyoy Perez" << endl;
+            cout << "Carnet: 202200198" << endl;
+            cout << "Curso: Estructura de Datos Seccion C " << endl;
+            menu_principal();
             break;
         case 4:
             cout << "Saliendo..." << endl;
@@ -268,5 +304,4 @@ int main() {
             break;
     }
 
-    return 0;  // Agregar un return 0 para indicar terminación exitosa
 }
