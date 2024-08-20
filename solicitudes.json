@@ -1,0 +1,22 @@
+[
+    {
+        "emisor": "juanperez@gmail.com",
+        "receptor": "mariago@gmail.com",
+        "estado": "ACEPTADA"
+    },
+    {
+        "emisor": "pedro@gmail.com",
+        "receptor": "juanperez@gmail.com",
+        "estado": "PENDIENTE"
+    },
+    {
+        "emisor": "mariago@gmail.com",
+        "receptor": "pedro@gmail.com",
+        "estado": "PENDIENTE"
+    },
+    {
+        "emisor": "ana.martinez@gmail.com",
+        "receptor": "juanperez@gmail.com",
+        "estado": "ACEPTADA"
+    }
+]

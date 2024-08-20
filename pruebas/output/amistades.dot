@@ -1,0 +1,16 @@
+digraph G {
+    node [shape=rectangle, style=filled, fillcolor=lightgray];
+    edge [arrowhead=none];
+    "Alice_Bob" [label="X"];
+    "Alice_Charlie" [label="X"];
+    "Alice_David" [label="X"];
+    "Bob_Alice" [label="X"];
+    "Bob_Charlie" [label="X"];
+    "Charlie_Alice" [label="X"];
+    "Alice_Bob" -> "Alice_Bob";
+    "Alice_Charlie" -> "Alice_Charlie";
+    "Alice_David" -> "Alice_David";
+    "Bob_Alice" -> "Bob_Alice";
+    "Bob_Charlie" -> "Bob_Charlie";
+    "Charlie_Alice" -> "Charlie_Alice";
+}

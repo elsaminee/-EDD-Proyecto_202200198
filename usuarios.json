@@ -19,5 +19,12 @@
         "fecha_de_nacimiento": "1985/02/10",
         "correo": "pedro@gmail.com",
         "contraseña" : "123456"
+    },
+    {
+        "nombres":  "Ana",
+        "apellidos": "Martinez",
+        "fecha_de_nacimiento": "1992/11/30",
+        "correo": "ana.martinez@gmail.com",
+        "contraseña" : "123456"
     }
 ]
