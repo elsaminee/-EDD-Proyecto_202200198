@@ -560,7 +560,7 @@ public:
         file << "}" << endl;
         file.close();
 
-        string command = "dot -Tpng graph.dot -o graph.png";
+        string command = "dot -Tpng publicaciones.dot -o publicaciones.png";
         system(command.c_str());
     }
 
@@ -719,6 +719,7 @@ void administrador() {
             break;
         case 3:
             cargar_publicaciones();
+            administrador();
             break;
         case 4:
             cout << "Gestionando usuarios..." << endl;
@@ -844,7 +845,28 @@ void cargar_relaciones() {
 }
 
 void cargar_publicaciones() {
-    cout << "Cargando publicaciones..." << endl;
+    cout << "Ingrese el nombre del archivo de publicaciones: ";
+    string filename;
+    cin >> filename;
+
+    string filepath = "../" + filename;
+    ifstream file(filepath);
+
+    if (!file.is_open()) {
+        cout << "No se pudo abrir el archivo" << endl;
+        return;
+    }
+
+    json j;
+    file >> j;
+
+    for (auto& element : j) {
+        string correo = element["correo"];
+        string contenido_correo = element["contenido"];
+        string fecha = element["fecha"];
+        string hora = element["hora"];
+        listaPublicaciones.append(correo, contenido_correo, fecha, hora);
+    }
 }
 
 void gestionar_usuarios() {
