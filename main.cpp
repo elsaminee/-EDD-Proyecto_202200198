@@ -14,6 +14,7 @@ void administrador();
 void cargar_usuarios();
 void gestionar_usuarios();
 void cargar_relaciones();
+void cargar_publicaciones();
 void reportes();
 
 //Aqui empezare a crear los nodos de las estructuras de datos
@@ -434,6 +435,145 @@ public:
     }
 };
 
+
+struct node_publi {
+    string correo;
+    string contenido_correo;
+    string fecha;
+    string hora;
+    node_publi* next;
+    node_publi* prev;
+
+    node_publi(string correo, string contenido_correo, string fecha, string hora) {
+        this->correo = correo;
+        this->contenido_correo = contenido_correo;
+        this->fecha = fecha;
+        this->hora = hora;
+        next = nullptr;
+        prev = nullptr;
+    }
+};
+
+class DoublyLinkedList {
+private:
+    node_publi* head;
+    node_publi* tail;
+public:
+    DoublyLinkedList() {
+        head = nullptr;
+        tail = nullptr;
+    }
+
+    void append(string correo, string contenido_correo, string fecha, string hora) {
+        node_publi* newNode = new node_publi(correo, contenido_correo, fecha, hora);
+        if (head == nullptr) {
+            head = newNode;
+            tail = newNode;
+        } else {
+            tail->next = newNode;
+            newNode->prev = tail;
+            tail = newNode;
+        }
+    }
+
+    void push(string correo, string contenido_correo, string fecha, string hora) {
+        node_publi* newNode = new node_publi(correo, contenido_correo, fecha, hora);
+        if (head == nullptr) {
+            head = newNode;
+            tail = newNode;
+        } else {
+            newNode->next = head;
+            head->prev = newNode;
+            head = newNode;
+        }
+    }
+
+    void print() {
+        node_publi* current = head;
+        while (current != nullptr) {
+            cout << "Correo: " << current->correo << " | Contenido: " << current->contenido_correo
+                << " | Fecha: " << current->fecha << " | Hora: " << current->hora << " <-> ";
+            current = current->next;
+        }
+        cout << "fin" << endl;
+    }
+
+    void remove(string correo) {
+        node_publi* current = head;
+
+        while (current != nullptr && current->correo != correo) {
+            current = current->next;
+        }
+
+        if (current == nullptr) {
+            cout << "No se encontró el correo a eliminar" << endl;
+            return;
+        }
+
+        if (current->prev != nullptr) {
+            current->prev->next = current->next;
+        } else {
+            head = current->next;
+        }
+
+        if (current->next != nullptr) {
+            current->next->prev = current->prev;
+        } else {
+            tail = current->prev;
+        }
+
+        delete current;
+    }
+
+    bool search(string correo) {
+        node_publi* current = head;
+        while (current != nullptr) {
+            if (current->correo == correo) {
+                return true;
+            }
+            current = current->next;
+        }
+        return false;
+    }
+
+    void graph() {
+        ofstream file("graph.dot");
+        file << "digraph G {" << endl;
+        file << "rankdir=LR;" << endl;
+        file << "node [shape=record];" << endl;
+
+        node_publi* current = head;
+        int id = 0;
+        while (current != nullptr) {
+            file << "node" << id << " [label=\"{Correo: " << current->correo
+                << " | Contenido: " << current->contenido_correo
+                << " | Fecha: " << current->fecha
+                << " | Hora: " << current->hora << "}\"];" << endl;
+            if (current->next != nullptr) {
+                file << "node" << id << " -> node" << (id + 1) << " ;" << endl;
+                file << "node" << (id + 1) << " -> node" << id << " ;" << endl;
+            }
+            current = current->next;
+            id++;
+        }
+
+        file << "}" << endl;
+        file.close();
+
+        string command = "dot -Tpng graph.dot -o graph.png";
+        system(command.c_str());
+    }
+
+    ~DoublyLinkedList() {
+        node_publi* current = head;
+        while (current != nullptr) {
+            node_publi* next = current->next;
+            delete current;
+            current = next;
+        }
+    }
+};
+
 // Estructuras para la matriz dispersa
 //-----------------------------------------------------
 //-----------------------------------------------------
@@ -448,6 +588,7 @@ ListaSimple listaUsuarios;
 Stack pila_relaciones;
 ListaAmistad listaAmistades;
 Matrix matrix_amistades;
+DoublyLinkedList listaPublicaciones;
 
 
 void registro() {
@@ -577,7 +718,7 @@ void administrador() {
             administrador();
             break;
         case 3:
-            cout << "Cargando publicaciones..." << endl;
+            cargar_publicaciones();
             break;
         case 4:
             cout << "Gestionando usuarios..." << endl;
@@ -619,13 +760,13 @@ void reportes() {
             matrix_amistades.generateDot("amistad.dot");
             break;
         case 3:
-            cout << "Generando publicaciones..." << endl;
+            listaPublicaciones.graph();
             break;
         case 4:
             cout << "Generando tops..." << endl;
             break;
         case 5:
-            cout << "Saliendo..." << endl;
+            administrador();
             break;
         default:
             cout << "Opción inválida" << endl;
@@ -693,7 +834,6 @@ void cargar_relaciones() {
         }
         if (estado == "ACEPTADA") {
             matrix_amistades.insert(emisor, receptor);
-            matrix_amistades.print();
         }
         if (estado == "RECHAZADA") {
             cout << "Falta programar esto" << endl;
@@ -701,6 +841,10 @@ void cargar_relaciones() {
     }
 
     pila_relaciones.print();
+}
+
+void cargar_publicaciones() {
+    cout << "Cargando publicaciones..." << endl;
 }
 
 void gestionar_usuarios() {
