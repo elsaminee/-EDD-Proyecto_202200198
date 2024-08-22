@@ -1,0 +1,123 @@
+[
+    {
+      "correo": "carlos.gomez@example.com",
+      "contenido": "Disfrutando de un día soleado en la playa, la vida es mejor con arena y mar.",
+      "fecha": "12/08/2024",
+      "hora": "14:23"
+    },
+    {
+      "correo": "maria.lopez@example.com",
+      "contenido": "Hoy aprendí algo nuevo, siempre es bueno salir de la zona de confort.",
+      "fecha": "11/08/2024",
+      "hora": "09:45"
+    },
+    {
+      "correo": "juan.martinez@example.com",
+      "contenido": "El café de la mañana nunca decepciona, ¡energía pura para el día!",
+      "fecha": "10/08/2024",
+      "hora": "07:30"
+    },
+    {
+      "correo": "ana.hernandez@example.com",
+      "contenido": "Los atardeceres en la ciudad son simplemente mágicos, me encanta.",
+      "fecha": "13/08/2024",
+      "hora": "18:12"
+    },
+    {
+      "correo": "luis.perez@example.com",
+      "contenido": "Día perfecto para una caminata por el parque, disfrutando de la naturaleza.",
+      "fecha": "15/08/2024",
+      "hora": "10:57"
+    },
+    {
+      "correo": "laura.ramirez@example.com",
+      "contenido": "La lectura de un buen libro puede cambiar tu perspectiva del mundo.",
+      "fecha": "20/08/2024",
+      "hora": "16:45"
+    },
+    {
+      "correo": "jose.garcia@example.com",
+      "contenido": "Esos pequeños momentos de felicidad son los que más cuentan.",
+      "fecha": "14/08/2024",
+      "hora": "13:20"
+    },
+    {
+      "correo": "elena.torres@example.com",
+      "contenido": "Cocinando mi plato favorito, nada como la comida casera.",
+      "fecha": "21/08/2024",
+      "hora": "11:40"
+    },
+    {
+      "correo": "miguel.rodriguez@example.com",
+      "contenido": "Una nueva aventura comienza, emocionado por lo que viene.",
+      "fecha": "19/08/2024",
+      "hora": "08:50"
+    },
+    {
+      "correo": "sofia.gonzalez@example.com",
+      "contenido": "La música siempre encuentra la manera de alegrar mi día.",
+      "fecha": "18/08/2024",
+      "hora": "17:15"
+    },
+    {
+      "correo": "carlos.gomez@example.com",
+      "contenido": "El deporte me mantiene enfocado y lleno de energía, nunca lo dejaré.",
+      "fecha": "17/08/2024",
+      "hora": "19:00"
+    },
+    {
+      "correo": "maria.lopez@example.com",
+      "contenido": "El arte es una expresión del alma, cada cuadro cuenta una historia.",
+      "fecha": "16/08/2024",
+      "hora": "15:22"
+    },
+    {
+      "correo": "juan.martinez@example.com",
+      "contenido": "A veces solo necesitas una taza de té y un buen libro.",
+      "fecha": "21/08/2024",
+      "hora": "20:30"
+    },
+    {
+      "correo": "ana.hernandez@example.com",
+      "contenido": "Recordando viejos tiempos con amigos, esas memorias nunca se olvidan.",
+      "fecha": "12/08/2024",
+      "hora": "21:05"
+    },
+    {
+      "correo": "luis.perez@example.com",
+      "contenido": "El ejercicio diario es clave para una vida saludable, nunca lo dudes.",
+      "fecha": "14/08/2024",
+      "hora": "06:15"
+    },
+    {
+      "correo": "laura.ramirez@example.com",
+      "contenido": "La naturaleza siempre tiene una forma de sorprendernos, es increíble.",
+      "fecha": "20/08/2024",
+      "hora": "18:30"
+    },
+    {
+      "correo": "jose.garcia@example.com",
+      "contenido": "La familia es lo más importante, siempre agradecido por ellos.",
+      "fecha": "11/08/2024",
+      "hora": "12:10"
+    },
+    {
+      "correo": "elena.torres@example.com",
+      "contenido": "Los pequeños detalles hacen la diferencia, siempre presta atención.",
+      "fecha": "13/08/2024",
+      "hora": "22:45"
+    },
+    {
+      "correo": "miguel.rodriguez@example.com",
+      "contenido": "El camino hacia el éxito está lleno de retos, pero vale la pena.",
+      "fecha": "15/08/2024",
+      "hora": "14:55"
+    },
+    {
+      "correo": "sofia.gonzalez@example.com",
+      "contenido": "Las sonrisas sinceras son el mejor regalo que puedes dar.",
+      "fecha": "18/08/2024",
+      "hora": "09:30"
+    }
+  ]
+  

@@ -764,7 +764,7 @@ void user(string correo) {
         cin >> opcion;
 
         switch (opcion) {
-            case 1:
+            case 1: {
                 int opcion_perfil;
                 cout << "1. Ver Perfil" << endl;
                 cout << "2. Eliminar Cuenta" << endl;
@@ -775,43 +775,35 @@ void user(string correo) {
                 switch (opcion_perfil) {
                     case 1:
                         listaUsuarios.info_usuario(correo);
-                        
                         break;
                     case 2:
                         listaUsuarios.deleteNode(correo);
                         menu_principal();
-                        break;
+                        return; // Importante para salir de la función después de llamar a menu_principal()
                     default:
                         cout << "Opción inválida" << endl;
                         break;
                 }
                 break;
-            case 2:
-                cout << "Menu solicitudes" << endl;
-                cout << "1. Ver solicitudes" << endl;
-                cout << "2. Enviar solicitud" << endl;
-                cout << "3. Salir" << endl;
-
-                //Aqui se debe de hacer la logica para enviar solicitudes
-                //Aqui se debe de hacer la logica para ver solicitudes
-
+            }
+            case 2: {
                 int opcion_solicitudes;
 
-                do
-                {
-                    cout << "Ingrese una opción: ";
+                do {
+                    cout << "Menu solicitudes" << endl;
+                    cout << "1. Ver solicitudes" << endl;
+                    cout << "2. Enviar solicitud" << endl;
+                    cout << "3. Salir" << endl;
+                    cout << "Ingrese una opción de menu: ";
                     cin >> opcion_solicitudes;
 
-                    if (opcion_solicitudes == 1)
-                    {
-                        //Se visualizan las solicitudes que tiene el receptor
+                    if (opcion_solicitudes == 1) {
+                        // Se visualizan las solicitudes que tiene el receptor
                         pila_relaciones.printSolicitudesDe(correo_usuario);
                         nodoEmisor* emisores = pila_relaciones.retorno_emisoresDe(correo_usuario);
-
                         nodoEmisor* current = emisores;
 
-                        while (current != nullptr)
-                        {
+                        while (current != nullptr) {
                             cout << "Emisor: " << current->emisor << endl;
                             cout << "1. Aceptar" << endl;
                             cout << "2. Rechazar" << endl;
@@ -821,23 +813,22 @@ void user(string correo) {
                             cout << "Ingrese una opción: ";
                             cin >> opcion_aceptar_rechazar;
 
-                            switch (opcion_aceptar_rechazar)
-                            {
-                            case 1:
-                                matrix_amistades.insert(current->emisor, correo_usuario);
-                                pila_relaciones.removeNode(current->emisor, correo_usuario);
-                                listaAmistades.deleteNode(current->emisor, correo_usuario);
-                                break;
-                            case 2:
-                                pila_relaciones.removeNode(current->emisor, correo_usuario);
-                                listaAmistades.deleteNode(current->emisor, correo_usuario);
-                                break;
-                            case 3:
-                                cout << "Saliendo..." << endl;
-                                break;
-                            default:
-                                cout << "Opción inválida" << endl;
-                                break;
+                            switch (opcion_aceptar_rechazar) {
+                                case 1:
+                                    matrix_amistades.insert(current->emisor, correo_usuario);
+                                    pila_relaciones.removeNode(current->emisor, correo_usuario);
+                                    listaAmistades.deleteNode(current->emisor, correo_usuario);
+                                    break;
+                                case 2:
+                                    pila_relaciones.removeNode(current->emisor, correo_usuario);
+                                    listaAmistades.deleteNode(current->emisor, correo_usuario);
+                                    break;
+                                case 3:
+                                    cout << "Saliendo..." << endl;
+                                    break;
+                                default:
+                                    cout << "Opción inválida" << endl;
+                                    break;
                             }
 
                             current = current->next;
@@ -857,28 +848,65 @@ void user(string correo) {
                         }
                     }
 
-                    
                 } while (opcion_solicitudes != 3);
-                
 
                 break;
-            case 3:
-                cout << "Mostrando publicaciones..." << endl;
+            }
+            case 3: {
+                int opcion_publicaciones;
+                string contenido_correo;
+                string fecha_publicacion;
+                string hora_publicacion;
+
+                do {
+                    cout << "Menú de publicaciones" << endl;
+                    cout << "1. Ver publicaciones" << endl;
+                    cout << "2. Crear publicación" << endl;
+                    cout << "3. Eliminar publicación" << endl;
+                    cout << "4. Salir" << endl;
+
+                    cout << "Ingrese una opción: ";
+                    cin >> opcion_publicaciones;
+
+                    if (opcion_publicaciones == 1) {
+                        // Mostrar las publicaciones del usuario siendo amigos
+                        listaPublicaciones.print();
+                    } else if (opcion_publicaciones == 2) {
+                        cout << "Ingrese el contenido de la publicación: ";
+                        cin >> contenido_correo;
+                        cout << "Ingresa la fecha de la publicación (DD/MM/YYYY): ";
+                        cin >> fecha_publicacion;
+                        cout << "Ingresa la hora de la publicación (HH:MM): ";
+                        cin >> hora_publicacion;
+
+                    } else if (opcion_publicaciones == 3) {
+                        int id;
+                        cout << "Ingrese el ID de la publicación a eliminar: ";
+                        cin >> id;
+                        listaPublicaciones.remove(correo_usuario);
+                    } else if (opcion_publicaciones == 4) {
+                        cout << "Saliendo..." << endl;
+                    } else {
+                        cout << "Opción inválida" << endl;
+                    }
+                } while (opcion_publicaciones != 4);
+
                 break;
+            }
             case 4:
                 cout << "Generando reportes..." << endl;
                 break;
             case 5:
                 cout << "Saliendo..." << endl;
                 menu_principal();
-                break;
+                return; // Importante para salir de la función después de llamar a menu_principal()
             default:
                 cout << "Opción inválida" << endl;
                 break;
         }
     } while (opcion != 5);
 
-    menu_principal();  // Regresar al menú principal al salir
+    menu_principal();
 }
 
 
@@ -1087,6 +1115,8 @@ void cargar_publicaciones() {
         string fecha = element["fecha"];
         string hora = element["hora"];
         listaPublicaciones.append(correo, contenido_correo, fecha, hora);
+        cout <<  "El correo es: " << correo << endl;
+        cout << "El contenido es: " << contenido_correo << endl;
     }
 }
 

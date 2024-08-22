@@ -1,30 +1,72 @@
 [
     {
-        "nombres":  "Juan",
-        "apellidos": "Perez",
-        "fecha_de_nacimiento": "1990/05/14",
-        "correo": "juanperez@gmail.com",
-        "contraseña" : "123456"
+      "nombres": "Carlos",
+      "apellidos": "Gomez",
+      "fecha_de_nacimiento": "1990/05/12",
+      "correo": "carlos.gomez@example.com",
+      "contraseña": "Jd93$lmz"
     },
     {
-        "nombres":  "Maria",
-        "apellidos": "Gomez",
-        "fecha_de_nacimiento": "1995/07/23",
-        "correo": "mariago@gmail.com",
-        "contraseña" : "123456"
+      "nombres": "Maria",
+      "apellidos": "Lopez",
+      "fecha_de_nacimiento": "1985/08/23",
+      "correo": "maria.lopez@example.com",
+      "contraseña": "Pl12*wdK"
     },
     {
-        "nombres":  "Pedro",
-        "apellidos": "Rodriguez",
-        "fecha_de_nacimiento": "1985/02/10",
-        "correo": "pedro@gmail.com",
-        "contraseña" : "123456"
+      "nombres": "Juan",
+      "apellidos": "Martinez",
+      "fecha_de_nacimiento": "1992/02/17",
+      "correo": "juan.martinez@example.com",
+      "contraseña": "Mn64@trX"
     },
     {
-        "nombres":  "Ana",
-        "apellidos": "Martinez",
-        "fecha_de_nacimiento": "1992/11/30",
-        "correo": "ana.martinez@gmail.com",
-        "contraseña" : "123456"
+      "nombres": "Ana",
+      "apellidos": "Hernandez",
+      "fecha_de_nacimiento": "1995/11/30",
+      "correo": "ana.hernandez@example.com",
+      "contraseña": "Vz82&ybQ"
+    },
+    {
+      "nombres": "Luis",
+      "apellidos": "Perez",
+      "fecha_de_nacimiento": "1988/04/09",
+      "correo": "luis.perez@example.com",
+      "contraseña": "Qw57^mnV"
+    },
+    {
+      "nombres": "Laura",
+      "apellidos": "Ramirez",
+      "fecha_de_nacimiento": "1993/09/05",
+      "correo": "laura.ramirez@example.com",
+      "contraseña": "Tx78*vrB"
+    },
+    {
+      "nombres": "Jose",
+      "apellidos": "Garcia",
+      "fecha_de_nacimiento": "1991/07/14",
+      "correo": "jose.garcia@example.com",
+      "contraseña": "Ui45#lmD"
+    },
+    {
+      "nombres": "Elena",
+      "apellidos": "Torres",
+      "fecha_de_nacimiento": "1987/12/22",
+      "correo": "elena.torres@example.com",
+      "contraseña": "Rk23@nmW"
+    },
+    {
+      "nombres": "Miguel",
+      "apellidos": "Rodriguez",
+      "fecha_de_nacimiento": "1989/03/11",
+      "correo": "miguel.rodriguez@example.com",
+      "contraseña": "Sd61&opQ"
+    },
+    {
+      "nombres": "Sofia",
+      "apellidos": "Gonzalez",
+      "fecha_de_nacimiento": "1994/06/28",
+      "correo": "sofia.gonzalez@example.com",
+      "contraseña": "Lr90@tzC"
     }
-]
+  ]
