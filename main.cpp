@@ -19,6 +19,18 @@ void reportes();
 
 //Aqui empezare a crear los nodos de las estructuras de datos
 
+struct nodoEmisor
+{
+    string emisor;
+    nodoEmisor *next;
+
+    nodoEmisor(string _emisor)
+    {
+        emisor = _emisor;
+        next = nullptr;
+    }
+};
+
 struct nodoLista
 {
     string emisor;
@@ -141,6 +153,95 @@ public:
     void renderGraphviz(const string& dotFilename, const string& imageFilename) {
         string command = "dot -Tpng " + dotFilename + " -o " + imageFilename;
         system(command.c_str());
+    }
+
+    void printSolicitudesDe(const string &receptorBuscado)
+    {
+        nodoLista *temp = top;
+        cout << "Las solicitudes de " << receptorBuscado << " son:" << endl;
+        bool found = false;
+        while (temp != nullptr)
+        {
+            if (temp->receptor == receptorBuscado)
+            {
+                cout << "- " << temp->emisor << endl;
+                found = true;
+            }
+            temp = temp->next;
+        }
+        if (!found)
+        {
+            cout << "No se encontraron solicitudes para " << receptorBuscado << "." << endl;
+        }
+    }
+
+    nodoEmisor* retorno_emisoresDe(const string &receptorBuscado)
+    {
+        nodoLista *temp = top;
+        nodoEmisor *head = nullptr;  // Cabeza de la lista de emisores
+        nodoEmisor *tail = nullptr;  // Cola de la lista de emisores
+
+        while (temp != nullptr)
+        {
+            if (temp->receptor == receptorBuscado)
+            {
+                nodoEmisor *nuevoEmisor = new nodoEmisor(temp->emisor);
+                if (head == nullptr)
+                {
+                    head = nuevoEmisor;  // Inicializa la cabeza de la lista
+                    tail = head;          // Inicializa la cola
+                }
+                else
+                {
+                    tail->next = nuevoEmisor;  // Añade al final de la lista
+                    tail = nuevoEmisor;        // Actualiza la cola
+                }
+            }
+            temp = temp->next;
+        }
+
+        return head;
+    }
+
+    void removeNode(const string &emisor, const string &receptor)
+    {
+        if (top == nullptr)
+        {
+            cout << "La pila está vacía." << endl;
+            return;
+        }
+
+        // Caso especial: si el nodo a eliminar está en la parte superior
+        if (top->emisor == emisor && top->receptor == receptor)
+        {
+            nodoLista *temp = top;
+            top = top->next;
+            delete temp;
+            cout << "Nodo eliminado en la parte superior." << endl;
+            return;
+        }
+
+        nodoLista *current = top;
+        nodoLista *previous = nullptr;
+
+        // Recorrer la pila para encontrar el nodo que coincida con los criterios
+        while (current != nullptr && !(current->emisor == emisor && current->receptor == receptor))
+        {
+            previous = current;
+            current = current->next;
+        }
+
+        // Si se encontró el nodo, eliminarlo
+        if (current != nullptr)
+        {
+            previous->next = current->next;
+            delete current;
+            cout << "Nodo eliminado." << endl;
+        }
+        else
+        {
+            cout << "No se encontró un nodo con el emisor y receptor especificados." << endl;
+        }
     }
 };
 
@@ -343,6 +444,7 @@ public:
     // Agregar un nodo a la lista si el receptor no está repetido
     void append(string emisor, string receptor) {
         if (receptor_existente(receptor)) {
+            cout << "El receptor ya no es posible enviarle solicitud" << endl;	
             return;
         }
 
@@ -355,6 +457,35 @@ public:
                 temp = temp->next;
             }
             temp->next = newNode;
+        }
+    }
+
+    void removeIfMatch(string emisor, string receptor) {
+        if (head == nullptr) {
+            return;
+        }
+
+        // Caso especial: si el nodo a eliminar está en la cabeza de la lista
+        if (head->emisor == emisor && head->receptor == receptor) {
+            nodo_aceptada* temp = head;
+            head = head->next;
+            delete temp;
+            return;
+        }
+
+        nodo_aceptada* current = head;
+        nodo_aceptada* previous = nullptr;
+
+        // Recorrer la lista para encontrar el nodo que coincida con los criterios
+        while (current != nullptr && !(current->emisor == emisor && current->receptor == receptor)) {
+            previous = current;
+            current = current->next;
+        }
+
+        // Si se encontró el nodo, eliminarlo
+        if (current != nullptr) {
+            previous->next = current->next;
+            delete current;
         }
     }
 
@@ -591,6 +722,7 @@ Matrix matrix_amistades;
 DoublyLinkedList listaPublicaciones;
 
 
+
 void registro() {
     cout << "Registrando usuario..." << endl;
     cout << "Ingrese su nombre: ";
@@ -652,7 +784,80 @@ void user(string correo) {
                 }
                 break;
             case 2:
-                cout << "Mostrando solicitudes..." << endl;
+                cout << "Menu solicitudes" << endl;
+                cout << "1. Ver solicitudes" << endl;
+                cout << "2. Enviar solicitud" << endl;
+                cout << "3. Salir" << endl;
+
+                //Aqui se debe de hacer la logica para enviar solicitudes
+                //Aqui se debe de hacer la logica para ver solicitudes
+
+                int opcion_solicitudes;
+
+                do
+                {
+                    cout << "Ingrese una opción: ";
+                    cin >> opcion_solicitudes;
+
+                    if (opcion_solicitudes == 1)
+                    {
+                        //Se visualizan las solicitudes que tiene el receptor
+                        pila_relaciones.printSolicitudesDe(correo_usuario);
+                        nodoEmisor* emisores = pila_relaciones.retorno_emisoresDe(correo_usuario);
+
+                        nodoEmisor* current = emisores;
+
+                        while (current != nullptr)
+                        {
+                            cout << "Emisor: " << current->emisor << endl;
+                            cout << "1. Aceptar" << endl;
+                            cout << "2. Rechazar" << endl;
+                            cout << "3. Salir" << endl;
+
+                            int opcion_aceptar_rechazar;
+                            cout << "Ingrese una opción: ";
+                            cin >> opcion_aceptar_rechazar;
+
+                            switch (opcion_aceptar_rechazar)
+                            {
+                            case 1:
+                                matrix_amistades.insert(current->emisor, correo_usuario);
+                                pila_relaciones.removeNode(current->emisor, correo_usuario);
+                                listaAmistades.deleteNode(current->emisor, correo_usuario);
+                                break;
+                            case 2:
+                                pila_relaciones.removeNode(current->emisor, correo_usuario);
+                                listaAmistades.deleteNode(current->emisor, correo_usuario);
+                                break;
+                            case 3:
+                                cout << "Saliendo..." << endl;
+                                break;
+                            default:
+                                cout << "Opción inválida" << endl;
+                                break;
+                            }
+
+                            current = current->next;
+                        }
+
+                    } else if (opcion_solicitudes == 2) {
+                        string receptor;
+                        cout << "Ingrese el correo del receptor: ";
+                        cin >> receptor;
+
+                        if (listaUsuarios.correo_existente(receptor)) {
+                            pila_relaciones.push(correo_usuario, receptor);
+                            listaAmistades.append(correo_usuario, receptor);
+                            cout << "Solicitud enviada" << endl;
+                        } else {
+                            cout << "El correo no está registrado" << endl;
+                        }
+                    }
+
+                    
+                } while (opcion_solicitudes != 3);
+                
+
                 break;
             case 3:
                 cout << "Mostrando publicaciones..." << endl;
@@ -672,6 +877,7 @@ void user(string correo) {
 
     menu_principal();  // Regresar al menú principal al salir
 }
+
 
 void login() {
     cout << "Iniciando sesión..." << endl;
@@ -764,7 +970,21 @@ void reportes() {
             listaPublicaciones.graph();
             break;
         case 4:
-            cout << "Generando tops..." << endl;
+            cout << "Tops" << endl;
+            cout << "1. Top 5 usuarios con más publicaciones" << endl;
+            cout << "2. Top 5 usuarios con menos amigos" << endl;
+            cout << "3. Salir" << endl;
+
+            int opcion_top;
+            cout << "Ingrese una opción: ";
+            cin >> opcion_top;
+
+            do
+            {
+                cout << "Ingrese una opción: ";
+                cin >> opcion_top;
+            } while (opcion_top != 3);
+            
             break;
         case 5:
             administrador();
@@ -774,8 +994,6 @@ void reportes() {
             break;
         }
     } while (opcion != 5);
-    
-    
 
 }
 
