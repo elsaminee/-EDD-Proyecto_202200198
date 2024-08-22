@@ -1,9 +1,11 @@
 digraph G {
 node [shape=record];
 rankdir=LR;
-node0 [label="{Nombre: Maria Gomez | Correo: mariago@gmail.com}"];
+node0 [label="{Nombre: samuel perez | Correo: samperez@gmail.com}"];
 node0 -> node1;
-node1 [label="{Nombre: Pedro Rodriguez | Correo: pedro@gmail.com}"];
+node1 [label="{Nombre: Juan Perez | Correo: juanperez@gmail.com}"];
 node1 -> node2;
-node2 [label="{Nombre: Ana Martinez | Correo: ana.martinez@gmail.com}"];
+node2 [label="{Nombre: Maria Gomez | Correo: mariago@gmail.com}"];
+node2 -> node3;
+node3 [label="{Nombre: Pedro Rodriguez | Correo: pedro@gmail.com}"];
 }

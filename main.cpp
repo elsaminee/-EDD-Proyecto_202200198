@@ -568,6 +568,7 @@ public:
 
 
 struct node_publi {
+    int id;
     string correo;
     string contenido_correo;
     string fecha;
@@ -575,7 +576,8 @@ struct node_publi {
     node_publi* next;
     node_publi* prev;
 
-    node_publi(string correo, string contenido_correo, string fecha, string hora) {
+    node_publi(int id, string correo, string contenido_correo, string fecha, string hora) {
+        this->id = id;
         this->correo = correo;
         this->contenido_correo = contenido_correo;
         this->fecha = fecha;
@@ -589,14 +591,13 @@ class DoublyLinkedList {
 private:
     node_publi* head;
     node_publi* tail;
+    int nextId; // Para asignar IDs únicos
+
 public:
-    DoublyLinkedList() {
-        head = nullptr;
-        tail = nullptr;
-    }
+    DoublyLinkedList() : head(nullptr), tail(nullptr), nextId(0) {}
 
     void append(string correo, string contenido_correo, string fecha, string hora) {
-        node_publi* newNode = new node_publi(correo, contenido_correo, fecha, hora);
+        node_publi* newNode = new node_publi(nextId++, correo, contenido_correo, fecha, hora);
         if (head == nullptr) {
             head = newNode;
             tail = newNode;
@@ -608,7 +609,7 @@ public:
     }
 
     void push(string correo, string contenido_correo, string fecha, string hora) {
-        node_publi* newNode = new node_publi(correo, contenido_correo, fecha, hora);
+        node_publi* newNode = new node_publi(nextId++, correo, contenido_correo, fecha, hora);
         if (head == nullptr) {
             head = newNode;
             tail = newNode;
@@ -622,8 +623,9 @@ public:
     void print() {
         node_publi* current = head;
         while (current != nullptr) {
-            cout << "Correo: " << current->correo << " | Contenido: " << current->contenido_correo
-                << " | Fecha: " << current->fecha << " | Hora: " << current->hora << " <-> ";
+            cout << "ID: " << current->id << " | Correo: " << current->correo
+                 << " | Contenido: " << current->contenido_correo
+                 << " | Fecha: " << current->fecha << " | Hora: " << current->hora << " <-> ";
             current = current->next;
         }
         cout << "fin" << endl;
@@ -674,24 +676,23 @@ public:
         file << "node [shape=record];" << endl;
 
         node_publi* current = head;
-        int id = 0;
         while (current != nullptr) {
-            file << "node" << id << " [label=\"{Correo: " << current->correo
+            file << "node" << current->id << " [label=\"{ID: " << current->id
+                << " | Correo: " << current->correo
                 << " | Contenido: " << current->contenido_correo
                 << " | Fecha: " << current->fecha
                 << " | Hora: " << current->hora << "}\"];" << endl;
             if (current->next != nullptr) {
-                file << "node" << id << " -> node" << (id + 1) << " ;" << endl;
-                file << "node" << (id + 1) << " -> node" << id << " ;" << endl;
+                file << "node" << current->id << " -> node" << current->next->id << " ;" << endl;
+                file << "node" << current->next->id << " -> node" << current->id << " ;" << endl;
             }
             current = current->next;
-            id++;
         }
 
         file << "}" << endl;
         file.close();
 
-        string command = "dot -Tpng publicaciones.dot -o publicaciones.png";
+        string command = "dot -Tpng graph.dot -o graph.png";
         system(command.c_str());
     }
 
@@ -704,6 +705,7 @@ public:
         }
     }
 };
+
 
 // Estructuras para la matriz dispersa
 //-----------------------------------------------------
@@ -773,6 +775,7 @@ void user(string correo) {
                 switch (opcion_perfil) {
                     case 1:
                         listaUsuarios.info_usuario(correo);
+                        
                         break;
                     case 2:
                         listaUsuarios.deleteNode(correo);
