@@ -692,8 +692,42 @@ public:
         file << "}" << endl;
         file.close();
 
-        string command = "dot -Tpng graph.dot -o graph.png";
+        string command = "dot -Tpng publi.dot -o publi.png";
         system(command.c_str());
+    }
+
+    void removeById(int id) {
+        node_publi* current = head;
+
+        // Buscar el nodo con el id correspondiente
+        while (current != nullptr && current->id != id) {
+            current = current->next;
+        }
+
+        // Si no se encontró el nodo
+        if (current == nullptr) {
+            cout << "No se encontró el nodo con ID: " << id << endl;
+            return;
+        }
+
+        // Si el nodo a eliminar no es el primero
+        if (current->prev != nullptr) {
+            current->prev->next = current->next;
+        } else { 
+            // Si el nodo a eliminar es el primero
+            head = current->next;
+        }
+
+        // Si el nodo a eliminar no es el último
+        if (current->next != nullptr) {
+            current->next->prev = current->prev;
+        } else { 
+            // Si el nodo a eliminar es el último
+            tail = current->prev;
+        }
+
+        delete current;
+        cout << "Nodo con ID: " << id << " eliminado" << endl;
     }
 
     ~DoublyLinkedList() {
@@ -704,6 +738,26 @@ public:
             current = next;
         }
     }
+
+    void printByUser(string correo) {
+        node_publi* current = head;
+        bool found = false;
+
+        while (current != nullptr) {
+            if (current->correo == correo) {
+                cout << "ID: " << current->id << " | Correo: " << current->correo
+                     << " | Contenido: " << current->contenido_correo
+                     << " | Fecha: " << current->fecha << " | Hora: " << current->hora << endl;
+                found = true;
+            }
+            current = current->next;
+        }
+
+        if (!found) {
+            cout << "No se encontraron publicaciones para el correo: " << correo << endl;
+        }
+    }
+
 };
 
 
@@ -825,6 +879,7 @@ void user(string correo) {
                                     break;
                                 case 3:
                                     cout << "Saliendo..." << endl;
+                                    user(correo_usuario);
                                     break;
                                 default:
                                     cout << "Opción inválida" << endl;
@@ -868,6 +923,12 @@ void user(string correo) {
                     cout << "Ingrese una opción: ";
                     cin >> opcion_publicaciones;
 
+                    if (cin.fail()) {
+                        cin.clear();
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                        continue;
+                    }
+
                     if (opcion_publicaciones == 1) {
                         // Mostrar las publicaciones del usuario siendo amigos
                         listaPublicaciones.print();
@@ -878,14 +939,18 @@ void user(string correo) {
                         cin >> fecha_publicacion;
                         cout << "Ingresa la hora de la publicación (HH:MM): ";
                         cin >> hora_publicacion;
+                        listaPublicaciones.append(correo_usuario, contenido_correo, fecha_publicacion, hora_publicacion);
 
                     } else if (opcion_publicaciones == 3) {
                         int id;
+                        listaPublicaciones.printByUser(correo_usuario);
                         cout << "Ingrese el ID de la publicación a eliminar: ";
+                        
                         cin >> id;
-                        listaPublicaciones.remove(correo_usuario);
+                        listaPublicaciones.removeById(id);
                     } else if (opcion_publicaciones == 4) {
                         cout << "Saliendo..." << endl;
+                        user(correo_usuario);
                     } else {
                         cout << "Opción inválida" << endl;
                     }
