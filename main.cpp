@@ -758,6 +758,44 @@ public:
         }
     }
 
+    void browse() {
+        if (head == nullptr) {
+            cout << "No hay publicaciones para mostrar." << endl;
+            return;
+        }
+
+        node_publi* current = head;
+        int option = 0;
+
+        while (true) {
+            cout << "ID: " << current->id << " | Correo: " << current->correo
+                << " | Contenido: " << current->contenido_correo
+                << " | Fecha: " << current->fecha << " | Hora: " << current->hora << endl;
+
+            cout << "Elige una opción: [1] Siguiente, [2] Anterior, [3] Salir: ";
+            cin >> option;
+
+            if (option == 1) {
+                if (current->next != nullptr) {
+                    current = current->next;
+                } else {
+                    cout << "No hay más publicaciones hacia adelante." << endl;
+                }
+            } else if (option == 2) {
+                if (current->prev != nullptr) {
+                    current = current->prev;
+                } else {
+                    cout << "No hay más publicaciones hacia atrás." << endl;
+                }
+            } else if (option == 3) {
+                cout << "Saliendo de la visualización de publicaciones." << endl;
+                break;
+            } else {
+                cout << "Opción inválida, intenta de nuevo." << endl;
+            }
+        }
+    }
+
 };
 
 
@@ -909,9 +947,9 @@ void user(string correo) {
             }
             case 3: {
                 int opcion_publicaciones;
-                string contenido_correo;
-                string fecha_publicacion;
-                string hora_publicacion;
+                string contenido_correo= "Hola, este es un mensaje de prueba";
+                string fecha_publicacion = "10/10/2021";
+                string hora_publicacion = "10:00";
 
                 do {
                     cout << "Menú de publicaciones" << endl;
@@ -925,20 +963,21 @@ void user(string correo) {
 
                     if (cin.fail()) {
                         cin.clear();
-                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                        cin.ignore();
                         continue;
                     }
 
                     if (opcion_publicaciones == 1) {
                         // Mostrar las publicaciones del usuario siendo amigos
-                        listaPublicaciones.print();
+                        listaPublicaciones.browse();
                     } else if (opcion_publicaciones == 2) {
+                        cin.ignore(); // Limpiar el buffer antes de usar getline()
                         cout << "Ingrese el contenido de la publicación: ";
-                        cin >> contenido_correo;
+                        getline(cin, contenido_correo);
                         cout << "Ingresa la fecha de la publicación (DD/MM/YYYY): ";
-                        cin >> fecha_publicacion;
+                        getline(cin, fecha_publicacion);
                         cout << "Ingresa la hora de la publicación (HH:MM): ";
-                        cin >> hora_publicacion;
+                        getline(cin, hora_publicacion);
                         listaPublicaciones.append(correo_usuario, contenido_correo, fecha_publicacion, hora_publicacion);
 
                     } else if (opcion_publicaciones == 3) {
@@ -1269,6 +1308,7 @@ void menu_principal() {
                 break;
             case 4:
                 cout << "Saliendo..." << endl;
+                return; // Importante para salir del programa
                 break;
             default:
                 cout << "Opción inválida. Intente de nuevo." << endl;
