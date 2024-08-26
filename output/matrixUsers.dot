@@ -1,0 +1,13 @@
+digraph G {
+    node [shape=none];
+    graph [rankdir=LR];
+    matriz [label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+    <TR><TD></TD><TD>calificacion.fase1@example.com</TD><TD>jose.garcia@example.com</TD><TD>miguel.rodriguez@example.com</TD></TR>
+    <TR><TD>calificacion.fase1@example.com</TD><TD></TD><TD>X</TD><TD>X</TD></TR>
+    <TR><TD>fase1</TD><TD>X</TD><TD></TD><TD></TD></TR>
+    <TR><TD>juan.martinez@example.com</TD><TD>X</TD><TD></TD><TD></TD></TR>
+    <TR><TD>miguel.rodriguez@example.com</TD><TD>X</TD><TD></TD><TD></TD></TR>
+    <TR><TD>sofia.gonzalez@example.com</TD><TD>X</TD><TD></TD><TD></TD></TR>
+    </TABLE>>];
+}

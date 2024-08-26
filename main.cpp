@@ -243,6 +243,39 @@ public:
             cout << "No se encontró un nodo con el emisor y receptor especificados." << endl;
         }
     }
+
+    void dot_solicitudes_recibidas(const string &receptorBuscado, const string &filename) {
+        ofstream file(filename);
+        if (file.is_open()) {
+            file << "digraph G {" << endl;
+            file << "node [shape=record];" << endl;
+            file << "rankdir=TB;" << endl; // Ajusta la orientación para que la pila se muestre verticalmente
+
+            nodoLista* current = top;
+            int id = 0;
+            while (current != nullptr) {
+                if (current->receptor == receptorBuscado) {
+                    file << "node" << id << " [label=\"{Emisor: " << current->emisor << " | Receptor: " << current->receptor << "}\"];" << endl;
+                    if (id > 0) {
+                        file << "node" << (id - 1) << " -> node" << id << ";" << endl;
+                    }
+                    id++;
+                }
+                current = current->next;
+            }
+
+            file << "}" << endl;
+            file.close();
+        } else {
+            cout << "No se pudo abrir el archivo" << endl;
+            return;
+        }
+
+        // Convertir el archivo DOT a PNG
+        string command = "dot -Tpng " + filename + " -o " + filename.substr(0, filename.find_last_of('.')) + ".png";
+        system(command.c_str());
+    }
+
 };
 
 
@@ -564,6 +597,184 @@ public:
 
         delete temp;
     }
+
+    void dot_solicitudes_enviadas(const string &emisorBuscado, const string &filename) {
+        ofstream file(filename);
+        if (file.is_open()) {
+            file << "digraph G {" << endl;
+            file << "node [shape=record];" << endl;
+            file << "rankdir=LR;" << endl; // Para mostrar la lista de izquierda a derecha
+
+            node_amistad* current = head;
+            int id = 0;
+
+            while (current != nullptr) {
+                if (current->emisor == emisorBuscado) {
+                    file << "node" << id << " [label=\"{Emisor: " << current->emisor << " | Receptor: " << current->receptor << "}\"];" << endl;
+                    if (id > 0) {
+                        file << "node" << (id - 1) << " -> node" << id << ";" << endl;
+                    }
+                    id++;
+                }
+                current = current->next;
+            }
+
+            file << "}" << endl;
+            file.close();
+        } else {
+            cout << "No se pudo abrir el archivo" << endl;
+            return;
+        }
+
+        // Convertir el archivo DOT a PNG
+        string command = "dot -Tpng " + filename + " -o " + filename.substr(0, filename.find_last_of('.')) + ".png";
+        system(command.c_str());
+    }
+};
+
+struct nodo_circular {
+    int id;
+    string correo;
+    string contenido_correo;
+    string fecha;
+    string hora;
+    nodo_circular* next;
+    nodo_circular* prev;
+
+    nodo_circular(int _id, string _correo, string _contenido_correo, string _fecha, string _hora) 
+        : id(_id), correo(_correo), contenido_correo(_contenido_correo), fecha(_fecha), hora(_hora), next(nullptr), prev(nullptr) {}
+};
+
+class CircularDoublyLinkedList {
+private:
+    nodo_circular* head;
+    nodo_circular* tail;
+    int nextId;
+
+public:
+    CircularDoublyLinkedList() : head(nullptr), tail(nullptr), nextId(0) {}
+
+    void insert(string correo, string contenido_correo, string fecha, string hora) {
+        nodo_circular* newNode = new nodo_circular(nextId++, correo, contenido_correo, fecha, hora);
+
+        if (head == nullptr) {
+            head = newNode;
+            tail = newNode;
+            head->next = head;
+            head->prev = head;
+        } else {
+            tail->next = newNode;
+            newNode->prev = tail;
+            newNode->next = head;
+            head->prev = newNode;
+            tail = newNode;
+        }
+    }
+
+    void display() {
+        if (head == nullptr) {
+            cout << "La lista está vacía." << endl;
+            return;
+        }
+
+        nodo_circular* current = head;
+        do {
+            cout << "ID: " << current->id << " | Correo: " << current->correo
+                << " | Contenido: " << current->contenido_correo
+                << " | Fecha: " << current->fecha << " | Hora: " << current->hora << endl;
+            current = current->next;
+        } while (current != head);
+    }
+
+    void browse() {
+        if (head == nullptr) {
+            cout << "No hay publicaciones para mostrar." << endl;
+            return;
+        }
+
+        nodo_circular* current = head;
+        int option = 0;
+
+        while (true) {
+            cout << "ID: " << current->id << " | Correo: " << current->correo
+                << " | Contenido: " << current->contenido_correo
+                << " | Fecha: " << current->fecha << " | Hora: " << current->hora << endl;
+
+            cout << "Elige una opción: [1] Siguiente, [2] Anterior, [3] Salir: ";
+            cin >> option;
+
+            if (option == 1) {
+                current = current->next;
+            } else if (option == 2) {
+                current = current->prev;
+            } else if (option == 3) {
+                cout << "Saliendo de la visualización de publicaciones y borrando la lista circular." << endl;
+                clear();
+                break;
+            } else {
+                cout << "Opción inválida, intenta de nuevo." << endl;
+            }
+        }
+    }
+
+    void clear() {
+        if (head == nullptr) return;
+
+        nodo_circular* current = head;
+
+        do {
+            nodo_circular* temp = current;
+            current = current->next;
+            delete temp;
+        } while (current != head);
+
+        head = nullptr;
+        tail = nullptr;
+        nextId = 0;
+
+        cout << "Lista completamente borrada." << endl;
+    }
+
+    ~CircularDoublyLinkedList() {
+        clear();
+    }
+
+    void generateDotFile() {
+        if (head == nullptr) {
+            cout << "La lista está vacía, no se puede generar el archivo DOT." << endl;
+            return;
+        }
+
+        ofstream dotFile("circular_list.dot");
+        dotFile << "digraph G {" << endl;
+        dotFile << "rankdir=LR;" << endl;
+        dotFile << "node [shape=record];" << endl;
+
+        nodo_circular* current = head;
+
+        do {
+            dotFile << "node" << current->id 
+                    << " [label=\"{ ID: " << current->id << " | Correo: " << current->correo 
+                    << " | Contenido: " << current->contenido_correo << " | Fecha: " << current->fecha 
+                    << " | Hora: " << current->hora << " }\"];" << endl;
+            current = current->next;
+        } while (current != head);
+
+        current = head;
+        do {
+            dotFile << "node" << current->id << " -> node" << current->next->id << ";" << endl;
+            dotFile << "node" << current->next->id << " -> node" << current->id << " [dir=both];" << endl;
+            current = current->next;
+        } while (current != head);
+
+        dotFile << "}" << endl;
+        dotFile.close();
+
+        // Convertir el archivo DOT a PNG usando Graphviz
+        system("dot -Tpng circular_list.dot -o circular_list.png");
+
+        cout << "Archivo DOT y PNG generados correctamente." << endl;
+    }
 };
 
 
@@ -585,6 +796,8 @@ struct node_publi {
         next = nullptr;
         prev = nullptr;
     }
+
+
 };
 
 class DoublyLinkedList {
@@ -625,7 +838,7 @@ public:
         while (current != nullptr) {
             cout << "ID: " << current->id << " | Correo: " << current->correo
                  << " | Contenido: " << current->contenido_correo
-                 << " | Fecha: " << current->fecha << " | Hora: " << current->hora << " <-> ";
+                << " | Fecha: " << current->fecha << " | Hora: " << current->hora << " <-> ";
             current = current->next;
         }
         cout << "fin" << endl;
@@ -633,29 +846,39 @@ public:
 
     void remove(string correo) {
         node_publi* current = head;
+        bool found = false;
 
-        while (current != nullptr && current->correo != correo) {
-            current = current->next;
+        while (current != nullptr) {
+            if (current->correo == correo) {
+                found = true;
+
+                // Enlaza los nodos adyacentes
+                if (current->prev != nullptr) {
+                    current->prev->next = current->next;
+                } else {
+                    // Si es el primer nodo, actualizar la cabeza de la lista
+                    head = current->next;
+                }
+
+                if (current->next != nullptr) {
+                    current->next->prev = current->prev;
+                } else {
+                    // Si es el último nodo, actualizar la cola de la lista
+                    tail = current->prev;
+                }
+
+                // Guarda el siguiente nodo antes de eliminar el nodo actual
+                node_publi* toDelete = current;
+                current = current->next;
+                delete toDelete;
+            } else {
+                current = current->next;
+            }
         }
 
-        if (current == nullptr) {
-            cout << "No se encontró el correo a eliminar" << endl;
-            return;
+        if (!found) {
+            cout << "No se encontró el correo en la lista" << endl;
         }
-
-        if (current->prev != nullptr) {
-            current->prev->next = current->next;
-        } else {
-            head = current->next;
-        }
-
-        if (current->next != nullptr) {
-            current->next->prev = current->prev;
-        } else {
-            tail = current->prev;
-        }
-
-        delete current;
     }
 
     bool search(string correo) {
@@ -670,7 +893,7 @@ public:
     }
 
     void graph() {
-        ofstream file("graph.dot");
+        ofstream file("publi.dot");
         file << "digraph G {" << endl;
         file << "rankdir=LR;" << endl;
         file << "node [shape=record];" << endl;
@@ -796,6 +1019,45 @@ public:
         }
     }
 
+    void insertDataToCircularList(CircularDoublyLinkedList& circularList, string correo) {
+        node_publi* current = head;
+        while (current != nullptr) {
+            if (current->correo == correo) {
+                circularList.insert(current->correo, current->contenido_correo, current->fecha, current->hora);
+            }
+            current = current->next;
+        }
+    }
+
+    void printTopUsersWithMostPublications(int topN) {
+        // Mapa para contar publicaciones por usuario
+        map<string, int> userPublicationCount;
+
+        // Contar publicaciones por usuario
+        node_publi* current = head;
+        while (current != nullptr) {
+            userPublicationCount[current->correo]++;
+            current = current->next;
+        }
+
+        // Crear un vector para almacenar los usuarios y sus conteos
+        vector<pair<string, int>> userCountVector(userPublicationCount.begin(), userPublicationCount.end());
+
+        // Ordenar el vector en orden descendente basado en el número de publicaciones
+        sort(userCountVector.begin(), userCountVector.end(), [](const pair<string, int>& a, const pair<string, int>& b) {
+            return a.second > b.second;
+        });
+
+        // Imprimir el top N usuarios con más publicaciones
+        cout << "Top " << topN << " usuarios con más publicaciones:" << endl;
+        int count = 0;
+        for (const auto& entry : userCountVector) {
+            if (count >= topN) break;
+            cout << "Usuario: " << entry.first << " | Número de publicaciones: " << entry.second << endl;
+            count++;
+        }
+    }
+
 };
 
 
@@ -814,7 +1076,7 @@ Stack pila_relaciones;
 ListaAmistad listaAmistades;
 Matrix matrix_amistades;
 DoublyLinkedList listaPublicaciones;
-
+CircularDoublyLinkedList listaCircularPublicaciones;
 
 
 void registro() {
@@ -842,6 +1104,8 @@ void registro() {
 
 void user(string correo) {
     int opcion;
+    string friendName;
+    string nombreAmigo;
     string correo_usuario = correo;
     do {
         cout << "Menú de usuario" << endl;
@@ -870,6 +1134,8 @@ void user(string correo) {
                         break;
                     case 2:
                         listaUsuarios.deleteNode(correo);
+                        listaPublicaciones.remove(correo);
+                        matrix_amistades.deleteNode(correo);
                         menu_principal();
                         return; // Importante para salir de la función después de llamar a menu_principal()
                     default:
@@ -968,8 +1234,13 @@ void user(string correo) {
                     }
 
                     if (opcion_publicaciones == 1) {
-                        // Mostrar las publicaciones del usuario siendo amigos
-                        listaPublicaciones.browse();
+                        matrix_amistades.startFriendIteration(correo_usuario);
+                        while (!(nombreAmigo = matrix_amistades.getNextFriend()).empty()) {
+                            //Nombreamigo tiene el correo amigo
+                            listaPublicaciones.insertDataToCircularList(listaCircularPublicaciones, nombreAmigo);
+                        }
+                            listaPublicaciones.insertDataToCircularList(listaCircularPublicaciones, correo_usuario);
+                            listaCircularPublicaciones.browse();
                     } else if (opcion_publicaciones == 2) {
                         cin.ignore(); // Limpiar el buffer antes de usar getline()
                         cout << "Ingrese el contenido de la publicación: ";
@@ -998,7 +1269,62 @@ void user(string correo) {
                 break;
             }
             case 4:
-                cout << "Generando reportes..." << endl;
+                cout << "Reportes" << endl;
+                cout << "1. Solicitudes enviadas y recibidas" << endl;
+                cout << "2. Relaciones de Amistad" << endl;
+                cout << "3. Publicaciones" << endl;
+                cout << "4. Mis amigos" << endl;
+                cout << "5. Salir" << endl;
+
+                int opcion_reportes;
+                
+                do
+                {
+                    cout << "Reportes" << endl;
+                    cout << "1. Solicitudes enviadas y recibidas" << endl;
+                    cout << "2. Relaciones de Amistad" << endl;
+                    cout << "3. Publicaciones" << endl;
+                    cout << "4. Mis amigos" << endl;
+                    cout << "5. Salir" << endl;
+                    cout << "Ingrese una opción: ";
+                    cin >> opcion_reportes;
+
+                    switch (opcion_reportes)
+                    {
+                    case 1:
+                        pila_relaciones.dot_solicitudes_recibidas(correo_usuario, "solicitudes_recibidas.dot");
+                        listaAmistades.dot_solicitudes_enviadas(correo_usuario, "solicitudes_enviadas.dot");
+
+                        break;
+                    case 2:
+                        matrix_amistades.generateDot("matrixUsers.dot");
+                        break;
+                    case 3:
+                        matrix_amistades.startFriendIteration(correo_usuario);
+                        nombreAmigo = "";
+                        while (!(nombreAmigo = matrix_amistades.getNextFriend()).empty()) {
+                            //Nombreamigo tiene el correo amigo
+                            listaPublicaciones.insertDataToCircularList(listaCircularPublicaciones, nombreAmigo);
+                        }
+                        listaPublicaciones.insertDataToCircularList(listaCircularPublicaciones, correo_usuario);
+                        listaCircularPublicaciones.generateDotFile();
+                        break;
+                    case 4:
+                        matrix_amistades.startFriendIteration(correo_usuario);
+                        friendName = "";
+                        while (!(friendName = matrix_amistades.getNextFriend()).empty()) {
+                            cout << correo_usuario << " es amigo con: " << friendName << endl;
+                        }
+                        break;
+                    case 5:
+                        user(correo_usuario);
+                        break;
+                    default:
+                        cout << "Opción inválida" << endl;
+                        break;
+                    }
+                } while (opcion_reportes != 5);
+                
                 break;
             case 5:
                 cout << "Saliendo..." << endl;
@@ -1080,16 +1406,17 @@ void administrador() {
 }
 
 void reportes() {
-    cout << "1. Reportes usuarios" << endl;
-    cout << "2. Reportes relaciones" << endl;
-    cout << "3. Reportes publicaciones" << endl;
-    cout << "4. Tops" << endl;
-    cout << "5. Salir" << endl;
+
 
     int opcion = 0;
 
     do
     {
+        cout << "1. Reportes usuarios" << endl;
+        cout << "2. Reportes relaciones" << endl;
+        cout << "3. Reportes publicaciones" << endl;
+        cout << "4. Tops" << endl;
+        cout << "5. Salir" << endl;
         cout << "Ingrese una opción: ";
         cin >> opcion;
 
@@ -1105,21 +1432,29 @@ void reportes() {
             listaPublicaciones.graph();
             break;
         case 4:
-            cout << "Tops" << endl;
-            cout << "1. Top 5 usuarios con más publicaciones" << endl;
-            cout << "2. Top 5 usuarios con menos amigos" << endl;
-            cout << "3. Salir" << endl;
 
             int opcion_top;
-            cout << "Ingrese una opción: ";
-            cin >> opcion_top;
 
             do
             {
+                cout << "Tops" << endl;
+                cout << "1. Top 5 usuarios con más publicaciones" << endl;
+                cout << "2. Top 5 usuarios con menos amigos" << endl;
+                cout << "3. Salir" << endl;
                 cout << "Ingrese una opción: ";
-                cin >> opcion_top;
+
+                while (!(cin >> opcion_top)) {
+                    cout << "Entrada inválida. Por favor, ingrese un número válido: ";
+                    cin.clear(); // Limpiar estado de error
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Limpiar el buffer
+                }
+
+                if (opcion_top == 1) {
+                    listaPublicaciones.printTopUsersWithMostPublications(5);
+                } else if (opcion_top == 2) {
+                    matrix_amistades.printTopUsersWithLeastFriends(5);
+                }
             } while (opcion_top != 3);
-            
             break;
         case 5:
             administrador();
@@ -1246,6 +1581,8 @@ void gestionar_usuarios() {
             cout << "Ingrese el correo del usuario a eliminar: ";
             cin >> correo;
             listaUsuarios.deleteNode(correo);
+            listaPublicaciones.remove(correo);
+            matrix_amistades.deleteNode(correo);
             gestionar_usuarios();
             break;
         }

@@ -242,6 +242,12 @@ public:
         } else {
             currentFriend = nullptr;
         }
+        Node* columnHeader = searchColumn(person);
+        if (columnHeader) {
+            currentFriend = columnHeader->down;
+        } else {
+            currentFriend = nullptr;
+        }
     }
 
     // Método para obtener el siguiente amigo
@@ -253,6 +259,174 @@ public:
         }
         return "";  // Retorna cadena vacía si no hay más amigos
     }
+
+    void printTopUsersWithLeastFriends(int topN) const {
+        const int maxUsers = 100;
+        string users[maxUsers];
+        int friendCounts[maxUsers] = {0}; // Inicializa todos los conteos a 0
+        int userCount = 0;
+
+        Node* rowHeader = root->down;
+        while (rowHeader && userCount < maxUsers) {
+            // Almacenar el nombre del usuario
+            users[userCount] = rowHeader->i;
+
+            // Contar cuántos amigos tiene el usuario
+            Node* current = rowHeader->right;
+            while (current) {
+                friendCounts[userCount]++;
+                current = current->right;
+            }
+
+            userCount++;
+            rowHeader = rowHeader->down;
+        }
+
+        // Ordenar usuarios por número de amigos en orden ascendente
+        for (int i = 0; i < userCount - 1; i++) {
+            for (int j = i + 1; j < userCount; j++) {
+                if (friendCounts[i] > friendCounts[j]) {
+                    // Intercambiar los conteos
+                    int tempCount = friendCounts[i];
+                    friendCounts[i] = friendCounts[j];
+                    friendCounts[j] = tempCount;
+
+                    // Intercambiar los nombres de usuarios
+                    string tempUser = users[i];
+                    users[i] = users[j];
+                    users[j] = tempUser;
+                }
+            }
+        }
+
+        // Imprimir el top N usuarios con menos amigos, incluyendo aquellos con 0 amigos
+        cout << "Top " << topN << " usuarios con menos amigos:" << endl;
+        for (int i = 0; i < topN && i < userCount; i++) {
+            cout << "Usuario: " << users[i] << " | Número de amigos: " << friendCounts[i] << endl;
+        }
+    }
+
+    void printTopUsersWithMostPosts(int topN) const {
+        const int maxUsers = 100;
+        string users[maxUsers];
+        int postCounts[maxUsers] = {0}; // Inicializa todos los conteos a 0
+        int userCount = 0;
+
+        Node* rowHeader = root->down;
+        while (rowHeader && userCount < maxUsers) {
+            // Almacenar el nombre del usuario
+            users[userCount] = rowHeader->i;
+
+            // Contar cuántas publicaciones tiene el usuario
+            Node* current = rowHeader->right;
+            while (current) {
+                postCounts[userCount]++;
+                current = current->right;
+            }
+
+            userCount++;
+            rowHeader = rowHeader->down;
+        }
+
+        // Ordenar usuarios por número de publicaciones en orden descendente usando un método simple
+        for (int i = 0; i < userCount - 1; i++) {
+            for (int j = i + 1; j < userCount; j++) {
+                if (postCounts[i] < postCounts[j]) {
+                    // Intercambiar los conteos
+                    int tempCount = postCounts[i];
+                    postCounts[i] = postCounts[j];
+                    postCounts[j] = tempCount;
+
+                    // Intercambiar los nombres de usuarios
+                    string tempUser = users[i];
+                    users[i] = users[j];
+                    users[j] = tempUser;
+                }
+            }
+        }
+
+        // Imprimir el top N usuarios con más publicaciones
+        cout << "Top " << topN << " usuarios con más publicaciones:" << endl;
+        for (int i = 0; i < topN && i < userCount; i++) {
+            cout << "Usuario: " << users[i] << " | Número de publicaciones: " << postCounts[i] << endl;
+        }
+    }
+
+void deleteNode(const string& correo) {
+    // Buscar el nodo en la fila correspondiente
+    Node* rowHeader = searchRow(correo);
+    if (rowHeader) {
+        // Eliminar el nodo de la fila
+        Node* current = rowHeader->right;
+        while (current) {
+            if (current->j == correo) {
+                // Ajustar las conexiones en la fila
+                if (current->left) {
+                    current->left->right = current->right;
+                }
+                if (current->right) {
+                    current->right->left = current->left;
+                }
+                delete current;
+                break;
+            }
+            current = current->right;
+        }
+    }
+
+    // Buscar el nodo en la columna correspondiente
+    Node* columnHeader = searchColumn(correo);
+    if (columnHeader) {
+        // Eliminar el nodo de la columna
+        Node* current = columnHeader->down;
+        while (current) {
+            if (current->i == correo) {
+                // Ajustar las conexiones en la columna
+                if (current->up) {
+                    current->up->down = current->down;
+                }
+                if (current->down) {
+                    current->down->up = current->up;
+                }
+                delete current;
+                break;
+            }
+            current = current->down;
+        }
+    }
+
+    // Si el encabezado de la fila está vacío, eliminar el encabezado de la fila
+    if (rowHeader && !rowHeader->right) {
+        // Eliminar el encabezado de la fila
+        Node* prevRowHeader = root;
+        while (prevRowHeader && prevRowHeader->down != rowHeader) {
+            prevRowHeader = prevRowHeader->down;
+        }
+        if (prevRowHeader) {
+            prevRowHeader->down = rowHeader->down;
+            if (rowHeader->down) {
+                rowHeader->down->up = prevRowHeader;
+            }
+            delete rowHeader;
+        }
+    }
+
+    // Si el encabezado de la columna está vacío, eliminar el encabezado de la columna
+    if (columnHeader && !columnHeader->down) {
+        // Eliminar el encabezado de la columna
+        Node* prevColumnHeader = root;
+        while (prevColumnHeader && prevColumnHeader->right != columnHeader) {
+            prevColumnHeader = prevColumnHeader->right;
+        }
+        if (prevColumnHeader) {
+            prevColumnHeader->right = columnHeader->right;
+            if (columnHeader->right) {
+                columnHeader->right->left = prevColumnHeader;
+            }
+            delete columnHeader;
+        }
+    }
+}
 
 };
 

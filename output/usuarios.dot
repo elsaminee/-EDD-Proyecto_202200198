@@ -20,4 +20,6 @@ node7 -> node8;
 node8 [label="{Nombre: Miguel Rodriguez | Correo: miguel.rodriguez@example.com}"];
 node8 -> node9;
 node9 [label="{Nombre: Sofia Gonzalez | Correo: sofia.gonzalez@example.com}"];
+node9 -> node10;
+node10 [label="{Nombre: Calificacion Fase1 | Correo: calificacion.fase1@example.com}"];
 }
