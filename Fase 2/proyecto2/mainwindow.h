@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "admin.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -22,5 +23,6 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    admin *ventanaAdmin = nullptr;
 };
 #endif // MAINWINDOW_H
