@@ -2,6 +2,8 @@
 #include "./ui_mainwindow.h"
 #include <QMessageBox>
 #include "admin.h"
+#include "registro.h"
+#include "user.h"
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -31,10 +33,28 @@ void MainWindow::on_loginbtn_clicked()
         }
         this->hide();
         ventanaAdmin->show();
-    } else {
+    }else if(usuario.toStdString() == "user" && password.toStdString() == "user") {
+            if(!ventanaUser){
+                ventanaUser = new user(this);
+                }
+            this->hide(); //Ventana login escondiida
+            ventanaUser->show();
+
+    }
+    else {
         qDebug() << "Usuario o password incorrecta";
     }
 
 
+}
+
+
+void MainWindow::on_registrobtn_clicked()
+{
+    if(!ventanaRegistro){
+        ventanaRegistro = new registro(this);
+    }
+    this->hide();
+    ventanaRegistro->show();
 }
 

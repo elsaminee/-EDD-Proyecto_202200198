@@ -15,6 +15,13 @@ public:
     explicit admin(QWidget *parent = nullptr);
     ~admin();
 
+private slots:
+    void on_cargarUserbtn_clicked();
+
+    void on_cargarSolibtn_clicked();
+
+    void on_cargarPublibtn_clicked();
+
 private:
     Ui::admin *ui;
 };

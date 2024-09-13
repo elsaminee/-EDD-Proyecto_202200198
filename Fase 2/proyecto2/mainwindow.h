@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include "admin.h"
+#include "registro.h"
+#include "user.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -21,8 +23,13 @@ public:
 private slots:
     void on_loginbtn_clicked();
 
+    void on_registrobtn_clicked();
+
+
 private:
     Ui::MainWindow *ui;
     admin *ventanaAdmin = nullptr;
+    registro *ventanaRegistro = nullptr;
+    user *ventanaUser = nullptr;
 };
 #endif // MAINWINDOW_H
