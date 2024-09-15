@@ -17,7 +17,7 @@ user::~user()
 
 void user::on_buscarbtn_clicked()
 {
-
+    QString search = ui->searchLine->text();
 }
 
 
