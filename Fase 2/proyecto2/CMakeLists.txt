@@ -26,6 +26,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         admin.h admin.cpp admin.ui
         user.h user.cpp user.ui
         registro.h registro.cpp registro.ui
+        AVL.h
+        AppData.h
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET proyecto2 APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

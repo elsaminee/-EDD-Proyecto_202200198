@@ -15,6 +15,11 @@ public:
     explicit user(QWidget *parent = nullptr);
     ~user();
 
+private slots:
+    void on_buscarbtn_clicked();
+
+    void on_logoutbtn_clicked();
+
 private:
     Ui::user *ui;
 };

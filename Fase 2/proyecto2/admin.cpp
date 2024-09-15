@@ -6,6 +6,10 @@
 #include <QJsonDocument>
 #include <QJsonArray>
 #include <QJsonObject>
+#include "AppData.h"
+#include "mainwindow.h"
+
+extern AppData appData;
 
 admin::admin(QWidget *parent)
     : QDialog(parent)
@@ -21,6 +25,7 @@ admin::~admin()
 
 void admin::on_cargarUserbtn_clicked()
 {
+    AppData& appData = AppData::getInstance();
 
     QString ruta = QFileDialog::getOpenFileName(
         this,
@@ -28,24 +33,19 @@ void admin::on_cargarUserbtn_clicked()
         "/",
         "Text Files (*.json);;All Files (*,*)");
 
-    QString final;
 
     if (!ruta.isEmpty()) {
         QFile file(ruta);
 
         if (file.open(QFile::ReadOnly)) {
-            // Leer todo el contenido del archivo
             QByteArray jsonData = file.readAll();
             file.close();
 
-            // Crear un documento JSON a partir de los datos
             QJsonDocument doc = QJsonDocument::fromJson(jsonData);
 
-            // Comprobar si el documento es un array
             if (doc.isArray()) {
                 QJsonArray root = doc.array();
 
-                // Iterar a través del array
                 foreach (const QJsonValue &v, root) {
                     QJsonObject obj = v.toObject();
 
@@ -53,28 +53,18 @@ void admin::on_cargarUserbtn_clicked()
                     QString apellidos = obj.value("apellidos").toString();
                     QString fechaDeNacimiento = obj.value("fecha_de_nacimiento").toString();
                     QString correo = obj.value("correo").toString();
-                    QString contrasena = obj.value("contraseña").toString();
+                    QString password = obj.value("contraseña").toString();
 
-                    // Concatenar los valores en el formato que desees
-                    final += "Nombres: " + nombres + "\n";
-                    final += "Apellidos: " + apellidos + "\n";
-                    final += "Fecha de nacimiento: " + fechaDeNacimiento + "\n";
-                    final += "Correo: " + correo + "\n";
-                    final += "Contraseña: " + contrasena + "\n\n";  // \n\n para separación entre usuarios
+                    // Insertar el correo en el AVL a través de AppData
+                    appData.getAVLTree().insert(correo.toStdString(),nombres.toStdString(), apellidos.toStdString(), fechaDeNacimiento.toStdString(), password.toStdString());
                 }
 
-                // Mostrar el resultado en el widget 'texto'
-                ui->texto->setText(final);
 
-                // Mostrar un MessageBox indicando que se leyó correctamente
-                QMessageBox::information(this, "Éxito", "El archivo JSON se leyó correctamente.");
+                QMessageBox::information(this, "Éxito", "El archivo JSON se leyó y los correos se almacenaron en el árbol AVL.");
             } else {
-                // Mostrar un mensaje de error si no es un array
                 QMessageBox::warning(this, "Error", "El archivo JSON no es un array.");
             }
-
         } else {
-            // Mostrar un mensaje de error si no se pudo abrir el archivo
             QMessageBox::warning(this, "Error", "No se pudo abrir el archivo.");
         }
     }
@@ -90,5 +80,24 @@ void admin::on_cargarSolibtn_clicked()
 void admin::on_cargarPublibtn_clicked()
 {
 
+}
+
+
+void admin::on_pushButton_6_clicked()
+{
+    //BOTON CERRAR SESION
+    MainWindow *ventana = new MainWindow(this);
+
+    // Mostrar la ventana principal y ocultar la ventana de registro
+    this->hide();
+    ventana->show();
+}
+
+
+void admin::on_showUserbtn_clicked()
+{
+    //InOrder
+    AppData& appData = AppData::getInstance();
+    appData.getAVLTree().inorder();
 }
 

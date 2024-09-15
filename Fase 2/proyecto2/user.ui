@@ -23,7 +23,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="buscarUser">
     <attribute name="title">
@@ -629,7 +629,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
     </widget>
    </widget>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="logoutbtn">
    <property name="geometry">
     <rect>
      <x>610</x>

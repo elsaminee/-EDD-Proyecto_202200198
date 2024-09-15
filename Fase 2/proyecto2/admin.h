@@ -22,6 +22,10 @@ private slots:
 
     void on_cargarPublibtn_clicked();
 
+    void on_pushButton_6_clicked();
+
+    void on_showUserbtn_clicked();
+
 private:
     Ui::admin *ui;
 };

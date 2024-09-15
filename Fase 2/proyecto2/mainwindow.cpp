@@ -4,7 +4,7 @@
 #include "admin.h"
 #include "registro.h"
 #include "user.h"
-
+#include "AppData.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -20,34 +20,32 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_loginbtn_clicked()
 {
-
     std::string userAd = "admin@gmail.com";
     std::string passAd = "EDD2S2024";
 
     QString usuario = ui->userline->text();
     QString password = ui->passline->text();
 
-    if(userAd == usuario.toStdString() && passAd == password.toStdString() ){
+    // Verificación de administrador
+    if(userAd == usuario.toStdString() && passAd == password.toStdString()) {
         if(!ventanaAdmin){
             ventanaAdmin = new admin(this);
         }
         this->hide();
         ventanaAdmin->show();
-    }else if(usuario.toStdString() == "user" && password.toStdString() == "user") {
-            if(!ventanaUser){
-                ventanaUser = new user(this);
-                }
-            this->hide(); //Ventana login escondiida
-            ventanaUser->show();
-
+    }
+    // Verificación de usuario común en el árbol AVL
+    else if(AppData::getInstance().getAVLTree().verifyCredentials(usuario.toStdString(), password.toStdString())) {
+        if(!ventanaUser){
+            ventanaUser = new user(this);
+        }
+        this->hide(); // Esconde la ventana de login
+        ventanaUser->show();
     }
     else {
-        qDebug() << "Usuario o password incorrecta";
+        qDebug() << "Usuario o contraseña incorrecta";
     }
-
-
 }
-
 
 void MainWindow::on_registrobtn_clicked()
 {
@@ -57,4 +55,3 @@ void MainWindow::on_registrobtn_clicked()
     this->hide();
     ventanaRegistro->show();
 }
-

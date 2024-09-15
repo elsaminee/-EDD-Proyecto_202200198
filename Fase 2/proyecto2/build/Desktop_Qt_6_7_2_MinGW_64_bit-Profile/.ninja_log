@@ -1,0 +1,11 @@
+# ninja log v6
+8	946	7480544863150210	proyecto2_autogen/timestamp	18d29e59e5cd4d01
+8	946	7480544863150210	proyecto2_autogen/mocs_compilation.cpp	18d29e59e5cd4d01
+8	946	7480544863150210	D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/build/Desktop_Qt_6_7_2_MinGW_64_bit-Profile/proyecto2_autogen/timestamp	18d29e59e5cd4d01
+8	946	7480544863150210	D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/build/Desktop_Qt_6_7_2_MinGW_64_bit-Profile/proyecto2_autogen/mocs_compilation.cpp	18d29e59e5cd4d01
+954	3519	7480544863973138	CMakeFiles/proyecto2.dir/main.cpp.obj	206dc5c94f512b3f
+950	3731	7480544863933242	CMakeFiles/proyecto2.dir/proyecto2_autogen/mocs_compilation.cpp.obj	ac72266da769c120
+966	3919	7480544864093400	CMakeFiles/proyecto2.dir/registro.cpp.obj	cac77170cee15221
+957	4033	7480544863998190	CMakeFiles/proyecto2.dir/mainwindow.cpp.obj	c158acbda3c4ec2
+963	5210	7480544864058034	CMakeFiles/proyecto2.dir/user.cpp.obj	49acfa7f350a977e
+960	5855	7480544864028123	CMakeFiles/proyecto2.dir/admin.cpp.obj	72220f7f75d48431
