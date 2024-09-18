@@ -49,7 +49,7 @@ void admin::on_cargarUserbtn_clicked()
 
                 foreach (const QJsonValue &v, root) {
                     QJsonObject obj = v.toObject();
-
+                    //Si encuentra lo que le pedimos
                     QString nombres = obj.value("nombres").toString();
                     QString apellidos = obj.value("apellidos").toString();
                     QString fechaDeNacimiento = obj.value("fecha_de_nacimiento").toString();

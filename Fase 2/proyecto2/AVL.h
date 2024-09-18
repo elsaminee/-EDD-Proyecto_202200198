@@ -5,6 +5,8 @@
 #include <string>
 #include <QDebug>
 #include <functional>
+#include <fstream>
+#include <sstream>
 
 using namespace std;
 
@@ -224,6 +226,7 @@ private:
 
         return root;
     }
+
 
 
 public:
