@@ -4,6 +4,7 @@
 #include <memory>
 #include <string>
 #include <QDebug>
+#include <functional>
 
 using namespace std;
 
@@ -26,6 +27,29 @@ public:
 class AVL {
 private:
     shared_ptr<Node> root;
+
+    // Funciones helper para los recorridos
+    void inorderHelper(std::shared_ptr<Node> node, std::function<void(std::shared_ptr<Node>)> visit) {
+        if (!node) return;
+        inorderHelper(node->left, visit);
+        visit(node);
+        inorderHelper(node->right, visit);
+    }
+
+    void preorderHelper(std::shared_ptr<Node> node, std::function<void(std::shared_ptr<Node>)> visit) {
+        if (!node) return;
+        visit(node);
+        preorderHelper(node->left, visit);
+        preorderHelper(node->right, visit);
+    }
+
+    void postorderHelper(std::shared_ptr<Node> node, std::function<void(std::shared_ptr<Node>)> visit) {
+        if (!node) return;
+        postorderHelper(node->left, visit);
+        postorderHelper(node->right, visit);
+        visit(node);
+    }
+
 
     // Obtener la altura de un nodo
     int height(shared_ptr<Node> node) {
@@ -127,8 +151,89 @@ private:
         }
     }
 
+    // Eliminar un nodo basado en el correo electrónico
+    shared_ptr<Node> deleteNodeRec(shared_ptr<Node> root, const string& email) {
+        if (!root) {
+            return root;  // Caso base: nodo no encontrado
+        }
+
+        if (email < root->email) {
+            root->left = deleteNodeRec(root->left, email);
+        } else if (email > root->email) {
+            root->right = deleteNodeRec(root->right, email);
+        } else {
+            // Nodo encontrado, eliminarlo
+            if (!root->left || !root->right) {
+                // Nodo con un solo hijo o sin hijos
+                shared_ptr<Node> temp = root->left ? root->left : root->right;
+
+                // No tiene hijos
+                if (!temp) {
+                    temp = root;
+                    root = nullptr;
+                } else {  // Un solo hijo
+                    *root = *temp;  // Copiar el contenido del hijo no vacío
+                }
+            } else {
+                // Nodo con dos hijos: obtener el sucesor inorder (el más pequeño en el subárbol derecho)
+                shared_ptr<Node> temp = root->right;
+                while (temp->left) {
+                    temp = temp->left;
+                }
+
+                // Copiar los datos del sucesor
+                root->email = temp->email;
+                root->nombre = temp->nombre;
+                root->apellido = temp->apellido;
+                root->fecha_de_nacimiento = temp->fecha_de_nacimiento;
+                root->password = temp->password;
+
+                // Eliminar el sucesor inorder
+                root->right = deleteNodeRec(root->right, temp->email);
+            }
+        }
+
+        if (!root) {
+            return root;
+        }
+
+        // Actualizar la altura
+        root->height = 1 + max(height(root->left), height(root->right));
+
+        // Obtener el factor de balance
+        int balance = getBalance(root);
+
+        // Balancear el árbol si es necesario
+        if (balance > 1 && getBalance(root->left) >= 0) {
+            return rightRotate(root);
+        }
+
+        if (balance > 1 && getBalance(root->left) < 0) {
+            root->left = leftRotate(root->left);
+            return rightRotate(root);
+        }
+
+        if (balance < -1 && getBalance(root->right) <= 0) {
+            return leftRotate(root);
+        }
+
+        if (balance < -1 && getBalance(root->right) > 0) {
+            root->right = rightRotate(root->right);
+            return leftRotate(root);
+        }
+
+        return root;
+    }
+
+
 public:
     AVL() : root(nullptr) {}
+
+    // Método para obtener la raíz del árbol
+    shared_ptr<Node> getRoot() const {
+        return root;
+    }
+
 
     // Inserción pública
     void insert(const string& email, const string& nombre, const string& apellido, const string& fecha_de_nacimiento, const string& password) {
@@ -138,6 +243,10 @@ public:
     // Buscar usuario por correo
     bool search(const string& email) const {
         return searchRec(root, email) != nullptr;
+    }
+
+    shared_ptr<Node> getNode(const string& email) const {
+        return searchRec(root, email);  // Llama al método privado searchRec
     }
 
     // Recorrido inorder público
@@ -152,6 +261,23 @@ public:
             return true;
         }
         return false;
+    }
+
+    void deleteNode(const string& email) {
+        root = deleteNodeRec(root, email);
+    }
+
+    // Métodos de recorrido público
+    void inorderTraversal(std::function<void(std::shared_ptr<Node>)> visit) {
+        inorderHelper(root, visit);
+    }
+
+    void preorderTraversal(std::function<void(std::shared_ptr<Node>)> visit) {
+        preorderHelper(root, visit);
+    }
+
+    void postorderTraversal(std::function<void(std::shared_ptr<Node>)> visit) {
+        postorderHelper(root, visit);
     }
 };
 

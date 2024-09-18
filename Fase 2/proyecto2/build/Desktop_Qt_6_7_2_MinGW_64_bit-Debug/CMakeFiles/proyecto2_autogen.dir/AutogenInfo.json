@@ -275,6 +275,12 @@
 			null
 		],
 		[
+			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/dialogmodificar.h",
+			"MU",
+			"EWIEGA46WW/moc_dialogmodificar.cpp",
+			null
+		],
+		[
 			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/mainwindow.h",
 			"MU",
 			"EWIEGA46WW/moc_mainwindow.cpp",
@@ -366,6 +372,11 @@
 	[
 		[
 			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/admin.cpp",
+			"MU",
+			null
+		],
+		[
+			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/dialogmodificar.cpp",
 			"MU",
 			null
 		],

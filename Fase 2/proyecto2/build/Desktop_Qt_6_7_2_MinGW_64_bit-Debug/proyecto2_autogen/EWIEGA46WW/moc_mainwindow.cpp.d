@@ -1,5 +1,6 @@
 D:/Universidad/6to\ Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase\ 2/proyecto2/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/proyecto2_autogen/EWIEGA46WW/moc_mainwindow.cpp: D:/Universidad/6to\ Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase\ 2/proyecto2/mainwindow.h \
   D:/Universidad/6to\ Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase\ 2/proyecto2/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/proyecto2_autogen/moc_predefs.h \
+  C:/Qt/6.7.2/mingw_64/include/QtCore/QDebug \
   C:/Qt/6.7.2/mingw_64/include/QtCore/q20functional.h \
   C:/Qt/6.7.2/mingw_64/include/QtCore/q20memory.h \
   C:/Qt/6.7.2/mingw_64/include/QtCore/q20type_traits.h \
@@ -351,6 +352,7 @@ D:/Universidad/6to\ Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase\ 2/proyec
   C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/time.h \
   C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/vadefs.h \
   C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/wchar.h \
+  D:/Universidad/6to\ Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase\ 2/proyecto2/AVL.h \
   D:/Universidad/6to\ Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase\ 2/proyecto2/admin.h \
   D:/Universidad/6to\ Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase\ 2/proyecto2/registro.h \
   D:/Universidad/6to\ Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase\ 2/proyecto2/user.h

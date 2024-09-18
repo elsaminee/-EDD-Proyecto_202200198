@@ -1,6 +1,6 @@
-// AppData.h
 #ifndef APPDATA_H
 #define APPDATA_H
+
 
 #include "AVL.h"
 
@@ -27,5 +27,6 @@ public:
         return avlTree;
     }
 };
+
 
 #endif // APPDATA_H

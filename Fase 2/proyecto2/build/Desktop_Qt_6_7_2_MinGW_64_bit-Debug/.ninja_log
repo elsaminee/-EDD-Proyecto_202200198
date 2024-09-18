@@ -1,21 +1,42 @@
 # ninja log v6
-39	787	7480804981912325	proyecto2_autogen/timestamp	102566947272c8db
-39	787	7480804981912325	D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/proyecto2_autogen/timestamp	102566947272c8db
-788	2792	7480804982754644	CMakeFiles/proyecto2.dir/proyecto2_autogen/mocs_compilation.cpp.obj	6c96692351e526d1
-39	787	7480804981912325	proyecto2_autogen/mocs_compilation.cpp	102566947272c8db
-799	3949	7480804982859550	CMakeFiles/proyecto2.dir/admin.cpp.obj	f5603392189332ad
-39	787	7480804981912325	D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/proyecto2_autogen/mocs_compilation.cpp	102566947272c8db
-791	2783	7480804982784614	CMakeFiles/proyecto2.dir/main.cpp.obj	d46166690f930b00
-795	3140	7480804982824502	CMakeFiles/proyecto2.dir/mainwindow.cpp.obj	49ec9f5b7c2b65c8
-3949	4252	7480805014370400	proyecto2.exe	81d096a0dfeced31
-805	3054	7480804982929409	CMakeFiles/proyecto2.dir/registro.cpp.obj	11986843b50f52d3
-802	3353	7480804982889519	CMakeFiles/proyecto2.dir/user.cpp.obj	80a22196195569ee
-10	151	7480824804151358	proyecto2_autogen/timestamp	102566947272c8db
-10	151	7480824804151358	proyecto2_autogen/mocs_compilation.cpp	102566947272c8db
-10	151	7480824804151358	D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/proyecto2_autogen/timestamp	102566947272c8db
-10	151	7480824804151358	D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/proyecto2_autogen/mocs_compilation.cpp	102566947272c8db
-158	2051	7480824805626969	CMakeFiles/proyecto2.dir/registro.cpp.obj	11986843b50f52d3
-151	2058	7480824805562549	CMakeFiles/proyecto2.dir/mainwindow.cpp.obj	49ec9f5b7c2b65c8
-156	2240	7480824805611330	CMakeFiles/proyecto2.dir/user.cpp.obj	80a22196195569ee
-154	2751	7480824805586327	CMakeFiles/proyecto2.dir/admin.cpp.obj	f5603392189332ad
-2751	3192	7480824831561655	proyecto2.exe	81d096a0dfeced31
+29	238	7483353250113694	proyecto2_autogen/timestamp	102566947272c8db
+29	238	7483353250113694	D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/proyecto2_autogen/timestamp	102566947272c8db
+417	2466	7482552276915508	CMakeFiles/proyecto2.dir/proyecto2_autogen/mocs_compilation.cpp.obj	6c96692351e526d1
+29	238	7483353250113694	proyecto2_autogen/mocs_compilation.cpp	102566947272c8db
+241	5178	7483353252234957	CMakeFiles/proyecto2.dir/admin.cpp.obj	f5603392189332ad
+29	238	7483353250113694	D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/proyecto2_autogen/mocs_compilation.cpp	102566947272c8db
+477	2296	7482221769230850	CMakeFiles/proyecto2.dir/main.cpp.obj	d46166690f930b00
+239	4044	7483353252204028	CMakeFiles/proyecto2.dir/mainwindow.cpp.obj	49ec9f5b7c2b65c8
+5179	5657	7483353301606694	proyecto2.exe	b4313deaa239b30
+246	4030	7483353252281867	CMakeFiles/proyecto2.dir/registro.cpp.obj	11986843b50f52d3
+244	4259	7483353252255199	CMakeFiles/proyecto2.dir/user.cpp.obj	80a22196195569ee
+142	1533	7481715788494920	CMakeFiles/proyecto2.dir/AppData.cpp.obj	f2f20b04229f1184
+248	4032	7483353252304469	CMakeFiles/proyecto2.dir/dialogmodificar.cpp.obj	48edcae7c7a2c30f
+23	153	7483382205589759	proyecto2_autogen/timestamp	102566947272c8db
+23	153	7483382205589759	proyecto2_autogen/mocs_compilation.cpp	102566947272c8db
+23	153	7483382205589759	D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/proyecto2_autogen/timestamp	102566947272c8db
+23	153	7483382205589759	D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/proyecto2_autogen/mocs_compilation.cpp	102566947272c8db
+166	2267	7483382207016299	CMakeFiles/proyecto2.dir/dialogmodificar.cpp.obj	48edcae7c7a2c30f
+162	2302	7483382206980251	CMakeFiles/proyecto2.dir/registro.cpp.obj	11986843b50f52d3
+154	2354	7483382206892552	CMakeFiles/proyecto2.dir/mainwindow.cpp.obj	49ec9f5b7c2b65c8
+159	2638	7483382206955090	CMakeFiles/proyecto2.dir/user.cpp.obj	80a22196195569ee
+156	3334	7483382206917770	CMakeFiles/proyecto2.dir/admin.cpp.obj	f5603392189332ad
+3334	3654	7483382238703060	proyecto2.exe	b4313deaa239b30
+27	155	7483418016367074	proyecto2_autogen/timestamp	102566947272c8db
+27	155	7483418016367074	proyecto2_autogen/mocs_compilation.cpp	102566947272c8db
+27	155	7483418016367074	D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/proyecto2_autogen/timestamp	102566947272c8db
+27	155	7483418016367074	D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/proyecto2_autogen/mocs_compilation.cpp	102566947272c8db
+162	1997	7483418017716961	CMakeFiles/proyecto2.dir/registro.cpp.obj	11986843b50f52d3
+164	2000	7483418017739041	CMakeFiles/proyecto2.dir/dialogmodificar.cpp.obj	48edcae7c7a2c30f
+155	2006	7483418017654043	CMakeFiles/proyecto2.dir/mainwindow.cpp.obj	49ec9f5b7c2b65c8
+160	2173	7483418017701881	CMakeFiles/proyecto2.dir/user.cpp.obj	80a22196195569ee
+21	139	7483418858414660	proyecto2_autogen/timestamp	102566947272c8db
+21	139	7483418858414660	proyecto2_autogen/mocs_compilation.cpp	102566947272c8db
+21	139	7483418858414660	D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/proyecto2_autogen/timestamp	102566947272c8db
+21	139	7483418858414660	D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/proyecto2_autogen/mocs_compilation.cpp	102566947272c8db
+151	1996	7483418859725410	CMakeFiles/proyecto2.dir/dialogmodificar.cpp.obj	48edcae7c7a2c30f
+140	2025	7483418859601767	CMakeFiles/proyecto2.dir/mainwindow.cpp.obj	49ec9f5b7c2b65c8
+149	2028	7483418859694455	CMakeFiles/proyecto2.dir/registro.cpp.obj	11986843b50f52d3
+145	2335	7483418859661752	CMakeFiles/proyecto2.dir/user.cpp.obj	80a22196195569ee
+143	3108	7483418859641800	CMakeFiles/proyecto2.dir/admin.cpp.obj	f5603392189332ad
+3108	3561	7483418889290489	proyecto2.exe	b4313deaa239b30

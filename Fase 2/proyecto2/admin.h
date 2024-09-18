@@ -2,6 +2,8 @@
 #define ADMIN_H
 
 #include <QDialog>
+#include "AVL.h"
+#include <memory>
 
 namespace Ui {
 class admin;
@@ -13,6 +15,7 @@ class admin : public QDialog
 
 public:
     explicit admin(QWidget *parent = nullptr);
+    void eliminarUsuario(shared_ptr<Node> node);
     ~admin();
 
 private slots:
@@ -26,8 +29,15 @@ private slots:
 
     void on_showUserbtn_clicked();
 
+    void on_buscarbtn_clicked();
+
+    void mostrarDatosEnTabla();
+
+    void on_ordenbtn_clicked();
+
 private:
     Ui::admin *ui;
+    AVL* avlTemporal;
 };
 
 #endif // ADMIN_H
