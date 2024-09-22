@@ -42,6 +42,13 @@ void MainWindow::on_loginbtn_clicked()
         this->hide(); // Esconde la ventana de login
         ventanaUser->show();
     }
+    else if(usuario.toStdString() == "user" && password.toStdString() == "user"){
+        if(!ventanaUser){
+            ventanaUser = new user(this);
+        }
+        this->hide(); // Esconde la ventana de login
+        ventanaUser->show();
+    }
     else {
         qDebug() << "Usuario o contraseña incorrecta";
     }
