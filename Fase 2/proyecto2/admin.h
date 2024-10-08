@@ -35,6 +35,10 @@ private slots:
 
     void on_ordenbtn_clicked();
 
+    void on_reporteAdminbtn_clicked();
+
+    void actualizarPanelConImagen(const QString& imagePath);
+
 private:
     Ui::admin *ui;
     AVL* avlTemporal;

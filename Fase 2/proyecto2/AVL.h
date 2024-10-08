@@ -7,6 +7,11 @@
 #include <functional>
 #include <fstream>
 #include <sstream>
+#include <sys/stat.h>  // Para la creación de directorios
+#include <direct.h>
+#include <QDir>
+#include <QMessageBox>
+
 
 using namespace std;
 
@@ -29,6 +34,21 @@ public:
 class AVL {
 private:
     shared_ptr<Node> root;
+
+
+    void crearCarpetaReportes() {
+        const char* carpeta = "reportes";
+        qDebug() << "Creando carpeta en ruta" << QDir::currentPath();
+        if (_mkdir(carpeta) == -1) {
+            if (errno == EEXIST) {
+                qDebug() << "La carpeta 'reportes' ya existe.";
+            } else {
+                qDebug() << "Error al crear la carpeta 'reportes'.";
+            }
+        } else {
+            qDebug() << "Carpeta 'reportes' creada con éxito.";
+        }
+    }
 
     // Funciones helper para los recorridos
     void inorderHelper(std::shared_ptr<Node> node, std::function<void(std::shared_ptr<Node>)> visit) {
@@ -227,6 +247,28 @@ private:
         return root;
     }
 
+    // Método recursivo para generar el archivo DOT
+    void generateDotHelper(shared_ptr<Node> node, ofstream& dotFile) {
+        if (!node) return;
+
+        // Nodo actual
+        dotFile << "\"" << node->email << "\\n" << node->nombre << "\" [label=\""
+                << node->email << "\\n" << node->nombre << "\"];\n";
+
+        // Conexiones con los hijos
+        if (node->left) {
+            dotFile << "\"" << node->email << "\\n" << node->nombre << "\" -> \"" << node->left->email
+                    << "\\n" << node->left->nombre << "\";\n";
+            generateDotHelper(node->left, dotFile);
+        }
+
+        if (node->right) {
+            dotFile << "\"" << node->email << "\\n" << node->nombre << "\" -> \"" << node->right->email
+                    << "\\n" << node->right->nombre << "\";\n";
+            generateDotHelper(node->right, dotFile);
+        }
+    }
+
 
 
 public:
@@ -235,6 +277,26 @@ public:
     // Método para obtener la raíz del árbol
     shared_ptr<Node> getRoot() const {
         return root;
+    }
+
+    void generateDot() {
+        // Crear la carpeta "reportes" si no existe
+        crearCarpetaReportes();
+
+        // Abrir el archivo DOT
+        ofstream dotFile("reportes/avl.dot");
+        dotFile << "digraph AVLTree {\n";
+        dotFile << "node [shape=box];\n";
+
+        // Llamar a la función helper para escribir los nodos y las conexiones
+        generateDotHelper(root, dotFile);
+
+        dotFile << "}\n";
+        dotFile.close();
+
+        // Crear el archivo PNG usando Graphviz
+        string command = "dot -Tpng reportes/avl.dot -o reportes/avl.png";
+        system(command.c_str());  // Ejecuta el comando
     }
 
 
@@ -282,6 +344,51 @@ public:
     void postorderTraversal(std::function<void(std::shared_ptr<Node>)> visit) {
         postorderHelper(root, visit);
     }
+
+    // Método para obtener los detalles del usuario por correo
+    bool getUserDetails(const string& email, string& nombre, string& apellido, string& fecha_de_nacimiento, string& password) const {
+        // Buscar el nodo que contiene el correo
+        shared_ptr<Node> userNode = searchRec(root, email);
+
+        if (userNode) {
+            // Si el nodo fue encontrado, llenar los datos
+            nombre = userNode->nombre;
+            apellido = userNode->apellido;
+            fecha_de_nacimiento = userNode->fecha_de_nacimiento;
+            password = userNode->password;
+            return true;  // Usuario encontrado
+        }
+
+        return false;  // Usuario no encontrado
+    }
+
+    void modifyUser(const string& email, const string& newEmail, const string& newNombre, const string& newApellido, const string& newFechaNacimiento, const string& newPassword) {
+        // Buscar el nodo
+        shared_ptr<Node> userNode = searchRec(root, email);
+
+        if (userNode) {
+            // Guardar los datos antes de eliminar el nodo
+            string oldNombre = userNode->nombre;
+            string oldApellido = userNode->apellido;
+            string oldFechaNacimiento = userNode->fecha_de_nacimiento;
+            string oldPassword = userNode->password;
+
+            // Eliminar el nodo con el correo viejo
+            deleteNode(email);
+
+            // Insertar un nuevo nodo con el correo nuevo y los datos modificados
+            insert(newEmail, newNombre, newApellido, newFechaNacimiento, newPassword);
+
+            // Mostrar ventana emergente de éxito
+            QMessageBox::information(nullptr, "Modificación Exitosa", "Los datos del usuario fueron modificados correctamente.");
+        } else {
+            // Si no existe, mostrar ventana emergente de error
+            QMessageBox::warning(nullptr, "Error", "El usuario no fue encontrado.");
+        }
+    }
+
+
+
 };
 
 #endif

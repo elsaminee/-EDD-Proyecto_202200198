@@ -19,6 +19,8 @@ public:
 private slots:
     void on_loginbtn_clicked();
 
+    void on_registrobtn_clicked();
+
 private:
     Ui::registro *ui;
 };

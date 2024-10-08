@@ -275,9 +275,33 @@
 			null
 		],
 		[
+			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/arbolBinario.h",
+			"MU",
+			"EWIEGA46WW/moc_arbolBinario.cpp",
+			null
+		],
+		[
+			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/crearpublicacion.h",
+			"MU",
+			"EWIEGA46WW/moc_crearpublicacion.cpp",
+			null
+		],
+		[
 			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/dialogmodificar.h",
 			"MU",
 			"EWIEGA46WW/moc_dialogmodificar.cpp",
+			null
+		],
+		[
+			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/doublylinkedlist.h",
+			"MU",
+			"EWIEGA46WW/moc_doublylinkedlist.cpp",
+			null
+		],
+		[
+			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/listaSimple.h",
+			"MU",
+			"EWIEGA46WW/moc_listaSimple.cpp",
 			null
 		],
 		[
@@ -287,9 +311,21 @@
 			null
 		],
 		[
+			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/matrix.h",
+			"MU",
+			"EWIEGA46WW/moc_matrix.cpp",
+			null
+		],
+		[
 			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/registro.h",
 			"MU",
 			"EWIEGA46WW/moc_registro.cpp",
+			null
+		],
+		[
+			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/stack.h",
+			"MU",
+			"EWIEGA46WW/moc_stack.cpp",
 			null
 		],
 		[
@@ -372,6 +408,11 @@
 	[
 		[
 			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/admin.cpp",
+			"MU",
+			null
+		],
+		[
+			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/crearpublicacion.cpp",
 			"MU",
 			null
 		],

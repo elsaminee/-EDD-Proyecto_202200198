@@ -29,6 +29,12 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         AVL.h
         AppData.h
         dialogmodificar.h dialogmodificar.cpp dialogmodificar.ui
+        doublylinkedlist.h
+        stack.h
+        listaSimple.h
+        matrix.h
+        arbolBinario.h
+        crearpublicacion.h crearpublicacion.cpp crearpublicacion.ui
 
 
     )

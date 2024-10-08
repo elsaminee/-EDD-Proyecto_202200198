@@ -14,8 +14,7 @@
    <string>Dialog</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">color: rgb(0, 0, 0);
-background-color: rgb(255, 255, 255);</string>
+   <string notr="true">background-color: rgb(52, 52, 52);</string>
   </property>
   <widget class="QLabel" name="label_9">
    <property name="geometry">
@@ -49,16 +48,6 @@ background-color: rgb(255, 255, 255);</string>
     <string>Correo</string>
    </property>
   </widget>
-  <widget class="QTextEdit" name="nameLine_2">
-   <property name="geometry">
-    <rect>
-     <x>170</x>
-     <y>120</y>
-     <width>361</width>
-     <height>31</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QLabel" name="label_12">
    <property name="geometry">
     <rect>
@@ -73,46 +62,6 @@ background-color: rgb(255, 255, 255);</string>
    </property>
    <property name="text">
     <string>Contraseña</string>
-   </property>
-  </widget>
-  <widget class="QTextEdit" name="apellidoLine_2">
-   <property name="geometry">
-    <rect>
-     <x>170</x>
-     <y>180</y>
-     <width>361</width>
-     <height>31</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QTextEdit" name="fechaLine_2">
-   <property name="geometry">
-    <rect>
-     <x>170</x>
-     <y>300</y>
-     <width>361</width>
-     <height>31</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QTextEdit" name="fechaLine_3">
-   <property name="geometry">
-    <rect>
-     <x>170</x>
-     <y>360</y>
-     <width>361</width>
-     <height>31</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QTextEdit" name="correoLine_2">
-   <property name="geometry">
-    <rect>
-     <x>170</x>
-     <y>240</y>
-     <width>361</width>
-     <height>31</height>
-    </rect>
    </property>
   </widget>
   <widget class="QLabel" name="label_10">
@@ -162,6 +111,9 @@ background-color: rgb(255, 255, 255);</string>
      <bold>true</bold>
     </font>
    </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(0, 0, 0);</string>
+   </property>
    <property name="text">
     <string>REGISTRO</string>
    </property>
@@ -174,6 +126,9 @@ background-color: rgb(255, 255, 255);</string>
      <width>161</width>
      <height>24</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(0, 0, 0);</string>
    </property>
    <property name="text">
     <string>Registrar</string>
@@ -188,8 +143,61 @@ background-color: rgb(255, 255, 255);</string>
      <height>24</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(0, 0, 0);</string>
+   </property>
    <property name="text">
     <string>Regresar a login</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="nameEdit">
+   <property name="geometry">
+    <rect>
+     <x>170</x>
+     <y>130</y>
+     <width>371</width>
+     <height>24</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="apellidoEdit">
+   <property name="geometry">
+    <rect>
+     <x>170</x>
+     <y>190</y>
+     <width>371</width>
+     <height>24</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="correoEdit">
+   <property name="geometry">
+    <rect>
+     <x>170</x>
+     <y>250</y>
+     <width>371</width>
+     <height>24</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="passwordEdit">
+   <property name="geometry">
+    <rect>
+     <x>170</x>
+     <y>310</y>
+     <width>371</width>
+     <height>24</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="fechaEdit">
+   <property name="geometry">
+    <rect>
+     <x>170</x>
+     <y>360</y>
+     <width>371</width>
+     <height>24</height>
+    </rect>
    </property>
   </widget>
  </widget>

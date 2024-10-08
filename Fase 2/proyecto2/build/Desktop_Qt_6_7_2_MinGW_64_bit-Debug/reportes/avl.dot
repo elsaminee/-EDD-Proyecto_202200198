@@ -1,0 +1,24 @@
+digraph AVLTree {
+node [shape=box];
+"jm@example.com\nJuan" [label="jm@example.com\nJuan"];
+"jm@example.com\nJuan" -> "cg@example.com\nCarlos";
+"cg@example.com\nCarlos" [label="cg@example.com\nCarlos"];
+"cg@example.com\nCarlos" -> "ah@example.com\nAna";
+"ah@example.com\nAna" [label="ah@example.com\nAna"];
+"cg@example.com\nCarlos" -> "f2@gmail.com\nFase2";
+"f2@gmail.com\nFase2" [label="f2@gmail.com\nFase2"];
+"f2@gmail.com\nFase2" -> "et@example.com\nElena";
+"et@example.com\nElena" [label="et@example.com\nElena"];
+"f2@gmail.com\nFase2" -> "jg@example.com\nJose";
+"jg@example.com\nJose" [label="jg@example.com\nJose"];
+"jm@example.com\nJuan" -> "lr@example.com\nLaura";
+"lr@example.com\nLaura" [label="lr@example.com\nLaura"];
+"lr@example.com\nLaura" -> "lp@example.com\nLuis";
+"lp@example.com\nLuis" [label="lp@example.com\nLuis"];
+"lr@example.com\nLaura" -> "mr@example.com\nMiguel";
+"mr@example.com\nMiguel" [label="mr@example.com\nMiguel"];
+"mr@example.com\nMiguel" -> "ml@example.com\nMaria";
+"ml@example.com\nMaria" [label="ml@example.com\nMaria"];
+"mr@example.com\nMiguel" -> "sg@example.com\nSofia";
+"sg@example.com\nSofia" [label="sg@example.com\nSofia"];
+}

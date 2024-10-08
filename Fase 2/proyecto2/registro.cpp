@@ -1,6 +1,8 @@
 #include "registro.h"
 #include "ui_registro.h"
 #include "mainwindow.h"
+#include "AppData.h"
+#include <QMessageBox>
 
 registro::registro(QWidget *parent)
     : QDialog(parent)
@@ -21,5 +23,20 @@ void registro::on_loginbtn_clicked()
     // Mostrar la ventana principal y ocultar la ventana de registro
     this->hide();
     ventana->show();
+}
+
+
+void registro::on_registrobtn_clicked()
+{
+    AppData& appData = AppData::getInstance();
+    QString nombre = ui->nameEdit->text();
+    QString apellido = ui->apellidoEdit->text();
+    QString correo = ui->correoEdit->text();
+    QString password = ui->passwordEdit->text();
+    QString fecha = ui->fechaEdit->text();
+
+    appData.getAVLTree().insert(correo.toStdString(), nombre.toStdString(), apellido.toStdString(), fecha.toStdString(), password.toStdString());
+    QMessageBox::information(this, "Registro exitoso", "¡" + nombre + "  ha sido registrado correctamente!");
+
 }
 

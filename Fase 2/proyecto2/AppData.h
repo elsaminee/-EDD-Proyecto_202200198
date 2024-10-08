@@ -3,10 +3,22 @@
 
 
 #include "AVL.h"
+#include "doublylinkedlist.h"
+#include "stack.h"
+#include "listaSimple.h"
+#include "matrix.h"
+#include "arbolBinario.h"
 
 class AppData {
 private:
     AVL avlTree;  // Asumiendo que tienes un AVL aquí
+    DoublyLinkedList listaDoble;
+    Stack pilaReceptor;
+    ListaAmistad listaEmisor;
+    Matrix matrizAmistad;
+
+    ArbolBinario arbolesDePublicaciones;
+
 
     // Constructor privado para evitar la creación directa
     AppData() {}
@@ -26,6 +38,30 @@ public:
     AVL& getAVLTree() {
         return avlTree;
     }
+
+    DoublyLinkedList& getListaDoble(){
+        return listaDoble;
+    }
+
+    Stack& getPilaReceptor(){
+        return pilaReceptor;
+    }
+
+    ListaAmistad& getListaEmisor(){
+        return listaEmisor;
+    }
+
+    Matrix& getMatrizAmistad(){
+        return matrizAmistad;
+    }
+
+    // Método para obtener el árbol binario de publicaciones de un usuario
+
+    ArbolBinario& getArbolDePublicaciones() {
+        return arbolesDePublicaciones;
+    }
+
+
 };
 
 

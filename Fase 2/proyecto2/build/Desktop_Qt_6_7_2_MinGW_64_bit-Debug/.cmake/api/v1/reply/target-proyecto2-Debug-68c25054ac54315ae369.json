@@ -75,13 +75,13 @@
 			{
 				"command" : 4,
 				"file" : 1,
-				"line" : 69,
+				"line" : 76,
 				"parent" : 0
 			},
 			{
 				"command" : 5,
 				"file" : 1,
-				"line" : 52,
+				"line" : 59,
 				"parent" : 0
 			},
 			{
@@ -367,18 +367,20 @@
 				2,
 				6,
 				9,
-				12
+				12,
+				17,
+				25
 			]
 		}
 	],
 	"dependencies" : 
 	[
 		{
-			"id" : "proyecto2_autogen_timestamp_deps::@6890427a1f51a3e7e1df"
-		},
-		{
 			"backtrace" : 0,
 			"id" : "proyecto2_autogen::@6890427a1f51a3e7e1df"
+		},
+		{
+			"id" : "proyecto2_autogen_timestamp_deps::@6890427a1f51a3e7e1df"
 		}
 	],
 	"id" : "proyecto2::@6890427a1f51a3e7e1df",
@@ -493,7 +495,9 @@
 				2,
 				6,
 				9,
-				12
+				12,
+				17,
+				25
 			]
 		},
 		{
@@ -507,9 +511,18 @@
 				14,
 				15,
 				16,
-				17,
-				18,
-				19
+				19,
+				20,
+				21,
+				22,
+				23,
+				24,
+				27,
+				28,
+				29,
+				30,
+				31,
+				32
 			]
 		},
 		{
@@ -520,14 +533,16 @@
 				7,
 				10,
 				13,
-				20
+				18,
+				26,
+				33
 			]
 		},
 		{
 			"name" : "CMake Rules",
 			"sourceIndexes" : 
 			[
-				21
+				34
 			]
 		}
 	],
@@ -621,6 +636,63 @@
 			"sourceGroupIndex" : 1
 		},
 		{
+			"backtrace" : 4,
+			"path" : "dialogmodificar.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 4,
+			"compileGroupIndex" : 0,
+			"path" : "dialogmodificar.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 4,
+			"path" : "dialogmodificar.ui",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 4,
+			"path" : "doublylinkedlist.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 4,
+			"path" : "stack.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 4,
+			"path" : "listaSimple.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 4,
+			"path" : "matrix.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 4,
+			"path" : "arbolBinario.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 4,
+			"path" : "crearpublicacion.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 4,
+			"compileGroupIndex" : 0,
+			"path" : "crearpublicacion.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 4,
+			"path" : "crearpublicacion.ui",
+			"sourceGroupIndex" : 2
+		},
+		{
 			"backtrace" : 0,
 			"isGenerated" : true,
 			"path" : "build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/proyecto2_autogen/include/ui_mainwindow.h",
@@ -642,6 +714,18 @@
 			"backtrace" : 0,
 			"isGenerated" : true,
 			"path" : "build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/proyecto2_autogen/include/ui_registro.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/proyecto2_autogen/include/ui_dialogmodificar.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/proyecto2_autogen/include/ui_crearpublicacion.h",
 			"sourceGroupIndex" : 1
 		},
 		{

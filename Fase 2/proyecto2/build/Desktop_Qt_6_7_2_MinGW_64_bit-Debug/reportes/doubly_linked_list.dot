@@ -1,0 +1,32 @@
+digraph DoublyLinkedList {
+rankdir=LR;
+node [shape=record];
+node0x222f4d07fc0 [label="{Correo: cg@example.com | Contenido: Disfrutando de un día soleado en la playa, la vida es mejor con arena y mar. | Fecha: 12/08/2024 | Hora: 14:23}"];
+node0x222f4d07fc0 -> node0x222f92ebf50;
+node0x222f92ebf50 -> node0x222f4d07fc0;
+node0x222f92ebf50 [label="{Correo: ml@example.com | Contenido: Hoy aprendí algo nuevo, siempre es bueno salir de la zona de confort. | Fecha: 11/08/2024 | Hora: 09:45}"];
+node0x222f92ebf50 -> node0x222f92eca50;
+node0x222f92eca50 -> node0x222f92ebf50;
+node0x222f92eca50 [label="{Correo: jm@example.com | Contenido: El café de la mañana nunca decepciona, ¡energía pura para el día! | Fecha: 10/08/2024 | Hora: 07:30}"];
+node0x222f92eca50 -> node0x222f92ec630;
+node0x222f92ec630 -> node0x222f92eca50;
+node0x222f92ec630 [label="{Correo: ah@example.com | Contenido: Los atardeceres en la ciudad son simplemente mágicos, me encanta. | Fecha: 13/08/2024 | Hora: 18:12}"];
+node0x222f92ec630 -> node0x222f92ecbb0;
+node0x222f92ecbb0 -> node0x222f92ec630;
+node0x222f92ecbb0 [label="{Correo: lp@example.com | Contenido: Día perfecto para una caminata por el parque, disfrutando de la naturaleza. | Fecha: 15/08/2024 | Hora: 10:57}"];
+node0x222f92ecbb0 -> node0x222f92ecf20;
+node0x222f92ecf20 -> node0x222f92ecbb0;
+node0x222f92ecf20 [label="{Correo: lr@example.com | Contenido: La lectura de un buen libro puede cambiar tu perspectiva del mundo. | Fecha: 20/08/2024 | Hora: 16:45}"];
+node0x222f92ecf20 -> node0x222f92ed080;
+node0x222f92ed080 -> node0x222f92ecf20;
+node0x222f92ed080 [label="{Correo: jg@example.com | Contenido: Esos pequeños momentos de felicidad son los que más cuentan. | Fecha: 14/08/2024 | Hora: 13:20}"];
+node0x222f92ed080 -> node0x222f92ed130;
+node0x222f92ed130 -> node0x222f92ed080;
+node0x222f92ed130 [label="{Correo: et@example.com | Contenido: Cocinando mi plato favorito, nada como la comida casera. | Fecha: 21/08/2024 | Hora: 11:40}"];
+node0x222f92ed130 -> node0x222f4ccb1b0;
+node0x222f4ccb1b0 -> node0x222f92ed130;
+node0x222f4ccb1b0 [label="{Correo: mr@example.com | Contenido: Una nueva aventura comienza, emocionado por lo que viene. | Fecha: 19/08/2024 | Hora: 08:50}"];
+node0x222f4ccb1b0 -> node0x222f4c905d0;
+node0x222f4c905d0 -> node0x222f4ccb1b0;
+node0x222f4c905d0 [label="{Correo: sg@example.com | Contenido: La música siempre encuentra la manera de alegrar mi día. | Fecha: 18/08/2024 | Hora: 17:15}"];
+}

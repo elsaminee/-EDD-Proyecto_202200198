@@ -37,19 +37,11 @@ void MainWindow::on_loginbtn_clicked()
     // Verificación de usuario común en el árbol AVL
     else if(AppData::getInstance().getAVLTree().verifyCredentials(usuario.toStdString(), password.toStdString())) {
         if(!ventanaUser){
-            ventanaUser = new user(this);
+            ventanaUser = new user(this, usuario);
         }
         this->hide(); // Esconde la ventana de login
         ventanaUser->show();
-    }
-    else if(usuario.toStdString() == "user" && password.toStdString() == "user"){
-        if(!ventanaUser){
-            ventanaUser = new user(this);
-        }
-        this->hide(); // Esconde la ventana de login
-        ventanaUser->show();
-    }
-    else {
+    } else {
         qDebug() << "Usuario o contraseña incorrecta";
     }
 }
