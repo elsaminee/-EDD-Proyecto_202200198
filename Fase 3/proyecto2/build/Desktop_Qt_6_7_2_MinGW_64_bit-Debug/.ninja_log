@@ -1,0 +1,26 @@
+# ninja log v6
+552	3082	7494581254286923	CMakeFiles/proyecto2.dir/proyecto2_autogen/mocs_compilation.cpp.obj	6c96692351e526d1
+20	154	7494606974028725	D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/proyecto2_autogen/timestamp	102566947272c8db
+20	154	7494606974028725	proyecto2_autogen/timestamp	102566947272c8db
+20	154	7494606974028725	proyecto2_autogen/mocs_compilation.cpp	102566947272c8db
+157	3762	7494606975406533	CMakeFiles/proyecto2.dir/admin.cpp.obj	f5603392189332ad
+20	154	7494606974028725	D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/proyecto2_autogen/mocs_compilation.cpp	102566947272c8db
+555	2962	7494581254306860	CMakeFiles/proyecto2.dir/main.cpp.obj	d46166690f930b00
+155	2950	7494606975374527	CMakeFiles/proyecto2.dir/mainwindow.cpp.obj	49ec9f5b7c2b65c8
+3762	4284	7494607011453598	proyecto2.exe	2e09db8db11b25a3
+162	3043	7494606975456463	CMakeFiles/proyecto2.dir/registro.cpp.obj	11986843b50f52d3
+160	3555	7494606975426517	CMakeFiles/proyecto2.dir/user.cpp.obj	80a22196195569ee
+142	1533	7481715788494920	CMakeFiles/proyecto2.dir/AppData.cpp.obj	f2f20b04229f1184
+165	2192	7494606975478829	CMakeFiles/proyecto2.dir/dialogmodificar.cpp.obj	48edcae7c7a2c30f
+168	2978	7494606975504020	CMakeFiles/proyecto2.dir/crearpublicacion.cpp.obj	f5df3dab43fac9e6
+35	182	7494707021344967	proyecto2_autogen/timestamp	102566947272c8db
+35	182	7494707021344967	proyecto2_autogen/mocs_compilation.cpp	102566947272c8db
+35	182	7494707021344967	D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/proyecto2_autogen/timestamp	102566947272c8db
+35	182	7494707021344967	D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/proyecto2_autogen/mocs_compilation.cpp	102566947272c8db
+193	2670	7494707022932071	CMakeFiles/proyecto2.dir/dialogmodificar.cpp.obj	48edcae7c7a2c30f
+182	3060	7494707022823307	CMakeFiles/proyecto2.dir/mainwindow.cpp.obj	49ec9f5b7c2b65c8
+196	3098	7494707022953446	CMakeFiles/proyecto2.dir/crearpublicacion.cpp.obj	f5df3dab43fac9e6
+190	3102	7494707022897059	CMakeFiles/proyecto2.dir/registro.cpp.obj	11986843b50f52d3
+188	3694	7494707022877112	CMakeFiles/proyecto2.dir/user.cpp.obj	80a22196195569ee
+185	3809	7494707022847171	CMakeFiles/proyecto2.dir/admin.cpp.obj	f5603392189332ad
+3809	4451	7494707059082945	proyecto2.exe	2e09db8db11b25a3
