@@ -1,0 +1,14 @@
+# ninja log v6
+7	1086	7503839839000774	proyecto2_autogen/timestamp	d8a583e995a6927b
+7	1086	7503839839000774	proyecto2_autogen/mocs_compilation.cpp	d8a583e995a6927b
+7	1086	7503839839000774	D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/build/Desktop_Qt_6_7_2_MinGW_64_bit-Release/proyecto2_autogen/timestamp	d8a583e995a6927b
+7	1086	7503839839000774	D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/build/Desktop_Qt_6_7_2_MinGW_64_bit-Release/proyecto2_autogen/mocs_compilation.cpp	d8a583e995a6927b
+1121	3450	7503839840042999	CMakeFiles/proyecto2.dir/dialogmodificar.cpp.obj	7cdba46ff3e03a06
+1106	3877	7503839839886762	CMakeFiles/proyecto2.dir/main.cpp.obj	9791f5720ed077ba
+1103	3881	7503839839865635	CMakeFiles/proyecto2.dir/proyecto2_autogen/mocs_compilation.cpp.obj	3d02e7b3d1b91adb
+1109	4140	7503839839911725	CMakeFiles/proyecto2.dir/mainwindow.cpp.obj	1aa7481b3c0b688e
+1118	4356	7503839840011498	CMakeFiles/proyecto2.dir/registro.cpp.obj	a79986df25d617f7
+1125	4431	7503839840072969	CMakeFiles/proyecto2.dir/crearpublicacion.cpp.obj	b6a5f8d3a54ae7
+1115	5826	7503839839975388	CMakeFiles/proyecto2.dir/user.cpp.obj	9f75a35df95da3d0
+1111	6091	7503839839945070	CMakeFiles/proyecto2.dir/admin.cpp.obj	92dce6f33ffe209
+6091	6912	7503839889737090	proyecto2.exe	225455f93532a130

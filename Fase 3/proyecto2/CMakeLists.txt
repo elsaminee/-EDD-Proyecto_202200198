@@ -34,6 +34,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         listaSimple.h
         arbolBinario.h
         crearpublicacion.h crearpublicacion.cpp crearpublicacion.ui
+        grafoNdirigido.h
 
 
     )

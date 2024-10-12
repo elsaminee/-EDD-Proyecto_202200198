@@ -359,7 +359,7 @@ proyecto2_BINARY_DIR:STATIC=D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyec
 proyecto2_IS_TOP_LEVEL:STATIC=ON
 
 //Value Computed by CMake
-proyecto2_SOURCE_DIR:STATIC=D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2
+proyecto2_SOURCE_DIR:STATIC=D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 3/proyecto2
 
 
 ########################
@@ -430,7 +430,7 @@ CMAKE_GENERATOR_TOOLSET:INTERNAL=
 CMAKE_HAVE_LIBC_PTHREAD:INTERNAL=1
 //Source directory with the top level CMakeLists.txt file for this
 // project
-CMAKE_HOME_DIRECTORY:INTERNAL=D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2
+CMAKE_HOME_DIRECTORY:INTERNAL=D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 3/proyecto2
 //ADVANCED property for variable: CMAKE_INSTALL_BINDIR
 CMAKE_INSTALL_BINDIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_INSTALL_DATADIR

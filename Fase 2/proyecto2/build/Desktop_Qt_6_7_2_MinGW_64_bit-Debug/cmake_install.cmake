@@ -1,4 +1,4 @@
-# Install script for directory: D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2
+# Install script for directory: D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 3/proyecto2
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

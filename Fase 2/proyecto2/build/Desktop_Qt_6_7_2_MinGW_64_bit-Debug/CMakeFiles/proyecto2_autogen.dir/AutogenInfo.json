@@ -3,11 +3,11 @@
 	"BUILD_DIR" : "D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/proyecto2_autogen",
 	"CMAKE_BINARY_DIR" : "D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug",
 	"CMAKE_CURRENT_BINARY_DIR" : "D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug",
-	"CMAKE_CURRENT_SOURCE_DIR" : "D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2",
+	"CMAKE_CURRENT_SOURCE_DIR" : "D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 3/proyecto2",
 	"CMAKE_EXECUTABLE" : "C:/Qt/Tools/CMake_64/bin/cmake.exe",
 	"CMAKE_LIST_FILES" : 
 	[
-		"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/CMakeLists.txt",
+		"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 3/proyecto2/CMakeLists.txt",
 		"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/.qtc/package-manager/auto-setup.cmake",
 		"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/CMakeFiles/3.29.3/CMakeSystem.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/CMakeSystemSpecificInitialize.cmake",
@@ -250,86 +250,86 @@
 		"C:/Qt/6.7.2/mingw_64/lib/cmake/Qt6Widgets/Qt6QModernWindowsStylePluginAdditionalTargetInfo.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/GNUInstallDirs.cmake"
 	],
-	"CMAKE_SOURCE_DIR" : "D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2",
+	"CMAKE_SOURCE_DIR" : "D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 3/proyecto2",
 	"CROSS_CONFIG" : false,
 	"DEP_FILE" : "D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/proyecto2_autogen/deps",
 	"DEP_FILE_RULE_NAME" : "proyecto2_autogen/timestamp",
 	"HEADERS" : 
 	[
 		[
-			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/AVL.h",
+			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 3/proyecto2/AVL.h",
 			"MU",
 			"EWIEGA46WW/moc_AVL.cpp",
 			null
 		],
 		[
-			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/AppData.h",
+			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 3/proyecto2/AppData.h",
 			"MU",
 			"EWIEGA46WW/moc_AppData.cpp",
 			null
 		],
 		[
-			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/admin.h",
+			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 3/proyecto2/admin.h",
 			"MU",
 			"EWIEGA46WW/moc_admin.cpp",
 			null
 		],
 		[
-			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/arbolBinario.h",
+			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 3/proyecto2/arbolBinario.h",
 			"MU",
 			"EWIEGA46WW/moc_arbolBinario.cpp",
 			null
 		],
 		[
-			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/crearpublicacion.h",
+			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 3/proyecto2/crearpublicacion.h",
 			"MU",
 			"EWIEGA46WW/moc_crearpublicacion.cpp",
 			null
 		],
 		[
-			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/dialogmodificar.h",
+			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 3/proyecto2/dialogmodificar.h",
 			"MU",
 			"EWIEGA46WW/moc_dialogmodificar.cpp",
 			null
 		],
 		[
-			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/doublylinkedlist.h",
+			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 3/proyecto2/doublylinkedlist.h",
 			"MU",
 			"EWIEGA46WW/moc_doublylinkedlist.cpp",
 			null
 		],
 		[
-			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/listaSimple.h",
+			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 3/proyecto2/grafoNdirigido.h",
+			"MU",
+			"EWIEGA46WW/moc_grafoNdirigido.cpp",
+			null
+		],
+		[
+			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 3/proyecto2/listaSimple.h",
 			"MU",
 			"EWIEGA46WW/moc_listaSimple.cpp",
 			null
 		],
 		[
-			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/mainwindow.h",
+			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 3/proyecto2/mainwindow.h",
 			"MU",
 			"EWIEGA46WW/moc_mainwindow.cpp",
 			null
 		],
 		[
-			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/matrix.h",
-			"MU",
-			"EWIEGA46WW/moc_matrix.cpp",
-			null
-		],
-		[
-			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/registro.h",
+			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 3/proyecto2/registro.h",
 			"MU",
 			"EWIEGA46WW/moc_registro.cpp",
 			null
 		],
 		[
-			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/stack.h",
+			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 3/proyecto2/stack.h",
 			"MU",
 			"EWIEGA46WW/moc_stack.cpp",
 			null
 		],
 		[
-			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/user.h",
+			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 3/proyecto2/user.h",
 			"MU",
 			"EWIEGA46WW/moc_user.cpp",
 			null
@@ -407,37 +407,37 @@
 	"SOURCES" : 
 	[
 		[
-			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/admin.cpp",
+			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 3/proyecto2/admin.cpp",
 			"MU",
 			null
 		],
 		[
-			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/crearpublicacion.cpp",
+			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 3/proyecto2/crearpublicacion.cpp",
 			"MU",
 			null
 		],
 		[
-			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/dialogmodificar.cpp",
+			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 3/proyecto2/dialogmodificar.cpp",
 			"MU",
 			null
 		],
 		[
-			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/main.cpp",
+			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 3/proyecto2/main.cpp",
 			"MU",
 			null
 		],
 		[
-			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/mainwindow.cpp",
+			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 3/proyecto2/mainwindow.cpp",
 			"MU",
 			null
 		],
 		[
-			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/registro.cpp",
+			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 3/proyecto2/registro.cpp",
 			"MU",
 			null
 		],
 		[
-			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 2/proyecto2/user.cpp",
+			"D:/Universidad/6to Semestre/EDD/Proyecto/-EDD-Proyecto_202200198/Fase 3/proyecto2/user.cpp",
 			"MU",
 			null
 		]

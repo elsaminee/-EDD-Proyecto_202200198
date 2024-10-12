@@ -7,15 +7,18 @@
 #include "stack.h"
 #include "listaSimple.h"
 #include "arbolBinario.h"
+#include "grafoNdirigido.h"
+
 
 class AppData {
 private:
-    AVL avlTree;  // Asumiendo que tienes un AVL aquí
+    AVL avlTree;
     DoublyLinkedList listaDoble;
     Stack pilaReceptor;
     ListaAmistad listaEmisor;
-
+    ListaAdyacencia grafo;
     ArbolBinario arbolesDePublicaciones;
+
 
 
     // Constructor privado para evitar la creación directa
@@ -53,6 +56,10 @@ public:
 
     ArbolBinario& getArbolDePublicaciones() {
         return arbolesDePublicaciones;
+    }
+
+    ListaAdyacencia& getGrafo() {
+        return grafo;
     }
 
 

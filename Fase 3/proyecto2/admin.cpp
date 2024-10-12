@@ -83,6 +83,7 @@ void admin::on_cargarSolibtn_clicked()
     AppData& appData = AppData::getInstance();
     Stack& pila = appData.getPilaReceptor();
     ListaAmistad& emisorLista = appData.getListaEmisor();
+    ListaAdyacencia& grafo = appData.getGrafo();
 
     QString ruta = QFileDialog::getOpenFileName(
         this,
@@ -125,6 +126,7 @@ void admin::on_cargarSolibtn_clicked()
 
                     }if(estado == "ACEPTADA"){
                         qDebug() << "Se a aceptado la solicitud.";
+                        grafo.agregarRelacion(emisor.toStdString(), receptor.toStdString());
 
                     }if(estado == "RECHAZADA"){
                         qDebug() << "Se a rechazado la solicitud.";
