@@ -8,6 +8,17 @@
 
 using namespace std;
 
+
+struct NodoComentario {
+    string correo;  // Correo del autor del comentario
+    string comentario;
+
+    NodoComentario* siguiente;
+
+    NodoComentario(const string& correo, const string& comentario)
+        : correo(correo), comentario(comentario), siguiente(nullptr) {}
+};
+
 // Estructura para la lista simplemente enlazada que almacena publicaciones
 struct NodoPublicacion {
     string correo;     // Nuevo atributo para el correo
@@ -16,9 +27,14 @@ struct NodoPublicacion {
     string imagen;     // Campo para la imagen
     NodoPublicacion* siguiente;
 
+    // Lista enlazada de comentarios
+    NodoComentario* commentsHead;
+
     NodoPublicacion(const string& correo, const string& contenido, const string& hora, const string& imagen)
-        : correo(correo), contenido(contenido), hora(hora), imagen(imagen), siguiente(nullptr) {}
+        : correo(correo), contenido(contenido), hora(hora), imagen(imagen), siguiente(nullptr), commentsHead(nullptr) {}
 };
+
+
 
 // Estructura del nodo del árbol binario de búsqueda
 struct NodoArbol {
@@ -109,18 +125,52 @@ private:
         nodo.reset();  // Reseteamos el shared_ptr para liberar el nodo
     }
 
+    // Función auxiliar para insertar un comentario en una publicación específica
+    void insertarComentarioEnPublicacion(NodoPublicacion* publicacion, const string& correo, const string& comentario) {
+        // Crear un nuevo comentario
+        NodoComentario* nuevoComentario = new NodoComentario(correo, comentario);
+
+        // Insertar el nuevo comentario al principio de la lista de comentarios de la publicación correcta
+        nuevoComentario->siguiente = publicacion->commentsHead;
+        publicacion->commentsHead = nuevoComentario;
+    }
+
+    // Función auxiliar para insertar comentarios en el árbol
+    shared_ptr<NodoArbol> insertarComentarioEnArbol(shared_ptr<NodoArbol> nodo, const string& fecha, const string& correo, const string& comentario) {
+        if (!nodo) {
+            return nodo; // No se encuentra el nodo para esta fecha
+        }
+
+        if (fecha < nodo->fecha) {
+            nodo->izquierdo = insertarComentarioEnArbol(nodo->izquierdo, fecha, correo, comentario);
+        } else if (fecha > nodo->fecha) {
+            nodo->derecho = insertarComentarioEnArbol(nodo->derecho, fecha, correo, comentario);
+        } else {
+            // Si la fecha coincide, insertamos el comentario en la lista de publicaciones
+            NodoPublicacion* publicacion = nodo->listaPublicaciones;
+            insertarComentarioEnPublicacion(publicacion, correo, comentario);
+        }
+
+        return nodo;
+    }
+
 public:
     // Constructor sin parámetros específicos
     ArbolBinario() : raiz(nullptr) {}
 
-    // Insertar una nueva publicación con su fecha, correo, hora e imagen
-    void insertarPublicacion(const string& fecha, const string& correo, const string& contenido, const string& hora, const string& imagen) {
-        raiz = insertar(raiz, fecha, correo, contenido, hora, imagen);
-    }
-
     // Mostrar todas las publicaciones en orden cronológico
     void mostrarPublicaciones() const {
         mostrarInOrder(raiz);
+    }
+
+    // Función para insertar un comentario asociado a una publicación específica
+    void insertarComentario(const string& fechaPublicacion, const string& correoComentario, const string& comentario) {
+        raiz = insertarComentarioEnArbol(raiz, fechaPublicacion, correoComentario, comentario);
+    }
+
+    // Insertar una nueva publicación con su fecha, correo, hora e imagen
+    void insertarPublicacion(const string& fecha, const string& correo, const string& contenido, const string& hora, const string& imagen) {
+        raiz = insertar(raiz, fecha, correo, contenido, hora, imagen);
     }
 
     // Buscar y mostrar publicaciones de una fecha específica

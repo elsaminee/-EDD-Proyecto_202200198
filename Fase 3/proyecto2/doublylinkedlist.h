@@ -17,16 +17,14 @@ struct node_comment {
     int id;
     string correo;
     string comentario;
-    string fecha;
-    string hora;
+
     node_comment* next;
 
-    node_comment(int id, string correo, string comentario, string fecha, string hora) {
+    node_comment(int id, string correo, string comentario) {
         this->id = id;
         this->correo = correo;
         this->comentario = comentario;
-        this->fecha = fecha;
-        this->hora = hora;
+
         next = nullptr;
     }
 };
@@ -115,14 +113,14 @@ public:
     }
 
     // Método para añadir un comentario a una publicación
-    void addComment(int idPublicacion, string correo, string comentario, string fecha, string hora) {
+    void addComment(int idPublicacion, string correo, string comentario) {
         node_publi* current = head;
         while (current != nullptr && current->id != idPublicacion) {
             current = current->next;
         }
 
         if (current != nullptr) {
-            node_comment* newComment = new node_comment(nextCommentId++, correo, comentario, fecha, hora);
+            node_comment* newComment = new node_comment(nextCommentId++, correo, comentario);
             if (current->commentsHead == nullptr) {
                 current->commentsHead = newComment;
             } else {
@@ -153,8 +151,7 @@ public:
             // Imprimir comentarios asociados a la publicación
             node_comment* commentCurrent = current->commentsHead;
             while (commentCurrent != nullptr) {
-                cout << "  Comentario de: " << commentCurrent->correo << " | Comentario: " << commentCurrent->comentario
-                     << " | Fecha: " << commentCurrent->fecha << " | Hora: " << commentCurrent->hora << endl;
+                cout << "  Comentario de: " << commentCurrent->correo << " | Comentario: " << commentCurrent->comentario;
                 commentCurrent = commentCurrent->next;
             }
 
@@ -207,20 +204,39 @@ public:
     void agregarPublicacionesAlArbol(const string& userCorreo, ArbolBinario& arbol) {
         node_publi* current = head;
 
-        // Recorrer la lista
+        // Recorrer la lista de publicaciones
         while (current != nullptr) {
             // Verificar si la publicación pertenece al usuario logueado
             if (current->correo == userCorreo) {
-                // Si pertenece al usuario logueado, agregar la publicación al árbol binario
+                // Insertar la publicación en el árbol
                 arbol.insertarPublicacion(
                     current->fecha,       // Fecha de la publicación
-                    current->correo,      // Correo del usuario (ya verificado)
+                    current->correo,      // Correo del usuario
                     current->contenido_correo, // Contenido de la publicación
                     current->hora,        // Hora de la publicación
                     current->imagenPath   // Ruta de la imagen (si existe)
                     );
+
+                // Insertar los comentarios asociados a esta publicación
+                node_comment* commentCurrent = current->commentsHead;
+                /*
+                node_comment* commentCurrent = current->commentsHead;
+                while (commentCurrent != nullptr) {
+                    cout << "  Comentario de: " << commentCurrent->correo << " | Comentario: " << commentCurrent->comentario
+                         << " | Fecha: " << commentCurrent->fecha << " | Hora: " << commentCurrent->hora << endl;
+                    commentCurrent = commentCurrent->next;
+                }*/
+
+                while (commentCurrent != nullptr) {
+                    arbol.insertarComentario(
+                        current->fecha,         // Fecha de la publicación (para encontrarla en el árbol)
+                        commentCurrent->correo, // Correo del usuario que hizo el comentario
+                        commentCurrent->comentario // Contenido del comentario
+                        );
+                    commentCurrent = commentCurrent->next; // Avanzar al siguiente comentario
+                }
             }
-            current = current->next; // Avanzar al siguiente nodo
+            current = current->next; // Avanzar a la siguiente publicación
         }
     }
 };

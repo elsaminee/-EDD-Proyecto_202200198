@@ -3,6 +3,8 @@
 
 #include <QDialog>
 
+struct NodoPublicacion;
+
 namespace Ui {
 class user;
 }
@@ -23,6 +25,9 @@ public:
     void cancelarSolicitud(const std::string& receptor);
     void mostrarSolicitudesEnviadas();
     void guardarPublicacionesEnArbol();
+    void mostrarComentariosEnDialog(NodoPublicacion* publicacion);  // Recibe la publicación como parámetro
+    void llenarComboBoxConFechas();
+    void mostrarPublicacionesPorFecha(const QString& fechaSeleccionada);
 
 
 private slots:
@@ -39,6 +44,8 @@ private slots:
     void on_fechaBtn_clicked();
 
 
+
+    void on_AllPubliBtn_2_clicked();
 
 private:
     Ui::user *ui;

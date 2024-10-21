@@ -200,15 +200,13 @@ void admin::on_cargarPublibtn_clicked()
 
                                 QString comentarioCorreo = comentarioObj.value("correo").toString();
                                 QString comentarioTexto = comentarioObj.value("comentario").toString();
-                                QString comentarioFecha = comentarioObj.value("fecha").toString();
-                                QString comentarioHora = comentarioObj.value("hora").toString();
+
 
                                 qDebug() << "Comentario de: " << comentarioCorreo;
                                 qDebug() << "Comentario: " << comentarioTexto;
-                                qDebug() << "Fecha: " << comentarioFecha << " Hora: " << comentarioHora;
 
                                 // Agregar el comentario a la publicación correspondiente en la lista desde AppData
-                                publicaciones.addComment(pubId, comentarioCorreo.toStdString(), comentarioTexto.toStdString(), comentarioFecha.toStdString(), comentarioHora.toStdString());
+                                publicaciones.addComment(pubId, comentarioCorreo.toStdString(), comentarioTexto.toStdString());
                             }
                         }
                     }

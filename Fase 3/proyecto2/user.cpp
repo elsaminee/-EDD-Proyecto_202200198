@@ -8,6 +8,7 @@
 #include <QPixmap>
 #include <QTableWidgetItem>
 #include <QPushButton>
+#include <QSet>
 
 user::user(QWidget *parent, const QString& correo)
     : QDialog(parent)
@@ -34,6 +35,7 @@ user::user(QWidget *parent, const QString& correo)
     mostrarSolicitudesRecibidas();
     mostrarSolicitudesEnviadas();
     guardarPublicacionesEnArbol();
+    llenarComboBoxConFechas();
 }
 
 user::~user()
@@ -117,16 +119,83 @@ void user::on_creaPubliBtn_clicked()
 
 }
 
+void user::llenarComboBoxConFechas() {
+    ui->fechaBox->clear();  // Limpiar las opciones del combo box
 
+    AppData& appData = AppData::getInstance();
+    ArbolBinario& arbolBinario = appData.getArbolDePublicaciones();
+    QSet<QString> fechasUnicas;  // Usamos QSet para evitar duplicados
+
+    // Recorrer las publicaciones y obtener las fechas
+    arbolBinario.recorrerPublicaciones([&](const string& fecha, NodoPublicacion* publicacion) {
+        fechasUnicas.insert(QString::fromStdString(fecha));  // Insertar la fecha en el QSet
+    });
+
+    // Agregar las fechas únicas al combo box
+    foreach (const QString& fecha, fechasUnicas) {
+        ui->fechaBox->addItem(fecha);
+    }
+}
 
 void user::on_fechaBtn_clicked()
 {
-    mostrarPublicacionesEnScrollArea();
+    QString fechaSeleccionada = ui->fechaBox->currentText();  // Obtener la fecha seleccionada
+    if (!fechaSeleccionada.isEmpty()) {
+        mostrarPublicacionesPorFecha(fechaSeleccionada);  // Filtrar publicaciones por la fecha seleccionada
+    }
+}
+
+void user::mostrarPublicacionesPorFecha(const QString& fechaSeleccionada) {
+    QVBoxLayout* layout = new QVBoxLayout();
+
+    AppData& appData = AppData::getInstance();
+    ArbolBinario& arbolBinario = appData.getArbolDePublicaciones();
+    std::string fechaStr = fechaSeleccionada.toStdString();
+
+    // Recorrer las publicaciones y mostrar solo las de la fecha seleccionada
+    arbolBinario.recorrerPublicaciones([=](const string& fecha, NodoPublicacion* publicacion) {
+        if (fecha == fechaStr) {
+            while (publicacion) {
+                // Mostrar detalles de la publicación
+                QLabel* correoLabel = new QLabel(QString::fromStdString("Correo: " + publicacion->correo));
+                layout->addWidget(correoLabel);
+
+                QLabel* contenidoLabel = new QLabel(QString::fromStdString("Contenido: " + publicacion->contenido));
+                layout->addWidget(contenidoLabel);
+
+                QLabel* fechaHoraLabel = new QLabel(QString::fromStdString("Fecha: " + fecha + " - Hora: " + publicacion->hora));
+                layout->addWidget(fechaHoraLabel);
+
+                // Mostrar imagen si hay
+                if (!publicacion->imagen.empty()) {
+                    QLabel* imagenLabel = new QLabel();
+                    QPixmap pixmap(QString::fromStdString(publicacion->imagen));
+                    imagenLabel->setPixmap(pixmap.scaled(100, 100));
+                    layout->addWidget(imagenLabel);
+                }
+
+                // Crear botón de "Mostrar Comentarios"
+                QPushButton* botonMostrarComentarios = new QPushButton("Mostrar Comentarios");
+                layout->addWidget(botonMostrarComentarios);
+
+                // Conectar la señal del botón al slot para mostrar comentarios en una ventana emergente
+                QObject::connect(botonMostrarComentarios, &QPushButton::clicked, [this, publicacion]() {
+                    this->mostrarComentariosEnDialog(publicacion);
+                });
+
+                // Avanzar a la siguiente publicación
+                publicacion = publicacion->siguiente;
+            }
+        }
+    });
+
+    QWidget* contentWidget = new QWidget();
+    contentWidget->setLayout(layout);
+    ui->scrollPubli->setWidget(contentWidget);  // Actualizar el área de scroll con las publicaciones filtradas
 }
 
 // Método para mostrar las publicaciones en el QScrollArea
 void user::mostrarPublicacionesEnScrollArea() {
-    // Limpiar el contenido anterior del QScrollArea
     QVBoxLayout* layout = new QVBoxLayout();
 
     AppData& appData = AppData::getInstance();
@@ -135,40 +204,72 @@ void user::mostrarPublicacionesEnScrollArea() {
     // Recorrer todas las publicaciones del árbol binario
     arbolBinario.recorrerPublicaciones([=](const string& fecha, NodoPublicacion* publicacion) {
         while (publicacion) {
-            // Crear un QLabel para mostrar el correo
+            // Mostrar detalles de la publicación
             QLabel* correoLabel = new QLabel(QString::fromStdString("Correo: " + publicacion->correo));
-            qDebug() << "Correo: " + publicacion->correo;
             layout->addWidget(correoLabel);
 
-            // Crear un QLabel para mostrar el contenido de la publicación
             QLabel* contenidoLabel = new QLabel(QString::fromStdString("Contenido: " + publicacion->contenido));
             layout->addWidget(contenidoLabel);
 
-            // Crear un QLabel para mostrar la fecha y hora
             QLabel* fechaHoraLabel = new QLabel(QString::fromStdString("Fecha: " + fecha + " - Hora: " + publicacion->hora));
             layout->addWidget(fechaHoraLabel);
 
-            // Si hay imagen, mostrarla
+            // Mostrar imagen si hay
             if (!publicacion->imagen.empty()) {
                 QLabel* imagenLabel = new QLabel();
                 QPixmap pixmap(QString::fromStdString(publicacion->imagen));
-                imagenLabel->setPixmap(pixmap.scaled(100, 100)); // Redimensionar si es necesario
+                imagenLabel->setPixmap(pixmap.scaled(100, 100));
                 layout->addWidget(imagenLabel);
             }
+
+            // Crear botón de "Mostrar Comentarios"
+            QPushButton* botonMostrarComentarios = new QPushButton("Mostrar Comentarios");
+            layout->addWidget(botonMostrarComentarios);
+
+            // Conectar la señal del botón al slot para mostrar comentarios en una ventana emergente
+            QObject::connect(botonMostrarComentarios, &QPushButton::clicked, [this, publicacion]() {
+                this->mostrarComentariosEnDialog(publicacion);
+            });
 
             // Avanzar a la siguiente publicación
             publicacion = publicacion->siguiente;
         }
     });
 
-    // Crear un widget para contener el layout
     QWidget* contentWidget = new QWidget();
     contentWidget->setLayout(layout);
-
-    // Asignar el widget de contenido al QScrollArea
     ui->scrollPubli->setWidget(contentWidget);
 }
 
+// Slot para mostrar los comentarios en una ventana emergente
+void user::mostrarComentariosEnDialog(NodoPublicacion* publicacion) {
+    QDialog* dialog = new QDialog(this);
+    dialog->setWindowTitle("Comentarios");
+
+    QVBoxLayout* layout = new QVBoxLayout(dialog);
+
+    // Verificar si hay comentarios
+    if (publicacion->commentsHead) {
+        // Mostrar los comentarios en la ventana emergente
+        NodoComentario* comentario = publicacion->commentsHead;
+        while (comentario) {
+            QLabel* comentarioCorreoLabel = new QLabel(QString::fromStdString("Autor: " + comentario->correo));
+            layout->addWidget(comentarioCorreoLabel);
+
+            QLabel* comentarioContenidoLabel = new QLabel(QString::fromStdString("Comentario: " + comentario->comentario));
+            layout->addWidget(comentarioContenidoLabel);
+
+            comentario = comentario->siguiente;
+        }
+    } else {
+        // Mostrar mensaje de "No hay comentarios"
+        QLabel* noComentariosLabel = new QLabel("No hay comentarios.");
+        layout->addWidget(noComentariosLabel);
+    }
+
+    dialog->setLayout(layout);
+    dialog->exec();  // Abrir la ventana emergente
+}
 
 // Método para mostrar los usuarios en el QTableWidget
 void user::mostrarUsuariosEnTabla() {
@@ -352,11 +453,31 @@ void user::cancelarSolicitud(const string& receptor) {
 }
 
 void user::guardarPublicacionesEnArbol() {
-    // Supongamos que ya tienes una instancia de la lista de publicaciones
-    // Y que también tienes la instancia del árbol binario
     AppData& appData = AppData::getInstance();
     DoublyLinkedList& listaPublicaciones = appData.getListaDoble();
     ArbolBinario& arbolPublicaciones = appData.getArbolDePublicaciones();
+    AVL& usuarios = appData.getAVLTree();
 
+    // Agrega publicaciones y comentarios al árbol
     listaPublicaciones.agregarPublicacionesAlArbol(userCorreo.toStdString(), arbolPublicaciones);
+
+    usuarios.getEmails([&](const string& email) {
+        // Comprobar si el correo es amigo de userCorreo
+        if (appData.getGrafo().esAmigoDeUsuario(userCorreo.toStdString(), email)) {
+            qDebug() << QString::fromStdString(email) << " es amigo de " << QString::fromStdString(userCorreo.toStdString());
+            listaPublicaciones.agregarPublicacionesAlArbol(email, arbolPublicaciones);
+        } else {
+            qDebug() << QString::fromStdString(email) << " no es amigo de " << QString::fromStdString(userCorreo.toStdString());
+        }
+    });
 }
+
+void user::on_AllPubliBtn_2_clicked()
+{
+    AppData& appData = AppData::getInstance();
+
+    appData.getArbolDePublicaciones().eliminarArbol();
+    guardarPublicacionesEnArbol();
+    mostrarPublicacionesEnScrollArea();
+}
+

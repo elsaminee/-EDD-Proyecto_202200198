@@ -181,6 +181,13 @@ public:
         return false;  // No son amigos directos
     }
 
+    bool esAmigoDeUsuario(const string& correoUsuario, const string& correoAmigo) {
+        shared_ptr<NodoAdyacencia> usuario = buscarNodo(correoUsuario);
+        if (!usuario) return false;
+
+        return usuario->existeAmigo(correoAmigo);
+    }
+
     // Buscar sugerencia existente
     NodoSugerencia* buscarSugerencia(ListaSugerencia& lista, const string& correoAmigo) {
         NodoSugerencia* actual = lista.head;

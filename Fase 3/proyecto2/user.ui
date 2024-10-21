@@ -23,7 +23,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="buscarUser">
     <attribute name="title">
@@ -187,7 +187,7 @@
       <string>Fecha</string>
      </property>
     </widget>
-    <widget class="QComboBox" name="comboBox">
+    <widget class="QComboBox" name="fechaBox">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -317,6 +317,19 @@
        </rect>
       </property>
      </widget>
+    </widget>
+    <widget class="QPushButton" name="AllPubliBtn_2">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>110</y>
+       <width>80</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Show All</string>
+     </property>
     </widget>
    </widget>
    <widget class="QWidget" name="soliUser">

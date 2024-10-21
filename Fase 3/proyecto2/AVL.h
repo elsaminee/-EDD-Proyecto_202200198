@@ -269,6 +269,13 @@ private:
         }
     }
 
+    void getEmailsRec(shared_ptr<Node> node, std::function<void(const string&)> visit) const {
+        if (!node) return;
+        getEmailsRec(node->left, visit);
+        visit(node->email);
+        getEmailsRec(node->right, visit);
+    }
+
 
 
 public:
@@ -387,6 +394,9 @@ public:
         }
     }
 
+    void getEmails(std::function<void(const string&)> visit) const {
+        getEmailsRec(root, visit);
+    }
 
 
 };
