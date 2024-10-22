@@ -75,13 +75,13 @@
 			{
 				"command" : 4,
 				"file" : 1,
-				"line" : 75,
+				"line" : 77,
 				"parent" : 0
 			},
 			{
 				"command" : 5,
 				"file" : 1,
-				"line" : 58,
+				"line" : 60,
 				"parent" : 0
 			},
 			{
@@ -376,11 +376,11 @@
 	"dependencies" : 
 	[
 		{
-			"backtrace" : 0,
-			"id" : "proyecto2_autogen::@6890427a1f51a3e7e1df"
+			"id" : "proyecto2_autogen_timestamp_deps::@6890427a1f51a3e7e1df"
 		},
 		{
-			"id" : "proyecto2_autogen_timestamp_deps::@6890427a1f51a3e7e1df"
+			"backtrace" : 0,
+			"id" : "proyecto2_autogen::@6890427a1f51a3e7e1df"
 		}
 	],
 	"id" : "proyecto2::@6890427a1f51a3e7e1df",
@@ -521,7 +521,9 @@
 				28,
 				29,
 				30,
-				31
+				31,
+				32,
+				33
 			]
 		},
 		{
@@ -534,14 +536,14 @@
 				13,
 				18,
 				25,
-				32
+				34
 			]
 		},
 		{
 			"name" : "CMake Rules",
 			"sourceIndexes" : 
 			[
-				33
+				35
 			]
 		}
 	],
@@ -685,6 +687,16 @@
 			"backtrace" : 4,
 			"path" : "crearpublicacion.ui",
 			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 4,
+			"path" : "grafoNdirigido.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 4,
+			"path" : "Huffman.h",
+			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 0,

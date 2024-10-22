@@ -28,6 +28,7 @@ public:
     void mostrarComentariosEnDialog(NodoPublicacion* publicacion);  // Recibe la publicación como parámetro
     void llenarComboBoxConFechas();
     void mostrarPublicacionesPorFecha(const QString& fechaSeleccionada);
+    void mostrarPublicacionesConOrden(const QString& orden, int cantidadMaxima);
 
 
 private slots:
@@ -46,6 +47,8 @@ private slots:
 
 
     void on_AllPubliBtn_2_clicked();
+
+    void on_recorridoBtn_clicked();
 
 private:
     Ui::user *ui;

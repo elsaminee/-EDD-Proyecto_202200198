@@ -14,6 +14,7 @@
 #include <QScrollArea>
 #include <QLayoutItem>
 #include <QVBoxLayout>
+#include <QCryptographicHash>
 
 
 admin::admin(QWidget *parent)
@@ -61,9 +62,12 @@ void admin::on_cargarUserbtn_clicked()
                     QString fechaDeNacimiento = obj.value("fecha_de_nacimiento").toString();
                     QString correo = obj.value("correo").toString();
                     QString password = obj.value("contraseña").toString();
+                    QCryptographicHash hash(QCryptographicHash::Sha256);
+                    hash.addData(password.toUtf8());
+                    QString hashPass = hash.result().toHex();
 
                     // Insertar el correo en el AVL a través de AppData
-                    appData.getAVLTree().insert(correo.toStdString(),nombres.toStdString(), apellidos.toStdString(), fechaDeNacimiento.toStdString(), password.toStdString());
+                    appData.getAVLTree().insert(correo.toStdString(),nombres.toStdString(), apellidos.toStdString(), fechaDeNacimiento.toStdString(), hashPass.toStdString());
                 }
 
 

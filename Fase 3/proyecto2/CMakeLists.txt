@@ -35,6 +35,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         arbolBinario.h
         crearpublicacion.h crearpublicacion.cpp crearpublicacion.ui
         grafoNdirigido.h
+        Huffman.h
 
 
     )

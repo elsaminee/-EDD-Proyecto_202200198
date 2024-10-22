@@ -5,6 +5,9 @@
 #include "registro.h"
 #include "user.h"
 #include "AppData.h"
+#include "Huffman.h"
+#include <QCryptographicHash>
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -18,6 +21,50 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void cargarDatosDescomprimidos() {
+    Huffman huffman;
+
+
+    AppData& appData = AppData::getInstance();
+    AVL& avl = appData.getAVLTree();
+
+
+    // Intenta descomprimir y muestra posibles errores
+    std::string decompressedData;
+    try {
+        decompressedData = huffman.descomprimirArchivo("tablaUserComprimir.edd");
+        qDebug() << "Descompresión exitosa";
+    } catch (const std::exception& e) {
+        qDebug() << "Excepción durante la descompresión:" << e.what();
+        return;
+    }
+
+    qDebug() << QString::fromStdString(decompressedData);
+
+    std::stringstream ss(decompressedData);
+    std::string line;
+
+    try {
+        while (std::getline(ss, line)) {
+            qDebug() << "Procesando línea:" << QString::fromStdString(line);
+            std::stringstream lineStream(line);
+            std::string email, nombre, apellido, fechaNacimiento, password;
+            if (!std::getline(lineStream, email, ',') ||
+                !std::getline(lineStream, nombre, ',') ||
+                !std::getline(lineStream, apellido, ',') ||
+                !std::getline(lineStream, fechaNacimiento, ',') ||
+                !std::getline(lineStream, password, ',')) {
+                qDebug() << "Error al leer la línea:" << QString::fromStdString(line);
+                continue; // Saltar líneas inválidas
+            }
+            qDebug() << email << "+" << nombre << "+" << apellido << "+" << password;
+            avl.insert(email, nombre, apellido, fechaNacimiento, password);
+        }
+    } catch (const std::exception& e) {
+        qDebug() << "Excepción durante la carga de datos:" << e.what();
+    }
+}
+
 void MainWindow::on_loginbtn_clicked()
 {
     std::string userAd = "admin@gmail.com";
@@ -25,6 +72,10 @@ void MainWindow::on_loginbtn_clicked()
 
     QString usuario = ui->userline->text();
     QString password = ui->passline->text();
+
+    QCryptographicHash hash(QCryptographicHash::Sha256);
+    hash.addData(password.toUtf8());
+    QString hashPass = hash.result().toHex();
 
     // Verificación de administrador
     if(userAd == usuario.toStdString() && passAd == password.toStdString()) {
@@ -35,7 +86,7 @@ void MainWindow::on_loginbtn_clicked()
         ventanaAdmin->show();
     }
     // Verificación de usuario común en el árbol AVL
-    else if(AppData::getInstance().getAVLTree().verifyCredentials(usuario.toStdString(), password.toStdString())) {
+    else if(AppData::getInstance().getAVLTree().verifyCredentials(usuario.toStdString(), hashPass.toStdString())) {
         if(!ventanaUser){
             ventanaUser = new user(this, usuario);
         }
@@ -54,3 +105,10 @@ void MainWindow::on_registrobtn_clicked()
     this->hide();
     ventanaRegistro->show();
 }
+
+
+void MainWindow::on_serializadoBtn_clicked()
+{
+    cargarDatosDescomprimidos();
+}
+

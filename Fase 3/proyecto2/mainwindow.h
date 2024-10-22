@@ -26,6 +26,8 @@ private slots:
     void on_registrobtn_clicked();
 
 
+    void on_serializadoBtn_clicked();
+
 private:
     Ui::MainWindow *ui;
     admin *ventanaAdmin = nullptr;

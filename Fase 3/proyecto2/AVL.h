@@ -51,7 +51,7 @@ private:
     }
 
     // Funciones helper para los recorridos
-    void inorderHelper(std::shared_ptr<Node> node, std::function<void(std::shared_ptr<Node>)> visit) {
+    void inorderHelper(std::shared_ptr<Node> node, std::function<void(std::shared_ptr<Node>)> visit) const {
         if (!node) return;
         inorderHelper(node->left, visit);
         visit(node);
@@ -340,7 +340,7 @@ public:
     }
 
     // Métodos de recorrido público
-    void inorderTraversal(std::function<void(std::shared_ptr<Node>)> visit) {
+    void inorderTraversal(std::function<void(std::shared_ptr<Node>)> visit) const {
         inorderHelper(root, visit);
     }
 

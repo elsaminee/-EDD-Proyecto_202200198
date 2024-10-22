@@ -154,6 +154,8 @@ private:
         return nodo;
     }
 
+
+
 public:
     // Constructor sin parámetros específicos
     ArbolBinario() : raiz(nullptr) {}
@@ -162,6 +164,8 @@ public:
     void mostrarPublicaciones() const {
         mostrarInOrder(raiz);
     }
+
+
 
     // Función para insertar un comentario asociado a una publicación específica
     void insertarComentario(const string& fechaPublicacion, const string& correoComentario, const string& comentario) {
@@ -197,6 +201,18 @@ public:
         recorrerInOrder(raiz, callback);
     }
 
+    void recorrerOrden(const string& orden, function<void(const string&, NodoPublicacion*)> callback) const {
+        if (orden == "inOrder") {
+            recorrerInOrder(raiz, callback);
+        } else if (orden == "preOrder") {
+            recorrerPreOrder(raiz, callback);
+        } else if (orden == "postOrder") {
+            recorrerPostOrder(raiz, callback);
+        } else {
+            cout << "Orden no válido" << endl;
+        }
+    }
+
     void recorrerInOrder(shared_ptr<NodoArbol> nodo, function<void(const string&, NodoPublicacion*)> callback) const {
         if (!nodo) return;
 
@@ -210,6 +226,29 @@ public:
         eliminarNodos(raiz);
         raiz.reset();  // Aseguramos que la raíz esté vacía
     }
+
+    // Recorrer el árbol en preOrder
+    void recorrerPreOrder(shared_ptr<NodoArbol> nodo, function<void(const string&, NodoPublicacion*)> callback) const {
+        if (!nodo) return;
+
+        callback(nodo->fecha, nodo->listaPublicaciones);  // Visitar primero la raíz
+        recorrerPreOrder(nodo->izquierdo, callback);      // Luego el subárbol izquierdo
+        recorrerPreOrder(nodo->derecho, callback);        // Finalmente el subárbol derecho
+    }
+
+    // Recorrer el árbol en postOrder
+    void recorrerPostOrder(shared_ptr<NodoArbol> nodo, function<void(const string&, NodoPublicacion*)> callback) const {
+        if (!nodo) return;
+
+        recorrerPostOrder(nodo->izquierdo, callback);     // Primero el subárbol izquierdo
+        recorrerPostOrder(nodo->derecho, callback);       // Luego el subárbol derecho
+        callback(nodo->fecha, nodo->listaPublicaciones);  // Finalmente visitar la raíz
+    }
+
+    shared_ptr<NodoArbol> getRaiz() const {
+        return raiz;
+    }
+
 
 };
 

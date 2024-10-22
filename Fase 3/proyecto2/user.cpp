@@ -9,6 +9,7 @@
 #include <QTableWidgetItem>
 #include <QPushButton>
 #include <QSet>
+#include "Huffman.h"
 
 user::user(QWidget *parent, const QString& correo)
     : QDialog(parent)
@@ -27,6 +28,7 @@ user::user(QWidget *parent, const QString& correo)
         ui->apellidoEdit->setText(QString::fromStdString(apellido));
         ui->fechaEdit->setText(QString::fromStdString(fechaDeNacimiento));
         ui->passEdit->setText(QString::fromStdString(password));
+        ui->correoEdit->setReadOnly(true);
         ui->correoEdit->setText(QString::fromStdString(userCorreo.toStdString()));
     } else {
         qDebug() << "Usuario no encontrado.";
@@ -59,6 +61,29 @@ void user::on_buscarbtn_clicked()
     }
 }
 
+void guardarDatosComprimidos() {
+    Huffman huffman;
+    std::stringstream ss;
+
+    AppData& appData = AppData::getInstance();
+    AVL& avl =appData.getAVLTree();
+
+    // Recorrer el AVL y obtener la información
+    avl.inorderTraversal([&ss](std::shared_ptr<Node> node) {
+        ss << node->email << "," << node->nombre << "," << node->apellido << "," << node->fecha_de_nacimiento << "," << node->password << "\n";
+    });
+
+    std::string data = ss.str();
+
+
+    std::string compressedData = huffman.comprimir(data);
+    huffman.guardarArchivoComprimido("user.edd", compressedData);
+
+    std::ofstream outFile("tablaUserComprimir.edd", std::ios::binary);
+
+    outFile << data;
+    outFile.close();
+}
 
 void user::on_logoutbtn_clicked()
 {
@@ -70,10 +95,10 @@ void user::on_logoutbtn_clicked()
     MainWindow *ventana = new MainWindow(this);
 
     // Mostrar la ventana principal y ocultar la ventana actual
+    guardarDatosComprimidos();
     this->hide();
     ventana->show();
 }
-
 
 void user::on_modificarBtn_clicked()
 {
@@ -91,11 +116,36 @@ void user::on_modificarBtn_clicked()
     userCorreo = correo;
 
     this->close();
+    guardarDatosComprimidos();
 
     MainWindow *ventana = new MainWindow(this);
     ventana->show();
 }
 
+//Creo que aca no servira pero lo tendre en cuenta para iniciar el programa
+void cargarDatosDescomprimidos(AVL& avl) {
+    Huffman huffman;
+    std::ifstream inFile("user.edd", std::ios::binary);
+    std::stringstream buffer;
+    buffer << inFile.rdbuf();
+    std::string compressedData = buffer.str();
+
+    std::string decompressedData = huffman.descomprimir(compressedData);
+    std::stringstream ss(decompressedData);
+    std::string line;
+
+    while (std::getline(ss, line)) {
+        std::stringstream lineStream(line);
+        std::string email, nombre, apellido, fechaNacimiento, password;
+        std::getline(lineStream, email, ',');
+        std::getline(lineStream, nombre, ',');
+        std::getline(lineStream, apellido, ',');
+        std::getline(lineStream, fechaNacimiento, ',');
+        std::getline(lineStream, password, ',');
+
+        avl.insert(email, nombre, apellido, fechaNacimiento, password);
+    }
+}
 
 void user::on_eliminarBtn_clicked()
 {
@@ -324,8 +374,6 @@ void user::enviarSolicitud(const std::string& receptor, const std::string& corre
 
     mostrarUsuariosEnTabla();
     mostrarSolicitudesEnviadas();
-
-
 }
 
 void user::mostrarSolicitudesRecibidas() {
@@ -362,18 +410,18 @@ void user::mostrarSolicitudesRecibidas() {
     }
 }
 
-
 void user::aceptarSolicitud(const string& emisor) {
     AppData& appData = AppData::getInstance();
     Stack& stackSolicitudes = appData.getPilaReceptor();
     ListaAmistad& solicitudesEmisor = appData.getListaEmisor();
+    ListaAdyacencia& amistades = appData.getGrafo();
 
     // Elimina la solicitud de la pila
     stackSolicitudes.removeNode(emisor, userCorreo.toStdString());
     solicitudesEmisor.deleteNode(emisor, userCorreo.toStdString());
 
     // Aquí podrías agregar la relación de amistad a una lista de amigos
-    //appData.getListaDeAmigos().append(emisor, userCorreo.toStdString());
+    amistades.agregarRelacion(emisor, userCorreo.toStdString());
 
     // Actualiza la tabla
     mostrarSolicitudesRecibidas();
@@ -393,7 +441,6 @@ void user::rechazarSolicitud(const string& emisor) {
     mostrarSolicitudesRecibidas();
     mostrarUsuariosEnTabla();
 }
-
 
 void user::mostrarSolicitudesEnviadas() {
     ui->tableEnviadas->setRowCount(0);  // Elimina todas las filas existentes
@@ -479,5 +526,72 @@ void user::on_AllPubliBtn_2_clicked()
     appData.getArbolDePublicaciones().eliminarArbol();
     guardarPublicacionesEnArbol();
     mostrarPublicacionesEnScrollArea();
+}
+
+// Método para mostrar las publicaciones en el orden seleccionado
+// Método para mostrar las publicaciones en el orden seleccionado
+void user::mostrarPublicacionesConOrden(const QString& orden, int cantidadMaxima) {
+    QVBoxLayout* layout = new QVBoxLayout();
+    AppData& appData = AppData::getInstance();
+    ArbolBinario& arbolBinario = appData.getArbolDePublicaciones();
+
+    int contador = 0;  // Para contar cuántas publicaciones hemos mostrado
+
+    // Función lambda que será ejecutada durante el recorrido
+    auto mostrarPublicacion = [&](const string& fecha, NodoPublicacion* publicacion) {
+        while (publicacion && contador < cantidadMaxima) {
+            // Mostrar detalles de la publicación
+            QLabel* correoLabel = new QLabel(QString::fromStdString("Correo: " + publicacion->correo));
+            layout->addWidget(correoLabel);
+
+            QLabel* contenidoLabel = new QLabel(QString::fromStdString("Contenido: " + publicacion->contenido));
+            layout->addWidget(contenidoLabel);
+
+            QLabel* fechaHoraLabel = new QLabel(QString::fromStdString("Fecha: " + fecha + " - Hora: " + publicacion->hora));
+            layout->addWidget(fechaHoraLabel);
+
+            // Mostrar imagen si hay
+            if (!publicacion->imagen.empty()) {
+                QLabel* imagenLabel = new QLabel();
+                QPixmap pixmap(QString::fromStdString(publicacion->imagen));
+                imagenLabel->setPixmap(pixmap.scaled(100, 100));
+                layout->addWidget(imagenLabel);
+            }
+
+            // Crear botón de "Mostrar Comentarios"
+            QPushButton* botonMostrarComentarios = new QPushButton("Mostrar Comentarios");
+            layout->addWidget(botonMostrarComentarios);
+
+            // Conectar la señal del botón al slot para mostrar comentarios en una ventana emergente
+            QObject::connect(botonMostrarComentarios, &QPushButton::clicked, [this, publicacion]() {
+                this->mostrarComentariosEnDialog(publicacion);
+            });
+
+            // Avanzar a la siguiente publicación y aumentar el contador
+            publicacion = publicacion->siguiente;
+            contador++;
+        }
+    };
+
+    // Llamar al recorrido adecuado según el valor del comboBox (orden)
+    arbolBinario.recorrerOrden(orden.toStdString(), mostrarPublicacion);
+
+    QWidget* contentWidget = new QWidget();
+    contentWidget->setLayout(layout);
+    ui->scrollPubli->setWidget(contentWidget);
+}
+
+
+
+void user::on_recorridoBtn_clicked()
+{
+    // Leer el orden seleccionado en el comboBox
+    QString ordenSeleccionado = ui->ordenBox->currentText();
+
+    // Leer la cantidad de publicaciones desde el LineEdit
+    int cantidadMaxima = ui->cantidadLine->text().toInt();
+
+    // Mostrar las publicaciones en el orden seleccionado y cantidad límite
+    mostrarPublicacionesConOrden(ordenSeleccionado, cantidadMaxima);
 }
 
