@@ -5,6 +5,7 @@
 #include <string>
 #include <memory>
 #include <functional>  // Para usar std::function
+#include <fstream>
 
 using namespace std;
 
@@ -249,6 +250,85 @@ public:
         return raiz;
     }
 
+    void generarDotRecursivo(shared_ptr<NodoArbol> nodo, ofstream& archivoDot) {
+        if (!nodo) return;
+
+        // Imprimir el nodo actual
+        archivoDot << "    \"" << nodo->fecha << "\" [label=\"" << nodo->fecha << "\"];\n";
+
+        // Conectar el nodo izquierdo
+        if (nodo->izquierdo) {
+            archivoDot << "    \"" << nodo->fecha << "\" -> \"" << nodo->izquierdo->fecha << "\";\n";
+            generarDotRecursivo(nodo->izquierdo, archivoDot);
+        }
+
+        // Conectar el nodo derecho
+        if (nodo->derecho) {
+            archivoDot << "    \"" << nodo->fecha << "\" -> \"" << nodo->derecho->fecha << "\";\n";
+            generarDotRecursivo(nodo->derecho, archivoDot);
+        }
+    }
+
+    void generateDot() {
+        ofstream archivoDot("reportes/arbolBinario.dot");
+        archivoDot << "digraph G {\n";
+        archivoDot << "    node [shape=circle];\n";
+
+        // Llamar a la función recursiva para llenar el archivo DOT
+        generarDotRecursivo(raiz, archivoDot);
+
+        archivoDot << "}\n";
+        archivoDot.close();
+
+        // Ahora puedes usar Graphviz para convertir el archivo DOT en una imagen
+        system("dot -Tpng reportes/arbolBinario.dot -o reportes/arbolBinario.png");
+    }
+
+    void generarDotDePublicaciones(shared_ptr<NodoArbol> nodo, ofstream& archivoDot) {
+        if (!nodo || !nodo->listaPublicaciones) return;
+
+        NodoPublicacion* actual = nodo->listaPublicaciones;
+
+        // Crear nodos para las publicaciones y enlazarlas como una lista simple
+        while (actual) {
+            // Cada nodo de la publicación
+            archivoDot << "    \"" << actual->contenido << "\" [label=\""
+                       << "Correo: " << actual->correo << "\\nHora: " << actual->hora
+                       << "\\nContenido: " << actual->contenido << "\"];\n";
+
+            // Si hay una siguiente publicación, enlazarlas
+            if (actual->siguiente) {
+                archivoDot << "    \"" << actual->contenido << "\" -> \""
+                           << actual->siguiente->contenido << "\";\n";
+            }
+
+            actual = actual->siguiente;
+        }
+    }
+
+    void generateDotConFecha(const string& fecha) {
+        // Buscar el nodo con la fecha específica
+        shared_ptr<NodoArbol> nodoConFecha = buscarFecha(raiz, fecha);
+
+        if (!nodoConFecha) {
+            cout << "No se encontraron publicaciones para la fecha: " << fecha << endl;
+            return;
+        }
+
+        ofstream archivoDot("reportes/arbolBinarioFecha.dot");
+        archivoDot << "digraph G {\n";
+        archivoDot << "    node [shape=box];\n";  // Usamos cajas para representar las publicaciones
+
+        // Generar los nodos de las publicaciones como una lista simple
+        generarDotDePublicaciones(nodoConFecha, archivoDot);
+
+        archivoDot << "}\n";
+        archivoDot.close();
+
+        // Convertir el archivo DOT en PNG usando Graphviz
+        string comando = "dot -Tpng reportes/arbolBinarioFecha.dot -o reportes/arbolBinarioFecha.png";
+        system(comando.c_str());
+    }
 
 };
 

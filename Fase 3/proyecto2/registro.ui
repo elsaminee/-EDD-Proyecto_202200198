@@ -14,7 +14,7 @@
    <string>Dialog</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(52, 52, 52);</string>
+   <string notr="true">background-color: rgb(71, 71, 71);</string>
   </property>
   <widget class="QLabel" name="label_9">
    <property name="geometry">
@@ -188,6 +188,9 @@
      <width>371</width>
      <height>24</height>
     </rect>
+   </property>
+   <property name="echoMode">
+    <enum>QLineEdit::EchoMode::Password</enum>
    </property>
   </widget>
   <widget class="QLineEdit" name="fechaEdit">

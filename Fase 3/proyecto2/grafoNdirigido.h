@@ -166,6 +166,31 @@ public:
         return sugerencias;  // Retornar las sugerencias ordenadas
     }
 
+    string generarCadenaAmigos() {
+        shared_ptr<NodoAdyacencia> temp = cabeza;
+        string resultadoFinal; // Para almacenar la cadena completa de todos los usuarios y sus amigos
+
+        while (temp) {
+            string resultado = temp->correoUsuario + ":"; // Inicia la cadena con el formato solicitado
+
+            shared_ptr<SubNodoAdyacencia> amigo = temp->listaAmigos;
+            bool esPrimero = true; // Para manejar la coma antes del primer amigo
+            while (amigo) {
+                if (!esPrimero) {
+                    resultado += ",";
+                }
+                resultado += amigo->correoAmigo; // Añade cada amigo separado por una coma
+                esPrimero = false;
+                amigo = amigo->siguiente;
+            }
+
+            resultadoFinal += resultado + "\n"; // Añade la cadena al resultado final con un salto de línea
+            temp = temp->siguiente;
+        }
+
+        return resultadoFinal; // Retorna el resultado completo
+    }
+
     // Método auxiliar para verificar si dos usuarios son amigos directos
     bool esAmigoDirecto(const string& correoUsuario, const string& correoAmigo) {
         shared_ptr<NodoAdyacencia> usuario = buscarNodo(correoUsuario);

@@ -10,6 +10,8 @@
 #include <QPushButton>
 #include <QSet>
 #include "Huffman.h"
+#include <QString>
+#include <QCryptographicHash>
 
 user::user(QWidget *parent, const QString& correo)
     : QDialog(parent)
@@ -61,7 +63,7 @@ void user::on_buscarbtn_clicked()
     }
 }
 
-void guardarDatosComprimidos() {
+void guardarDatosComprimidosUsuarios() {
     Huffman huffman;
     std::stringstream ss;
 
@@ -85,6 +87,81 @@ void guardarDatosComprimidos() {
     outFile.close();
 }
 
+
+void guardarDatosComprimidosAmistades() {
+    Huffman huffman;
+    std::stringstream ss;
+
+    // Obtén la lista de adyacencia
+    AppData& appData = AppData::getInstance();
+    ListaAdyacencia& listaAmistades = appData.getGrafo();
+
+    // Serializar la lista en un string
+    std::string data = listaAmistades.generarCadenaAmigos();
+
+    // Verificar si los datos están vacíos antes de comprimir
+    if (data.empty()) {
+        std::cerr << "Error: No hay datos de amistades para comprimir." << std::endl;
+        return;
+    }
+
+    // Comprimir los datos usando Huffman
+    std::string compressedData = huffman.comprimir(data);
+
+    // Guardar datos comprimidos en un archivo
+    huffman.guardarArchivoComprimido("amistades.edd", compressedData);
+
+    // Guardar los datos no comprimidos para referencia o depuración
+    std::ofstream outFile("amistadesTable.edd", std::ios::binary);
+    if (!outFile) {
+        std::cerr << "Error: No se pudo abrir el archivo para escribir los datos no comprimidos." << std::endl;
+        return;
+    }
+    outFile << data;
+    outFile.close();
+
+    std::cout << "Datos de amistades guardados y comprimidos correctamente." << std::endl;
+}
+
+void guardarDatosComprimidosSolicitudes() {
+    Huffman huffman;
+    std::stringstream ss;
+
+    // Obtén la lista de adyacencia
+    AppData& appData = AppData::getInstance();
+    Stack& solicitudes = appData.getPilaReceptor();
+
+    // Serializar la lista en un string
+    std::string data = solicitudes.generarCadenaEmisorReceptor();
+
+    // Verificar si los datos están vacíos antes de comprimir
+    if (data.empty()) {
+        std::cerr << "Error: No hay datos de amistades para comprimir." << std::endl;
+        return;
+    }
+
+    // Comprimir los datos usando Huffman
+    std::string compressedData = huffman.comprimir(data);
+
+    // Guardar datos comprimidos en un archivo
+    huffman.guardarArchivoComprimido("solicitudes.edd", compressedData);
+
+    // Guardar los datos no comprimidos para referencia o depuración
+    std::ofstream outFile("solicitudesTable.edd", std::ios::binary);
+    if (!outFile) {
+        std::cerr << "Error: No se pudo abrir el archivo para escribir los datos no comprimidos." << std::endl;
+        return;
+    }
+    outFile << data;
+    outFile.close();
+
+    std::cout << "Datos de amistades guardados y comprimidos correctamente." << std::endl;
+}
+
+
+//NO BORRAR ESTOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+//-------------------------------------------------------
+//-------------------------------------------------------
 void user::on_logoutbtn_clicked()
 {
     AppData& appData = AppData::getInstance();
@@ -95,7 +172,9 @@ void user::on_logoutbtn_clicked()
     MainWindow *ventana = new MainWindow(this);
 
     // Mostrar la ventana principal y ocultar la ventana actual
-    guardarDatosComprimidos();
+    guardarDatosComprimidosUsuarios();
+    guardarDatosComprimidosAmistades();
+    guardarDatosComprimidosSolicitudes();
     this->hide();
     ventana->show();
 }
@@ -110,13 +189,17 @@ void user::on_modificarBtn_clicked()
     QString correo = ui->correoEdit->text();
     QString password = ui->passEdit->text();
     QString fecha = ui->fechaEdit->text();
+    QCryptographicHash hash(QCryptographicHash::Sha256);
+    hash.addData(password.toUtf8());
+    QString hashPass = hash.result().toHex();
 
-    usuarios.modifyUser(userCorreo.toStdString(), correo.toStdString(), nombre.toStdString(), apellido.toStdString(), fecha.toStdString(), password.toStdString());
+    usuarios.modifyUser(userCorreo.toStdString(), correo.toStdString(), nombre.toStdString(), apellido.toStdString(), fecha.toStdString(), hashPass.toStdString());
 
     userCorreo = correo;
 
     this->close();
-    guardarDatosComprimidos();
+    guardarDatosComprimidosUsuarios();
+    guardarDatosComprimidosAmistades();
 
     MainWindow *ventana = new MainWindow(this);
     ventana->show();
@@ -171,6 +254,7 @@ void user::on_creaPubliBtn_clicked()
 
 void user::llenarComboBoxConFechas() {
     ui->fechaBox->clear();  // Limpiar las opciones del combo box
+    ui->fechaBox2->clear();
 
     AppData& appData = AppData::getInstance();
     ArbolBinario& arbolBinario = appData.getArbolDePublicaciones();
@@ -184,6 +268,7 @@ void user::llenarComboBoxConFechas() {
     // Agregar las fechas únicas al combo box
     foreach (const QString& fecha, fechasUnicas) {
         ui->fechaBox->addItem(fecha);
+        ui->fechaBox2->addItem(fecha);
     }
 }
 
@@ -319,6 +404,150 @@ void user::mostrarComentariosEnDialog(NodoPublicacion* publicacion) {
 
     dialog->setLayout(layout);
     dialog->exec();  // Abrir la ventana emergente
+}
+
+void user::mostrarTopFechasConMasPublicaciones() {
+    // Variables para almacenar el top 3 de fechas con más publicaciones y sus contadores
+    std::string topFecha1, topFecha2, topFecha3;
+    int topPublicaciones1 = 0, topPublicaciones2 = 0, topPublicaciones3 = 0;
+
+    AppData& appData = AppData::getInstance();
+    ArbolBinario& arbolBinario = appData.getArbolDePublicaciones();
+
+    // Recorrer todas las publicaciones del árbol binario
+    arbolBinario.recorrerPublicaciones([&](const string& fecha, NodoPublicacion* publicacion) {
+        int contador = 0;
+
+        // Contar la cantidad de publicaciones para esta fecha
+        while (publicacion) {
+            contador++;
+            publicacion = publicacion->siguiente;
+        }
+
+        // Comparar y ajustar el top 3
+        if (contador > topPublicaciones1) {
+            // Mover las posiciones hacia abajo
+            topFecha3 = topFecha2;
+            topPublicaciones3 = topPublicaciones2;
+
+            topFecha2 = topFecha1;
+            topPublicaciones2 = topPublicaciones1;
+
+            // Nueva primera posición
+            topFecha1 = fecha;
+            topPublicaciones1 = contador;
+        } else if (contador > topPublicaciones2) {
+            // Mover las posiciones hacia abajo
+            topFecha3 = topFecha2;
+            topPublicaciones3 = topPublicaciones2;
+
+            // Nueva segunda posición
+            topFecha2 = fecha;
+            topPublicaciones2 = contador;
+        } else if (contador > topPublicaciones3) {
+            // Nueva tercera posición
+            topFecha3 = fecha;
+            topPublicaciones3 = contador;
+        }
+    });
+
+    // Limpiar la tabla fechasTable antes de rellenarla
+    ui->fechasTable->setRowCount(3);  // Asegura que haya 3 filas
+    ui->fechasTable->setColumnCount(2);  // Asegura que haya 2 columnas
+    ui->fechasTable->setHorizontalHeaderLabels({"Fecha", "Cantidad de Publicaciones"});
+
+    // Rellenar la tabla fechasTable con el top 3 fechas
+    if (!topFecha1.empty()) {
+        ui->fechasTable->setItem(0, 0, new QTableWidgetItem(QString::fromStdString(topFecha1)));
+        ui->fechasTable->setItem(0, 1, new QTableWidgetItem(QString::number(topPublicaciones1)));
+    }
+    if (!topFecha2.empty()) {
+        ui->fechasTable->setItem(1, 0, new QTableWidgetItem(QString::fromStdString(topFecha2)));
+        ui->fechasTable->setItem(1, 1, new QTableWidgetItem(QString::number(topPublicaciones2)));
+    }
+    if (!topFecha3.empty()) {
+        ui->fechasTable->setItem(2, 0, new QTableWidgetItem(QString::fromStdString(topFecha3)));
+        ui->fechasTable->setItem(2, 1, new QTableWidgetItem(QString::number(topPublicaciones3)));
+    }
+
+    // Si necesitas ajustar el tamaño de las columnas
+    ui->fechasTable->resizeColumnsToContents();
+}
+
+void user::mostrarTopUsuariosConMasComentarios() {
+    // Variables para almacenar el top 3 de usuarios con más comentarios y sus contadores
+    std::string topUsuario1, topUsuario2, topUsuario3;
+    int topComentarios1 = 0, topComentarios2 = 0, topComentarios3 = 0;
+
+    AppData& appData = AppData::getInstance();
+    ArbolBinario& arbolBinario = appData.getArbolDePublicaciones();
+
+    // Recorrer todas las publicaciones del árbol binario para contar los comentarios por usuario
+    arbolBinario.recorrerPublicaciones([&](const string& fecha, NodoPublicacion* publicacion) {
+        while (publicacion) {
+            NodoComentario* comentario = publicacion->commentsHead;
+            std::map<std::string, int> contadorComentariosPorUsuario;
+
+            // Contar comentarios por cada usuario
+            while (comentario) {
+                contadorComentariosPorUsuario[comentario->correo]++;
+                comentario = comentario->siguiente;
+            }
+
+            // Comparar los contadores de cada usuario y ajustar el top 3
+            for (const auto& [usuario, contador] : contadorComentariosPorUsuario) {
+                if (contador > topComentarios1) {
+                    // Mover las posiciones hacia abajo
+                    topUsuario3 = topUsuario2;
+                    topComentarios3 = topComentarios2;
+
+                    topUsuario2 = topUsuario1;
+                    topComentarios2 = topComentarios1;
+
+                    // Nueva primera posición
+                    topUsuario1 = usuario;
+                    topComentarios1 = contador;
+                } else if (contador > topComentarios2) {
+                    // Mover las posiciones hacia abajo
+                    topUsuario3 = topUsuario2;
+                    topComentarios3 = topComentarios2;
+
+                    // Nueva segunda posición
+                    topUsuario2 = usuario;
+                    topComentarios2 = contador;
+                } else if (contador > topComentarios3) {
+                    // Nueva tercera posición
+                    topUsuario3 = usuario;
+                    topComentarios3 = contador;
+                }
+            }
+
+            // Avanzar a la siguiente publicación
+            publicacion = publicacion->siguiente;
+        }
+    });
+
+    // Limpiar la tabla comentariosTable antes de rellenarla
+    ui->comentariosTable->setRowCount(3);  // Asegura que haya 3 filas
+    ui->comentariosTable->setColumnCount(2);  // Asegura que haya 2 columnas
+    ui->comentariosTable->setHorizontalHeaderLabels({"Usuario", "Cantidad de Comentarios"});
+
+    // Rellenar la tabla comentariosTable con el top 3 usuarios
+    if (!topUsuario1.empty()) {
+        ui->comentariosTable->setItem(0, 0, new QTableWidgetItem(QString::fromStdString(topUsuario1)));
+        ui->comentariosTable->setItem(0, 1, new QTableWidgetItem(QString::number(topComentarios1)));
+    }
+    if (!topUsuario2.empty()) {
+        ui->comentariosTable->setItem(1, 0, new QTableWidgetItem(QString::fromStdString(topUsuario2)));
+        ui->comentariosTable->setItem(1, 1, new QTableWidgetItem(QString::number(topComentarios2)));
+    }
+    if (!topUsuario3.empty()) {
+        ui->comentariosTable->setItem(2, 0, new QTableWidgetItem(QString::fromStdString(topUsuario3)));
+        ui->comentariosTable->setItem(2, 1, new QTableWidgetItem(QString::number(topComentarios3)));
+    }
+
+    // Si necesitas ajustar el tamaño de las columnas
+    ui->comentariosTable->resizeColumnsToContents();
 }
 
 // Método para mostrar los usuarios en el QTableWidget
@@ -526,6 +755,8 @@ void user::on_AllPubliBtn_2_clicked()
     appData.getArbolDePublicaciones().eliminarArbol();
     guardarPublicacionesEnArbol();
     mostrarPublicacionesEnScrollArea();
+    mostrarTopFechasConMasPublicaciones();
+    mostrarTopUsuariosConMasComentarios();
 }
 
 // Método para mostrar las publicaciones en el orden seleccionado
@@ -594,4 +825,83 @@ void user::on_recorridoBtn_clicked()
     // Mostrar las publicaciones en el orden seleccionado y cantidad límite
     mostrarPublicacionesConOrden(ordenSeleccionado, cantidadMaxima);
 }
+
+
+void user::on_reporteUser_btn_clicked()
+{
+    AppData& appData = AppData::getInstance();
+    QString fechaSeleccionada = ui->fechaBox2->currentText();  // Obtener la fecha seleccionada
+    if (!fechaSeleccionada.isEmpty()) {
+
+        //Mandar la fecha para hacer el dot
+        //mostrarPublicacionesPorFecha(fechaSeleccionada);
+        qDebug() << fechaSeleccionada;
+        appData.getArbolDePublicaciones().generateDotConFecha(fechaSeleccionada.toStdString());
+    }
+
+
+    // Generar el archivo DOT y convertirlo en imagen PNG
+    appData.getArbolDePublicaciones().generateDot();
+
+
+    QString rutaImagen = QDir::currentPath() + "/reportes/arbolBinarioFecha.png";
+
+    actualizarPanelConImagen(rutaImagen);
+}
+
+void user::on_reporteUser_btn_2_clicked()
+{
+    //Arbol completo de fechas
+    AppData& appData = AppData::getInstance();
+    // Generar el archivo DOT y convertirlo en imagen PNG
+    appData.getArbolDePublicaciones().generateDot();
+
+
+    QString rutaImagen = QDir::currentPath() + "/reportes/arbolBinario.png";
+
+    actualizarPanelConImagen(rutaImagen);
+}
+
+
+void user::actualizarPanelConImagen(const QString& imagePath) {
+    // Obtener el layout existente en el widget "widgetPubli"
+    QLayout* existingLayout = ui->widgetPubli->layout();
+
+    // Si existe un layout previo, eliminar sus elementos pero no el layout completo
+    if (existingLayout) {
+        QLayoutItem* item;
+        while ((item = existingLayout->takeAt(0))) {
+            if (item->widget()) {
+                delete item->widget();  // Eliminar el widget contenido
+            }
+            delete item;  // Eliminar el item
+        }
+    } else {
+        // Si no hay un layout, crear uno nuevo y asignarlo
+        QVBoxLayout* newLayout = new QVBoxLayout();
+        ui->widgetPubli->setLayout(newLayout);
+        existingLayout = newLayout;  // Asignamos el nuevo layout a existingLayout
+    }
+
+    // Crear un QLabel para mostrar la imagen
+    QLabel* imageLabel = new QLabel();
+    QPixmap pixmap(imagePath);
+    if (!pixmap.isNull()) {
+        imageLabel->setPixmap(pixmap);
+        imageLabel->setScaledContents(true);  // Escalar la imagen al tamaño del QLabel
+
+        // Crear el QScrollArea para contener el QLabel
+        QScrollArea* scrollArea = new QScrollArea();
+        scrollArea->setWidgetResizable(true);  // Permitir redimensionar
+        scrollArea->setWidget(imageLabel);     // Asignar el QLabel al scroll area
+
+        // Añadir el scrollArea al layout existente
+        existingLayout->addWidget(scrollArea);
+    } else {
+        qDebug() << "Error: No se pudo cargar la imagen desde la ruta: " << imagePath;
+        QLabel* errorLabel = new QLabel("No se pudo cargar la imagen.");
+        existingLayout->addWidget(errorLabel);
+    }
+}
+
 

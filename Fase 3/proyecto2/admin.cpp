@@ -296,11 +296,15 @@ void admin::mostrarDatosEnTabla() {
                 std::string nuevaFecha = dialog.getFechaNacimiento().toStdString();
                 std::string nuevaPassword = dialog.getPassword().toStdString();
 
+                QCryptographicHash hash(QCryptographicHash::Sha256);
+                hash.addData(nuevaPassword);
+                QString hashPass = hash.result().toHex();
+
                 // Eliminar el nodo original del AVL global
                 appData.getAVLTree().deleteNode(node->email);
 
                 // Insertar el nodo con los nuevos valores en el AVL global
-                appData.getAVLTree().insert(nuevoEmail, nuevoNombre, nuevoApellido, nuevaFecha, nuevaPassword);
+                appData.getAVLTree().insert(nuevoEmail, nuevoNombre, nuevoApellido, nuevaFecha, hashPass.toStdString());
 
                 mostrarDatosEnTabla();  // Reflejar cambios
                 QMessageBox::information(this, "Modificado", "El usuario ha sido modificado con éxito.");

@@ -29,6 +29,8 @@ public:
     void llenarComboBoxConFechas();
     void mostrarPublicacionesPorFecha(const QString& fechaSeleccionada);
     void mostrarPublicacionesConOrden(const QString& orden, int cantidadMaxima);
+    void mostrarTopFechasConMasPublicaciones();
+    void mostrarTopUsuariosConMasComentarios();
 
 
 private slots:
@@ -49,6 +51,12 @@ private slots:
     void on_AllPubliBtn_2_clicked();
 
     void on_recorridoBtn_clicked();
+
+    void on_reporteUser_btn_clicked();
+
+    void actualizarPanelConImagen(const QString& imagePath);
+
+    void on_reporteUser_btn_2_clicked();
 
 private:
     Ui::user *ui;

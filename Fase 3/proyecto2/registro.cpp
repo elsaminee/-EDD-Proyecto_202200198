@@ -3,6 +3,7 @@
 #include "mainwindow.h"
 #include "AppData.h"
 #include <QMessageBox>
+#include <QCryptographicHash>
 
 registro::registro(QWidget *parent)
     : QDialog(parent)
@@ -35,7 +36,11 @@ void registro::on_registrobtn_clicked()
     QString password = ui->passwordEdit->text();
     QString fecha = ui->fechaEdit->text();
 
-    appData.getAVLTree().insert(correo.toStdString(), nombre.toStdString(), apellido.toStdString(), fecha.toStdString(), password.toStdString());
+    QCryptographicHash hash(QCryptographicHash::Sha256);
+    hash.addData(password.toUtf8());
+    QString hashPass = hash.result().toHex();
+
+    appData.getAVLTree().insert(correo.toStdString(), nombre.toStdString(), apellido.toStdString(), fecha.toStdString(), hashPass.toStdString());
     QMessageBox::information(this, "Registro exitoso", "¡" + nombre + "  ha sido registrado correctamente!");
 
 }

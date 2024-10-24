@@ -208,6 +208,19 @@ public:
         string command = "dot -Tpng " + filename + " -o " + filename.substr(0, filename.find_last_of('.')) + ".png";
         system(command.c_str());
     }
+
+    string generarCadenaEmisorReceptor() {
+        string resultado;
+        nodoLista* temp = top;
+
+        // Recorre la pila y construye la cadena con el formato "Emisor:Receptor"
+        while (temp != nullptr) {
+            resultado += temp->emisor + ":" + temp->receptor + "\n";  // Puedes cambiar "\n" por otro separador si lo prefieres
+            temp = temp->next;
+        }
+
+        return resultado;
+    }
 };
 
 #endif // STACK_H

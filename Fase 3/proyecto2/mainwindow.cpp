@@ -21,49 +21,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void cargarDatosDescomprimidos() {
-    Huffman huffman;
 
-
-    AppData& appData = AppData::getInstance();
-    AVL& avl = appData.getAVLTree();
-
-
-    // Intenta descomprimir y muestra posibles errores
-    std::string decompressedData;
-    try {
-        decompressedData = huffman.descomprimirArchivo("tablaUserComprimir.edd");
-        qDebug() << "Descompresión exitosa";
-    } catch (const std::exception& e) {
-        qDebug() << "Excepción durante la descompresión:" << e.what();
-        return;
-    }
-
-    qDebug() << QString::fromStdString(decompressedData);
-
-    std::stringstream ss(decompressedData);
-    std::string line;
-
-    try {
-        while (std::getline(ss, line)) {
-            qDebug() << "Procesando línea:" << QString::fromStdString(line);
-            std::stringstream lineStream(line);
-            std::string email, nombre, apellido, fechaNacimiento, password;
-            if (!std::getline(lineStream, email, ',') ||
-                !std::getline(lineStream, nombre, ',') ||
-                !std::getline(lineStream, apellido, ',') ||
-                !std::getline(lineStream, fechaNacimiento, ',') ||
-                !std::getline(lineStream, password, ',')) {
-                qDebug() << "Error al leer la línea:" << QString::fromStdString(line);
-                continue; // Saltar líneas inválidas
-            }
-            qDebug() << email << "+" << nombre << "+" << apellido << "+" << password;
-            avl.insert(email, nombre, apellido, fechaNacimiento, password);
-        }
-    } catch (const std::exception& e) {
-        qDebug() << "Excepción durante la carga de datos:" << e.what();
-    }
-}
 
 void MainWindow::on_loginbtn_clicked()
 {
@@ -109,6 +67,6 @@ void MainWindow::on_registrobtn_clicked()
 
 void MainWindow::on_serializadoBtn_clicked()
 {
-    cargarDatosDescomprimidos();
+
 }
 

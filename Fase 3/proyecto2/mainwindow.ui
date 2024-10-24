@@ -121,7 +121,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Serializado</string>
+     <string/>
     </property>
    </widget>
   </widget>
