@@ -760,7 +760,6 @@ void user::on_AllPubliBtn_2_clicked()
 }
 
 // Método para mostrar las publicaciones en el orden seleccionado
-// Método para mostrar las publicaciones en el orden seleccionado
 void user::mostrarPublicacionesConOrden(const QString& orden, int cantidadMaxima) {
     QVBoxLayout* layout = new QVBoxLayout();
     AppData& appData = AppData::getInstance();
@@ -812,8 +811,6 @@ void user::mostrarPublicacionesConOrden(const QString& orden, int cantidadMaxima
     ui->scrollPubli->setWidget(contentWidget);
 }
 
-
-
 void user::on_recorridoBtn_clicked()
 {
     // Leer el orden seleccionado en el comboBox
@@ -825,7 +822,6 @@ void user::on_recorridoBtn_clicked()
     // Mostrar las publicaciones en el orden seleccionado y cantidad límite
     mostrarPublicacionesConOrden(ordenSeleccionado, cantidadMaxima);
 }
-
 
 void user::on_reporteUser_btn_clicked()
 {
@@ -861,7 +857,6 @@ void user::on_reporteUser_btn_2_clicked()
 
     actualizarPanelConImagen(rutaImagen);
 }
-
 
 void user::actualizarPanelConImagen(const QString& imagePath) {
     // Obtener el layout existente en el widget "widgetPubli"

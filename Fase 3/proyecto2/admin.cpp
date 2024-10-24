@@ -304,6 +304,7 @@ void admin::mostrarDatosEnTabla() {
                 appData.getAVLTree().deleteNode(node->email);
 
                 // Insertar el nodo con los nuevos valores en el AVL global
+                qDebug () << "Password modificada" << hashPass;
                 appData.getAVLTree().insert(nuevoEmail, nuevoNombre, nuevoApellido, nuevaFecha, hashPass.toStdString());
 
                 mostrarDatosEnTabla();  // Reflejar cambios

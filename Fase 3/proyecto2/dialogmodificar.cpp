@@ -31,7 +31,7 @@ void DialogModificar::setFechaNacimiento(const QString &fecha) {
 }
 
 void DialogModificar::setPassword(const QString &password) {
-    ui->lineEditPassword->setText(password);
+    ui->lineEditPassword->setText("password");
 }
 
 // Getters
@@ -53,4 +53,5 @@ QString DialogModificar::getFechaNacimiento() const {
 
 QString DialogModificar::getPassword() const {
     return ui->lineEditPassword->text();
+
 }
