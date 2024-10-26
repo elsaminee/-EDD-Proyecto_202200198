@@ -1,0 +1,19 @@
+{
+  "INDEX": 7,
+  "TIMESTAMP": "25-10-2024::22:19:03",
+  "NONCE": "78412",
+   "DATA": [{
+"correo": "mr@example.com",
+"contenido": "Una nueva aventura comienza, emocionado por lo que viene.",
+"fecha": "19/08/2024",
+"hora": "08:50",
+"imagen": "",
+"comentarios": [{
+"correo": "f2@gmail.com",
+"comentario": "¡Mucha suerte con tu nueva aventura, seguro será increíble!"
+}
+]
+}],
+  "PREVIOUSHASH": "0000154bc034fa10ae521ed71a1ae1a709eea3e40e6bb889e941650d38a87253",
+  "HASH": "000060bc6bac20d32d0a7a86b4dc96161149075158a54e96eda95741e06bb6bb"
+}

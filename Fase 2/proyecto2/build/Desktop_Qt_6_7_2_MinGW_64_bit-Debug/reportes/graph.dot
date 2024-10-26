@@ -1,0 +1,22 @@
+graph G {
+"jm@example.com" -- "f2@gmail.com";
+"jm@example.com" -- "et@example.com";
+"f2@gmail.com" -- "jm@example.com";
+"f2@gmail.com" -- "jg@example.com";
+"f2@gmail.com" -- "mr@example.com";
+"f2@gmail.com" -- "sg@example.com";
+"f2@gmail.com" -- "ah@example.com";
+"f2@gmail.com" -- "ml@example.com";
+"f2@gmail.com" -- "lp@example.com";
+"f2@gmail.com" -- "cg@example.com";
+"et@example.com" -- "jm@example.com";
+"jg@example.com" -- "f2@gmail.com";
+"mr@example.com" -- "f2@gmail.com";
+"sg@example.com" -- "f2@gmail.com";
+"ah@example.com" -- "f2@gmail.com";
+"ah@example.com" -- "cg@example.com";
+"ml@example.com" -- "f2@gmail.com";
+"lp@example.com" -- "f2@gmail.com";
+"cg@example.com" -- "f2@gmail.com";
+"cg@example.com" -- "ah@example.com";
+}

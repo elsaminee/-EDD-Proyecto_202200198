@@ -1,0 +1,82 @@
+digraph G {
+  node [shape=record];
+ rankdir=LR  block1 [label="INDEX: 1 | TIMESTAMP: 25-10-2024::22:19:01 | NONCE:  11835 \n \n HASH: 0000109187c786cad4487d45d1286e0286cf6af81785c4f175e0fe9eafc044c5\n \n  PREVIOUSHASH: 0000 |  Correo: cg@example.com \n \n Contenido: Disfrutando de un día soleado en la playa, la vida es mejor con arena y mar. 
+ 
+ Comentarios: []  ]"];
+  block2 [label="INDEX: 2 | TIMESTAMP: 25-10-2024::22:19:01 | NONCE:  8791 \n \n HASH: 00009454cca2eba8e315ca9476e5b68e3a43cc09505963a013c21c410f28e068\n \n  PREVIOUSHASH: 0000109187c786cad4487d45d1286e0286cf6af81785c4f175e0fe9eafc044c5 |  Correo: ml@example.com \n \n Contenido: Hoy aprendí algo nuevo, siempre es bueno salir de la zona de confort. 
+ 
+ Comentarios: []  ]"];
+  block1 -> block2;
+  block3 [label="INDEX: 3 | TIMESTAMP: 25-10-2024::22:19:01 | NONCE:  97333 \n \n HASH: 0000fc1c6f56caa30c4f21f880027cd3daaaec8812afafd1b1d6eec6906fe986\n \n  PREVIOUSHASH: 00009454cca2eba8e315ca9476e5b68e3a43cc09505963a013c21c410f28e068 |  Correo: jm@example.com \n \n Contenido: El café de la mañana nunca decepciona, ¡energía pura para el día! 
+ 
+ Comentarios: [ Correo: f2@gmail.com | Comentario: Totalmente de acuerdo, el café siempre ayuda a empezar bien el día.  Correo: jm@example.com | Comentario: Definitivamente, ¡no hay nada como una buena taza de café!  Correo: jm@example.com | Comentario: El café me ayuda a concentrarme en mis tareas.  Correo: f2@gmail.com | Comentario: Cada mañana, el café es un ritual que no puedo saltar.  Correo: jm@example.com | Comentario: Siempre estoy buscando nuevas variedades de café para probar. ]  ]"];
+  block2 -> block3;
+  block4 [label="INDEX: 4 | TIMESTAMP: 25-10-2024::22:19:02 | NONCE:  262712 \n \n HASH: 0000d84fcbc0b345d62fef34da343f58238719ebe41cbcdbd7f36cc4c4954848\n \n  PREVIOUSHASH: 0000fc1c6f56caa30c4f21f880027cd3daaaec8812afafd1b1d6eec6906fe986 |  Correo: ah@example.com \n \n Contenido: Los atardeceres en la ciudad son simplemente mágicos, me encanta. 
+ 
+ Comentarios: []  ]"];
+  block3 -> block4;
+  block5 [label="INDEX: 5 | TIMESTAMP: 25-10-2024::22:19:02 | NONCE:  74070 \n \n HASH: 0000f9b2ba26b5df300175edb8ad7f55fd4d192a082aab86172c566c3cfbeac0\n \n  PREVIOUSHASH: 0000d84fcbc0b345d62fef34da343f58238719ebe41cbcdbd7f36cc4c4954848 |  Correo: lp@example.com \n \n Contenido: Día perfecto para una caminata por el parque, disfrutando de la naturaleza. 
+ 
+ Comentarios: []  ]"];
+  block4 -> block5;
+  block6 [label="INDEX: 6 | TIMESTAMP: 25-10-2024::22:19:03 | NONCE:  40612 \n \n HASH: 0000154bc034fa10ae521ed71a1ae1a709eea3e40e6bb889e941650d38a87253\n \n  PREVIOUSHASH: 0000f9b2ba26b5df300175edb8ad7f55fd4d192a082aab86172c566c3cfbeac0 |  Correo: jg@example.com \n \n Contenido: La lectura de un buen libro puede cambiar tu perspectiva del mundo. 
+ 
+ Comentarios: [ Correo: f2@gmail.com | Comentario: Leer siempre nos transporta a otros mundos, qué bueno que lo disfrutas. ]  ]"];
+  block5 -> block6;
+  block7 [label="INDEX: 7 | TIMESTAMP: 25-10-2024::22:19:03 | NONCE:  78412 \n \n HASH: 000060bc6bac20d32d0a7a86b4dc96161149075158a54e96eda95741e06bb6bb\n \n  PREVIOUSHASH: 0000154bc034fa10ae521ed71a1ae1a709eea3e40e6bb889e941650d38a87253 |  Correo: mr@example.com \n \n Contenido: Una nueva aventura comienza, emocionado por lo que viene. 
+ 
+ Comentarios: [ Correo: f2@gmail.com | Comentario: ¡Mucha suerte con tu nueva aventura, seguro será increíble! ]  ]"];
+  block6 -> block7;
+  block8 [label="INDEX: 8 | TIMESTAMP: 25-10-2024::22:19:03 | NONCE:  17395 \n \n HASH: 0000f7bbb2839937dfed78cce7fc217e39a2331bc10356ccf7006f98a914ebea\n \n  PREVIOUSHASH: 000060bc6bac20d32d0a7a86b4dc96161149075158a54e96eda95741e06bb6bb |  Correo: sg@example.com \n \n Contenido: La música siempre encuentra la manera de alegrar mi día. 
+ 
+ Comentarios: [ Correo: f2@gmail.com | Comentario: La música es el mejor compañero, siempre está ahí para levantarnos el ánimo.  Correo: sg@example.com | Comentario: No puedo pasar un día sin música, es esencial para mí.  Correo: sg@example.com | Comentario: A veces, una buena canción puede cambiar todo mi día.  Correo: f2@gmail.com | Comentario: Definitivamente, la música tiene un poder especial.  Correo: sg@example.com | Comentario: Me encanta descubrir nuevos artistas y canciones. ]  ]"];
+  block7 -> block8;
+  block9 [label="INDEX: 9 | TIMESTAMP: 25-10-2024::22:19:03 | NONCE:  268192 \n \n HASH: 000056229cdb3f190a7972686b6c51f36ada275f8dfeb4eb8cf88f8572750eb4\n \n  PREVIOUSHASH: 0000f7bbb2839937dfed78cce7fc217e39a2331bc10356ccf7006f98a914ebea |  Correo: cg@example.com \n \n Contenido: El deporte me mantiene enfocado y lleno de energía, nunca lo dejaré. 
+ 
+ Comentarios: []  ]"];
+  block8 -> block9;
+  block10 [label="INDEX: 10 | TIMESTAMP: 25-10-2024::22:19:04 | NONCE:  19900 \n \n HASH: 0000f411cb3ec593f4cf6078c7aca971282b5f635a96f09834189f88bdb1ef26\n \n  PREVIOUSHASH: 000056229cdb3f190a7972686b6c51f36ada275f8dfeb4eb8cf88f8572750eb4 |  Correo: ml@example.com \n \n Contenido: El arte es una expresión del alma, cada cuadro cuenta una historia. 
+ 
+ Comentarios: []  ]"];
+  block9 -> block10;
+  block11 [label="INDEX: 11 | TIMESTAMP: 25-10-2024::22:19:04 | NONCE:  167485 \n \n HASH: 0000bf1e5a7e13a9fac8c02ed5669c1ba41891ac14260b7e5a524dddbf9f947f\n \n  PREVIOUSHASH: 0000f411cb3ec593f4cf6078c7aca971282b5f635a96f09834189f88bdb1ef26 |  Correo: jm@example.com \n \n Contenido: A veces solo necesitas una taza de té y un buen libro. 
+ 
+ Comentarios: [ Correo: f2@gmail.com | Comentario: Un buen libro y té, la combinación perfecta para relajarse. ]  ]"];
+  block10 -> block11;
+  block12 [label="INDEX: 12 | TIMESTAMP: 25-10-2024::22:19:04 | NONCE:  2148 \n \n HASH: 0000bc0be987acbe447ab55c57e796d89757c0817ca7bb9d42d1f13ff91e8afe\n \n  PREVIOUSHASH: 0000bf1e5a7e13a9fac8c02ed5669c1ba41891ac14260b7e5a524dddbf9f947f |  Correo: ah@example.com \n \n Contenido: Recordando viejos tiempos con amigos, esas memorias nunca se olvidan. 
+ 
+ Comentarios: []  ]"];
+  block11 -> block12;
+  block13 [label="INDEX: 13 | TIMESTAMP: 25-10-2024::22:19:04 | NONCE:  8544 \n \n HASH: 000099e3e160e3aef86a7acefbe02c136f3dfb5f9dbd5081013ee9b4983d64dd\n \n  PREVIOUSHASH: 0000bc0be987acbe447ab55c57e796d89757c0817ca7bb9d42d1f13ff91e8afe |  Correo: lp@example.com \n \n Contenido: El ejercicio diario es clave para una vida saludable, nunca lo dudes. 
+ 
+ Comentarios: []  ]"];
+  block12 -> block13;
+  block14 [label="INDEX: 14 | TIMESTAMP: 25-10-2024::22:19:04 | NONCE:  138510 \n \n HASH: 00007888bd9a5ced0709f44020d0e230496b5397f96105f79bc4c061a3e6ca06\n \n  PREVIOUSHASH: 000099e3e160e3aef86a7acefbe02c136f3dfb5f9dbd5081013ee9b4983d64dd |  Correo: lr@example.com \n \n Contenido: La naturaleza siempre tiene una forma de sorprendernos, es increíble. 
+ 
+ Comentarios: []  ]"];
+  block13 -> block14;
+  block15 [label="INDEX: 15 | TIMESTAMP: 25-10-2024::22:19:05 | NONCE:  21348 \n \n HASH: 0000d706f0c125f6e18d58d114c824ece9cde5f2307fb957ed9d2a85af075f82\n \n  PREVIOUSHASH: 00007888bd9a5ced0709f44020d0e230496b5397f96105f79bc4c061a3e6ca06 |  Correo: jg@example.com \n \n Contenido: La familia es lo más importante, siempre agradecido por ellos. 
+ 
+ Comentarios: []  ]"];
+  block14 -> block15;
+  block16 [label="INDEX: 16 | TIMESTAMP: 25-10-2024::22:19:05 | NONCE:  117987 \n \n HASH: 000014628fce9212cda366c1bc8af916003c647d0b035283fd4baa5d9247d38f\n \n  PREVIOUSHASH: 0000d706f0c125f6e18d58d114c824ece9cde5f2307fb957ed9d2a85af075f82 |  Correo: et@example.com \n \n Contenido: Los pequeños detalles hacen la diferencia, siempre presta atención. 
+ 
+ Comentarios: []  ]"];
+  block15 -> block16;
+  block17 [label="INDEX: 17 | TIMESTAMP: 25-10-2024::22:19:05 | NONCE:  25221 \n \n HASH: 00003afe23f788700e0d258a8df2d7868082405be202905152a7980133b91b9d\n \n  PREVIOUSHASH: 000014628fce9212cda366c1bc8af916003c647d0b035283fd4baa5d9247d38f |  Correo: mr@example.com \n \n Contenido: El camino hacia el éxito está lleno de retos, pero vale la pena. 
+ 
+ Comentarios: []  ]"];
+  block16 -> block17;
+  block18 [label="INDEX: 18 | TIMESTAMP: 25-10-2024::22:19:05 | NONCE:  48883 \n \n HASH: 00008212a3e9ac57a9948d068e197f19257e1f724c0ebcdac97a034d03664ab6\n \n  PREVIOUSHASH: 00003afe23f788700e0d258a8df2d7868082405be202905152a7980133b91b9d |  Correo: sg@example.com \n \n Contenido: Las sonrisas sinceras son el mejor regalo que puedes dar. 
+ 
+ Comentarios: []  ]"];
+  block17 -> block18;
+  block19 [label="INDEX: 19 | TIMESTAMP: 25-10-2024::22:19:05 | NONCE:  3472 \n \n HASH: 000015da0b53732eef113a136afbff8aa16a5f93949c9889cfb8124d377a6795\n \n  PREVIOUSHASH: 00008212a3e9ac57a9948d068e197f19257e1f724c0ebcdac97a034d03664ab6 |  Correo: f2@gmail.com \n \n Contenido: Primer día usando esta plataforma, ¡emocionado por lo que viene! 
+ 
+ Comentarios: []  ]"];
+  block18 -> block19;
+  block20 [label="INDEX: 20 | TIMESTAMP: 25-10-2024::22:19:05 | NONCE:  254712 \n \n HASH: 0000bcf9279b825b3b1cf43c892a790e281653b40e3fb734d49eae554835d8d1\n \n  PREVIOUSHASH: 000015da0b53732eef113a136afbff8aa16a5f93949c9889cfb8124d377a6795 |  Correo: f2@gmail.com \n \n Contenido: Explorando nuevas funcionalidades, la tecnología nunca deja de sorprenderme. 
+ 
+ Comentarios: []  ]"];
+  block19 -> block20;
+}

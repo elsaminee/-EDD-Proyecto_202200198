@@ -38,6 +38,12 @@ private slots:
     void on_reporteAdminbtn_clicked();
 
     void actualizarPanelConImagen(const QString& imagePath);
+    void ImagenAdyacencia(const QString& imagePath);
+    void ImagenGrafo(const QString& imagePath);
+    void ImagenBlockChain(const QString& imagePath);
+    void graficarBlockchainAdmin();
+
+    void on_nuevoReporteBtn_clicked();
 
 private:
     Ui::admin *ui;

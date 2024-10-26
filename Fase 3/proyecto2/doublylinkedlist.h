@@ -9,6 +9,7 @@
 #include <QDir>
 #include <fstream>
 #include "arbolBinario.h"
+#include "blockchain.h"
 
 using namespace std;
 
@@ -97,6 +98,10 @@ public:
 
     int getNextId() const {
         return nextId;
+    }
+
+    node_publi* getHead() const {
+        return head;
     }
 
     // Método para añadir una publicación
@@ -238,6 +243,77 @@ public:
             }
             current = current->next; // Avanzar a la siguiente publicación
         }
+    }
+
+    string getDataFromDoublyLinkedList(DoublyLinkedList& list) {
+        stringstream dataStream;
+        dataStream << "[";
+        node_publi* current = list.getHead();
+        while (current != nullptr) {
+            dataStream << "{"
+                       << "\"correo\":\"" << current->correo << "\","
+                       << "\"contenido\":\"" << current->contenido_correo << "\","
+                       << "\"fecha\":\"" << current->fecha << "\","
+                       << "\"hora\":\"" << current->hora << "\","
+                       << "\"comentarios\":[";
+
+            node_comment* commentCurrent = current->commentsHead;
+            while (commentCurrent != nullptr) {
+                dataStream << "{"
+                           << "\"correo\":\"" << commentCurrent->correo << "\","
+                           << "\"comentario\":\"" << commentCurrent->comentario << "\""
+                           << "}";
+                commentCurrent = commentCurrent->next;
+                if (commentCurrent != nullptr) dataStream << ",";
+            }
+            dataStream << "]}";
+            current = current->next;
+            if (current != nullptr) dataStream << ",";
+        }
+        dataStream << "]";
+        return dataStream.str();
+    }
+
+    void sendToBlockchain(DoublyLinkedList& list) {
+        Blockchain blockchain(4);
+        node_publi* current = list.getHead();
+
+        while (current != nullptr) {
+            // Crear una cadena para los datos de la publicación en formato de llaves
+            string dataString = std::string("\"DATA\": [{\n")
+                                + "\"correo\": \"" + current->correo + "\",\n"
+                                + "\"contenido\": \"" + current->contenido_correo + "\",\n"
+                                + "\"fecha\": \"" + current->fecha + "\",\n"
+                                + "\"hora\": \"" + current->hora + "\",\n"
+                                + "\"imagen\": \"" + current->imagenPath + "\",\n"
+                                + "\"comentarios\": [";
+
+            // Recorrer los comentarios y añadirlos a la cadena
+            node_comment* commentCurrent = current->commentsHead;
+            while (commentCurrent != nullptr) {
+                dataString += std::string("{\n")
+                              + "\"correo\": \"" + commentCurrent->correo + "\",\n"
+                              + "\"comentario\": \"" + commentCurrent->comentario + "\"\n"
+                              + "}\n";
+                commentCurrent = commentCurrent->next;
+                if (commentCurrent != nullptr) {
+                    dataString += ",";  // Añadir coma entre comentarios
+                }
+            }
+
+            // Cerrar la estructura de comentarios y la publicación
+            dataString += "]\n}]";
+
+            qDebug() << "Enviando a Blockchain:\n" << QString::fromStdString(dataString);
+
+            // Crear un bloque en la blockchain con la cadena de datos
+            blockchain.createNewBlock(dataString);
+
+            // Pasar al siguiente nodo en la lista
+            current = current->next;
+        }
+
+        qDebug() << "Fin del envío a la Blockchain.";
     }
 };
 

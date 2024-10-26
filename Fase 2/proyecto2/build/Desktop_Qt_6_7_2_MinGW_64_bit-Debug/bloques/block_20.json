@@ -1,0 +1,15 @@
+{
+  "INDEX": 20,
+  "TIMESTAMP": "25-10-2024::22:19:05",
+  "NONCE": "254712",
+   "DATA": [{
+"correo": "f2@gmail.com",
+"contenido": "Explorando nuevas funcionalidades, la tecnología nunca deja de sorprenderme.",
+"fecha": "22/08/2024",
+"hora": "14:15",
+"imagen": "",
+"comentarios": []
+}],
+  "PREVIOUSHASH": "000015da0b53732eef113a136afbff8aa16a5f93949c9889cfb8124d377a6795",
+  "HASH": "0000bcf9279b825b3b1cf43c892a790e281653b40e3fb734d49eae554835d8d1"
+}

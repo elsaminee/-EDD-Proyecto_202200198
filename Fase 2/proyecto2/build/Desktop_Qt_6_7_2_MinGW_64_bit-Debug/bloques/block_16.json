@@ -1,0 +1,15 @@
+{
+  "INDEX": 16,
+  "TIMESTAMP": "25-10-2024::22:19:05",
+  "NONCE": "117987",
+   "DATA": [{
+"correo": "et@example.com",
+"contenido": "Los pequeños detalles hacen la diferencia, siempre presta atención.",
+"fecha": "13/08/2024",
+"hora": "22:45",
+"imagen": "",
+"comentarios": []
+}],
+  "PREVIOUSHASH": "0000d706f0c125f6e18d58d114c824ece9cde5f2307fb957ed9d2a85af075f82",
+  "HASH": "000014628fce9212cda366c1bc8af916003c647d0b035283fd4baa5d9247d38f"
+}

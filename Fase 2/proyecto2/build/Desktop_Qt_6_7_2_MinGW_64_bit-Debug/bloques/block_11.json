@@ -1,0 +1,19 @@
+{
+  "INDEX": 11,
+  "TIMESTAMP": "25-10-2024::22:19:04",
+  "NONCE": "167485",
+   "DATA": [{
+"correo": "jm@example.com",
+"contenido": "A veces solo necesitas una taza de té y un buen libro.",
+"fecha": "21/08/2024",
+"hora": "20:30",
+"imagen": "",
+"comentarios": [{
+"correo": "f2@gmail.com",
+"comentario": "Un buen libro y té, la combinación perfecta para relajarse."
+}
+]
+}],
+  "PREVIOUSHASH": "0000f411cb3ec593f4cf6078c7aca971282b5f635a96f09834189f88bdb1ef26",
+  "HASH": "0000bf1e5a7e13a9fac8c02ed5669c1ba41891ac14260b7e5a524dddbf9f947f"
+}

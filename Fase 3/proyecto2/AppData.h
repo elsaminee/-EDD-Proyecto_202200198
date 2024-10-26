@@ -8,6 +8,7 @@
 #include "listaSimple.h"
 #include "arbolBinario.h"
 #include "grafoNdirigido.h"
+#include "blockchain.h"
 
 
 class AppData {
@@ -18,6 +19,8 @@ private:
     ListaAmistad listaEmisor;
     ListaAdyacencia grafo;
     ArbolBinario arbolesDePublicaciones;
+
+
 
 
 

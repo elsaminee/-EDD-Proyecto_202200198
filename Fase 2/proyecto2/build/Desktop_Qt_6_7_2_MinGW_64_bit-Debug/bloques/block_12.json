@@ -1,0 +1,15 @@
+{
+  "INDEX": 12,
+  "TIMESTAMP": "25-10-2024::22:19:04",
+  "NONCE": "2148",
+   "DATA": [{
+"correo": "ah@example.com",
+"contenido": "Recordando viejos tiempos con amigos, esas memorias nunca se olvidan.",
+"fecha": "12/08/2024",
+"hora": "21:05",
+"imagen": "",
+"comentarios": []
+}],
+  "PREVIOUSHASH": "0000bf1e5a7e13a9fac8c02ed5669c1ba41891ac14260b7e5a524dddbf9f947f",
+  "HASH": "0000bc0be987acbe447ab55c57e796d89757c0817ca7bb9d42d1f13ff91e8afe"
+}

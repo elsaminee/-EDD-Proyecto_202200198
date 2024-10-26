@@ -1,0 +1,15 @@
+{
+  "INDEX": 19,
+  "TIMESTAMP": "25-10-2024::22:19:05",
+  "NONCE": "3472",
+   "DATA": [{
+"correo": "f2@gmail.com",
+"contenido": "Primer día usando esta plataforma, ¡emocionado por lo que viene!",
+"fecha": "21/08/2024",
+"hora": "10:05",
+"imagen": "",
+"comentarios": []
+}],
+  "PREVIOUSHASH": "00008212a3e9ac57a9948d068e197f19257e1f724c0ebcdac97a034d03664ab6",
+  "HASH": "000015da0b53732eef113a136afbff8aa16a5f93949c9889cfb8124d377a6795"
+}

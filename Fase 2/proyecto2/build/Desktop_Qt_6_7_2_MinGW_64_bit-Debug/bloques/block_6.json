@@ -1,0 +1,19 @@
+{
+  "INDEX": 6,
+  "TIMESTAMP": "25-10-2024::22:19:03",
+  "NONCE": "40612",
+   "DATA": [{
+"correo": "jg@example.com",
+"contenido": "La lectura de un buen libro puede cambiar tu perspectiva del mundo.",
+"fecha": "20/08/2024",
+"hora": "16:45",
+"imagen": "",
+"comentarios": [{
+"correo": "f2@gmail.com",
+"comentario": "Leer siempre nos transporta a otros mundos, qué bueno que lo disfrutas."
+}
+]
+}],
+  "PREVIOUSHASH": "0000f9b2ba26b5df300175edb8ad7f55fd4d192a082aab86172c566c3cfbeac0",
+  "HASH": "0000154bc034fa10ae521ed71a1ae1a709eea3e40e6bb889e941650d38a87253"
+}

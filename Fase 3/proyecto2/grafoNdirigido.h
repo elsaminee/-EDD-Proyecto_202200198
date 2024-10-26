@@ -105,6 +105,16 @@ public:
             actual = actual->siguiente;
         }
     }
+
+    string obtenerSugerencias() {
+        string resultado;
+        NodoSugerencia* actual = head;
+        while (actual) {
+            resultado += "Correo: " + actual->email + " | Amigos en común: " + to_string(actual->amigosEnComun) + "\n";
+            actual = actual->siguiente;
+        }
+        return resultado;
+    }
 };
 
 class ListaAdyacencia {
@@ -277,7 +287,7 @@ public:
 
     // Método para generar el grafo en formato dot y convertirlo en una imagen
     void graph() {
-        ofstream file("graph.dot");
+        ofstream file("reportes/graph.dot");
 
         file << "graph G {" << endl;  // Usamos graph en lugar de digraph para un grafo no dirigido
 
@@ -296,7 +306,7 @@ public:
         file.close();
 
         // Convertir el archivo .dot en una imagen .png
-        string command = "dot -Tpng graph.dot -o graph.png";
+        string command = "dot -Tpng reportes/graph.dot -o reportes/graph.png";
         if (system(command.c_str()) == 0) {
             cout << "Graph created successfully" << endl;
         } else {
@@ -305,7 +315,7 @@ public:
     }
 
     void graph_listaEnlazada() {
-        ofstream file("graph_lista_enlazada.dot");
+        ofstream file("reportes/graph_lista_enlazada.dot");
 
         // Iniciar la definición del grafo con rankdir=LR para un flujo de izquierda a derecha
         file << "digraph G {" << endl;
@@ -354,11 +364,59 @@ public:
         file.close();
 
         // Convertir el archivo .dot en una imagen .png
-        string command = "dot -Tpng graph_lista_enlazada.dot -o graph_lista_enlazada.png";
+        string command = "dot -Tpng reportes/graph_lista_enlazada.dot -o reportes/graph_lista_enlazada.png";
         if (system(command.c_str()) == 0) {
             cout << "Lista enlazada creada exitosamente" << endl;
         } else {
             cout << "Error al crear la lista enlazada" << endl;
+        }
+    }
+
+    void graph_user(const string& correoUsuario) {
+        shared_ptr<NodoAdyacencia> usuario = buscarNodo(correoUsuario);
+        if (!usuario) {
+            cout << "Usuario no encontrado." << endl;
+            return;
+        }
+
+        ofstream file("reportes/graph_usuario.dot");
+
+        file << "graph G {" << endl;
+        file << "node [style=filled, fontcolor=black, fontsize=12];" << endl;
+
+        // Colores: azul para el usuario principal, verde para amigos, y amarillo para amigos de amigos
+        file << "\"" << correoUsuario << "\" [color=blue, fillcolor=lightblue, shape=circle, style=filled];" << endl;
+
+        // Paso 1: Agregar los amigos directos (color verde)
+        shared_ptr<SubNodoAdyacencia> amigosUsuario = usuario->listaAmigos;
+        while (amigosUsuario) {
+            file << "\"" << amigosUsuario->correoAmigo << "\" [color=green, fillcolor=lightgreen, shape=circle, style=filled];" << endl;
+            file << "\"" << correoUsuario << "\" -- \"" << amigosUsuario->correoAmigo << "\";" << endl;
+
+            // Paso 2: Agregar amigos de los amigos (sugerencias en amarillo)
+            shared_ptr<NodoAdyacencia> amigoNodo = buscarNodo(amigosUsuario->correoAmigo);
+            if (amigoNodo) {
+                shared_ptr<SubNodoAdyacencia> amigosDeAmigo = amigoNodo->listaAmigos;
+                while (amigosDeAmigo) {
+                    if (amigosDeAmigo->correoAmigo != correoUsuario && !esAmigoDirecto(correoUsuario, amigosDeAmigo->correoAmigo)) {
+                        file << "\"" << amigosDeAmigo->correoAmigo << "\" [color=orange, fillcolor=yellow, shape=circle, style=filled];" << endl;
+                        file << "\"" << amigosUsuario->correoAmigo << "\" -- \"" << amigosDeAmigo->correoAmigo << "\";" << endl;
+                    }
+                    amigosDeAmigo = amigosDeAmigo->siguiente;
+                }
+            }
+            amigosUsuario = amigosUsuario->siguiente;
+        }
+
+        file << "}" << endl;
+        file.close();
+
+        // Convertir el archivo .dot en una imagen .png
+        string command = "dot -Tpng reportes/graph_usuario.dot -o reportes/graph_usuario.png";
+        if (system(command.c_str()) == 0) {
+            cout << "Graph created successfully for " << correoUsuario << endl;
+        } else {
+            cout << "Error creating graph" << endl;
         }
     }
 };

@@ -1,0 +1,15 @@
+{
+  "INDEX": 18,
+  "TIMESTAMP": "25-10-2024::22:19:05",
+  "NONCE": "48883",
+   "DATA": [{
+"correo": "sg@example.com",
+"contenido": "Las sonrisas sinceras son el mejor regalo que puedes dar.",
+"fecha": "18/08/2024",
+"hora": "09:30",
+"imagen": "",
+"comentarios": []
+}],
+  "PREVIOUSHASH": "00003afe23f788700e0d258a8df2d7868082405be202905152a7980133b91b9d",
+  "HASH": "00008212a3e9ac57a9948d068e197f19257e1f724c0ebcdac97a034d03664ab6"
+}

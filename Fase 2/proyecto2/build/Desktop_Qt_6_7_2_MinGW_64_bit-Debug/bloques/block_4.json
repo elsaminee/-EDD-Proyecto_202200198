@@ -1,0 +1,15 @@
+{
+  "INDEX": 4,
+  "TIMESTAMP": "25-10-2024::22:19:02",
+  "NONCE": "262712",
+   "DATA": [{
+"correo": "ah@example.com",
+"contenido": "Los atardeceres en la ciudad son simplemente mágicos, me encanta.",
+"fecha": "13/08/2024",
+"hora": "18:12",
+"imagen": "",
+"comentarios": []
+}],
+  "PREVIOUSHASH": "0000fc1c6f56caa30c4f21f880027cd3daaaec8812afafd1b1d6eec6906fe986",
+  "HASH": "0000d84fcbc0b345d62fef34da343f58238719ebe41cbcdbd7f36cc4c4954848"
+}

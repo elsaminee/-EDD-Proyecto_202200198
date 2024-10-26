@@ -1,0 +1,15 @@
+{
+  "INDEX": 2,
+  "TIMESTAMP": "25-10-2024::22:19:01",
+  "NONCE": "8791",
+   "DATA": [{
+"correo": "ml@example.com",
+"contenido": "Hoy aprendí algo nuevo, siempre es bueno salir de la zona de confort.",
+"fecha": "11/08/2024",
+"hora": "09:45",
+"imagen": "",
+"comentarios": []
+}],
+  "PREVIOUSHASH": "0000109187c786cad4487d45d1286e0286cf6af81785c4f175e0fe9eafc044c5",
+  "HASH": "00009454cca2eba8e315ca9476e5b68e3a43cc09505963a013c21c410f28e068"
+}

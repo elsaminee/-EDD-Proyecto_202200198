@@ -1,6 +1,4 @@
 digraph G {
     node [shape=box];
-    "Las sonrisas sinceras son el mejor regalo que puedes dar." [label="Correo: sg@example.com\nHora: 09:30\nContenido: Las sonrisas sinceras son el mejor regalo que puedes dar."];
-    "Las sonrisas sinceras son el mejor regalo que puedes dar." -> "La música siempre encuentra la manera de alegrar mi día.";
-    "La música siempre encuentra la manera de alegrar mi día." [label="Correo: sg@example.com\nHora: 17:15\nContenido: La música siempre encuentra la manera de alegrar mi día."];
+    "El ejercicio diario es clave para una vida saludable, nunca lo dudes." [label="Correo: lp@example.com\nHora: 06:15\nContenido: El ejercicio diario es clave para una vida saludable, nunca lo dudes."];
 }

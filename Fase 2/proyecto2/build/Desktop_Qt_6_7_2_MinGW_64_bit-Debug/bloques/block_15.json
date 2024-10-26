@@ -1,0 +1,15 @@
+{
+  "INDEX": 15,
+  "TIMESTAMP": "25-10-2024::22:19:05",
+  "NONCE": "21348",
+   "DATA": [{
+"correo": "jg@example.com",
+"contenido": "La familia es lo más importante, siempre agradecido por ellos.",
+"fecha": "11/08/2024",
+"hora": "12:10",
+"imagen": "",
+"comentarios": []
+}],
+  "PREVIOUSHASH": "00007888bd9a5ced0709f44020d0e230496b5397f96105f79bc4c061a3e6ca06",
+  "HASH": "0000d706f0c125f6e18d58d114c824ece9cde5f2307fb957ed9d2a85af075f82"
+}

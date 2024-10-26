@@ -1,0 +1,15 @@
+{
+  "INDEX": 14,
+  "TIMESTAMP": "25-10-2024::22:19:04",
+  "NONCE": "138510",
+   "DATA": [{
+"correo": "lr@example.com",
+"contenido": "La naturaleza siempre tiene una forma de sorprendernos, es increíble.",
+"fecha": "20/08/2024",
+"hora": "18:30",
+"imagen": "",
+"comentarios": []
+}],
+  "PREVIOUSHASH": "000099e3e160e3aef86a7acefbe02c136f3dfb5f9dbd5081013ee9b4983d64dd",
+  "HASH": "00007888bd9a5ced0709f44020d0e230496b5397f96105f79bc4c061a3e6ca06"
+}

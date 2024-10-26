@@ -1,0 +1,15 @@
+{
+  "INDEX": 1,
+  "TIMESTAMP": "25-10-2024::22:19:01",
+  "NONCE": "11835",
+   "DATA": [{
+"correo": "cg@example.com",
+"contenido": "Disfrutando de un día soleado en la playa, la vida es mejor con arena y mar.",
+"fecha": "12/08/2024",
+"hora": "14:23",
+"imagen": "",
+"comentarios": []
+}],
+  "PREVIOUSHASH": "0000",
+  "HASH": "0000109187c786cad4487d45d1286e0286cf6af81785c4f175e0fe9eafc044c5"
+}

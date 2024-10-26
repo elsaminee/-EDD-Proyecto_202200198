@@ -1,0 +1,15 @@
+{
+  "INDEX": 9,
+  "TIMESTAMP": "25-10-2024::22:19:03",
+  "NONCE": "268192",
+   "DATA": [{
+"correo": "cg@example.com",
+"contenido": "El deporte me mantiene enfocado y lleno de energía, nunca lo dejaré.",
+"fecha": "17/08/2024",
+"hora": "19:00",
+"imagen": "",
+"comentarios": []
+}],
+  "PREVIOUSHASH": "0000f7bbb2839937dfed78cce7fc217e39a2331bc10356ccf7006f98a914ebea",
+  "HASH": "000056229cdb3f190a7972686b6c51f36ada275f8dfeb4eb8cf88f8572750eb4"
+}

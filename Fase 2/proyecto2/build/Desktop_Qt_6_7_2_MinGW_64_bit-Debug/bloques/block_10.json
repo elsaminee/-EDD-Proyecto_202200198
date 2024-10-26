@@ -1,0 +1,15 @@
+{
+  "INDEX": 10,
+  "TIMESTAMP": "25-10-2024::22:19:04",
+  "NONCE": "19900",
+   "DATA": [{
+"correo": "ml@example.com",
+"contenido": "El arte es una expresión del alma, cada cuadro cuenta una historia.",
+"fecha": "16/08/2024",
+"hora": "15:22",
+"imagen": "",
+"comentarios": []
+}],
+  "PREVIOUSHASH": "000056229cdb3f190a7972686b6c51f36ada275f8dfeb4eb8cf88f8572750eb4",
+  "HASH": "0000f411cb3ec593f4cf6078c7aca971282b5f635a96f09834189f88bdb1ef26"
+}

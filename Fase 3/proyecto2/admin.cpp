@@ -15,6 +15,7 @@
 #include <QLayoutItem>
 #include <QVBoxLayout>
 #include <QCryptographicHash>
+#include "blockchain.h"
 
 
 admin::admin(QWidget *parent)
@@ -23,6 +24,7 @@ admin::admin(QWidget *parent)
 {
     ui->setupUi(this);
     avlTemporal = new AVL();
+
 }
 
 admin::~admin()
@@ -30,6 +32,8 @@ admin::~admin()
     delete ui;
     delete avlTemporal;
 }
+
+
 
 void admin::on_cargarUserbtn_clicked()
 {
@@ -218,6 +222,11 @@ void admin::on_cargarPublibtn_clicked()
                     qDebug() << "---------------------------------------------";
                 }
 
+                //Dentroooooooooooooooo
+
+                publicaciones.sendToBlockchain(publicaciones);
+
+
                 QMessageBox::information(this, "Éxito", "El archivo JSON se leyó correctamente.");
             } else {
                 QMessageBox::warning(this, "Error", "El archivo JSON no es un array.");
@@ -226,6 +235,7 @@ void admin::on_cargarPublibtn_clicked()
             QMessageBox::warning(this, "Error", "No se pudo abrir el archivo.");
         }
     }
+
 }
 
 
@@ -556,3 +566,251 @@ void admin::actualizarPanelConImagen(const QString& imagePath) {
     // Agrega el scroll area al nuevo layout
     newLayout->addWidget(scrollArea);
 }
+
+
+void admin::ImagenAdyacencia(const QString& imagePath) {
+    // Obtener el layout existente en el widget "widgetPubli"
+    QLayout* existingLayout = ui->widgetPubli_4->layout();
+
+    // Si existe un layout previo, eliminar sus elementos pero no el layout completo
+    if (existingLayout) {
+        QLayoutItem* item;
+        while ((item = existingLayout->takeAt(0))) {
+            if (item->widget()) {
+                delete item->widget();  // Eliminar el widget contenido
+            }
+            delete item;  // Eliminar el item
+        }
+    } else {
+        // Si no hay un layout, crear uno nuevo y asignarlo
+        QVBoxLayout* newLayout = new QVBoxLayout();
+        ui->widgetPubli_4->setLayout(newLayout);
+        existingLayout = newLayout;  // Asignamos el nuevo layout a existingLayout
+    }
+
+    // Crear un QLabel para mostrar la imagen
+    QLabel* imageLabel = new QLabel();
+    QPixmap pixmap(imagePath);
+    if (!pixmap.isNull()) {
+        imageLabel->setPixmap(pixmap);
+        imageLabel->setScaledContents(true);  // Escalar la imagen al tamaño del QLabel
+
+        // Crear el QScrollArea para contener el QLabel
+        QScrollArea* scrollArea = new QScrollArea();
+        scrollArea->setWidgetResizable(true);  // Permitir redimensionar
+        scrollArea->setWidget(imageLabel);     // Asignar el QLabel al scroll area
+
+        // Añadir el scrollArea al layout existente
+        existingLayout->addWidget(scrollArea);
+    } else {
+        qDebug() << "Error: No se pudo cargar la imagen desde la ruta: " << imagePath;
+        QLabel* errorLabel = new QLabel("No se pudo cargar la imagen.");
+        existingLayout->addWidget(errorLabel);
+    }
+}
+
+void admin::ImagenGrafo(const QString& imagePath) {
+    // Obtener el layout existente en el widget "widgetPubli"
+    QLayout* existingLayout = ui->widgetPubli_5->layout();
+
+    // Si existe un layout previo, eliminar sus elementos pero no el layout completo
+    if (existingLayout) {
+        QLayoutItem* item;
+        while ((item = existingLayout->takeAt(0))) {
+            if (item->widget()) {
+                delete item->widget();  // Eliminar el widget contenido
+            }
+            delete item;  // Eliminar el item
+        }
+    } else {
+        // Si no hay un layout, crear uno nuevo y asignarlo
+        QVBoxLayout* newLayout = new QVBoxLayout();
+        ui->widgetPubli_5->setLayout(newLayout);
+        existingLayout = newLayout;  // Asignamos el nuevo layout a existingLayout
+    }
+
+    // Crear un QLabel para mostrar la imagen
+    QLabel* imageLabel = new QLabel();
+    QPixmap pixmap(imagePath);
+    if (!pixmap.isNull()) {
+        imageLabel->setPixmap(pixmap);
+        imageLabel->setScaledContents(true);  // Escalar la imagen al tamaño del QLabel
+
+        // Crear el QScrollArea para contener el QLabel
+        QScrollArea* scrollArea = new QScrollArea();
+        scrollArea->setWidgetResizable(true);  // Permitir redimensionar
+        scrollArea->setWidget(imageLabel);     // Asignar el QLabel al scroll area
+
+        // Añadir el scrollArea al layout existente
+        existingLayout->addWidget(scrollArea);
+    } else {
+        qDebug() << "Error: No se pudo cargar la imagen desde la ruta: " << imagePath;
+        QLabel* errorLabel = new QLabel("No se pudo cargar la imagen.");
+        existingLayout->addWidget(errorLabel);
+    }
+}
+
+void admin::graficarBlockchainAdmin() {
+    QString carpeta = QDir::currentPath() + "/bloques/";
+    QDir directorio(carpeta);
+    qDebug() << "Buscando en:" << carpeta;
+
+    if (!directorio.exists()) {
+        qDebug() << "La carpeta 'bloques' no existe en el directorio de ejecución.";
+        return;
+    }
+
+    QFile archivoDot("reportes/bloqueChain.dot");
+    if (!archivoDot.open(QFile::WriteOnly | QFile::Text)) {
+        qDebug() << "No se pudo crear el archivo DOT";
+        return;
+    }
+
+    QTextStream salida(&archivoDot);
+    salida << "digraph G {\n";
+    salida << "  node [shape=record];\n";
+    salida << " rankdir=LR";
+
+    int contador = 1;
+    QString previoHash;
+
+    while (true) {
+        QString nombreArchivo = carpeta + "block_" + QString::number(contador) + ".json";
+        QFile file(nombreArchivo);
+
+        if (!file.exists()) {
+            qDebug() << "Archivo no encontrado:" << nombreArchivo;
+            break;
+        }
+
+        if (file.open(QFile::ReadOnly)) {
+            QByteArray jsonData = file.readAll();
+            file.close();
+
+            QJsonDocument doc = QJsonDocument::fromJson(jsonData);
+            if (!doc.isObject()) {
+                qDebug() << "Formato JSON inválido en:" << nombreArchivo;
+                break;
+            }
+
+            QJsonObject blockObj = doc.object();
+
+            int index = blockObj.value("INDEX").toInt();
+            QString nonce = blockObj.value("NONCE").toString();
+            QString timestamp = blockObj.value("TIMESTAMP").toString();
+            QString currentHash = blockObj.value("HASH").toString();
+            QString previousHash = blockObj.value("PREVIOUSHASH").toString();
+
+            salida << "  block" << index << " [label=\"";
+            salida << "INDEX: " << index << " | TIMESTAMP: " << timestamp << " | NONCE:  " << nonce << " \\n \\n HASH: " << currentHash << "\\n \\n  PREVIOUSHASH: " << previousHash;
+
+            if (blockObj.contains("DATA") && blockObj["DATA"].isArray()) {
+                QJsonArray publicacionesArray = blockObj["DATA"].toArray();
+                salida << " | ";
+
+                for (const QJsonValue &v : publicacionesArray) {
+                    QJsonObject publicacionObj = v.toObject();
+                    QString correo = publicacionObj.value("correo").toString();
+                    QString contenido = publicacionObj.value("contenido").toString();
+
+                    salida << " Correo: " << correo << " \\n \\n Contenido: " << contenido;
+
+                    if (publicacionObj.contains("comentarios") && publicacionObj["comentarios"].isArray()) {
+                        QJsonArray comentariosArray = publicacionObj["comentarios"].toArray();
+                        salida << " \n \n Comentarios: [";
+
+                        for (const QJsonValue &commentValue : comentariosArray) {
+                            QJsonObject comentarioObj = commentValue.toObject();
+                            QString comentarioCorreo = comentarioObj.value("correo").toString();
+                            QString comentarioTexto = comentarioObj.value("comentario").toString();
+                            salida << " Correo: " << comentarioCorreo << " | Comentario: " << comentarioTexto << " ";
+                        }
+                        salida << "]";
+                    }
+                    salida << "  ";
+                }
+                salida << "]";
+            }
+            salida << "\"];\n";
+
+            // Enlazar con el bloque anterior
+            if (contador > 1) {
+                salida << "  block" << contador - 1 << " -> block" << contador << ";\n";
+            }
+
+            previoHash = currentHash; // Actualizar el hash previo para el próximo bloque
+        } else {
+            qDebug() << "No se pudo abrir el archivo:" << nombreArchivo;
+        }
+        contador++;
+    }
+
+    salida << "}\n";
+    archivoDot.close();
+
+    // Crear el archivo PNG usando Graphviz
+    std::string command = "dot -Tpng reportes/bloqueChain.dot -o reportes/bloqueChain.png";
+    if (system(command.c_str()) == -1) {
+        qDebug() << "Error al ejecutar el comando Graphviz.";
+    } else {
+        qDebug() << "Imagen de la blockchain generada exitosamente: bloqueChain.png";
+    }
+}
+
+void admin::ImagenBlockChain(const QString& imagePath) {
+    // Obtener el layout existente en el widget "widgetPubli"
+    QLayout* existingLayout = ui->widgetPubli_7->layout();
+
+    // Si existe un layout previo, eliminar sus elementos pero no el layout completo
+    if (existingLayout) {
+        QLayoutItem* item;
+        while ((item = existingLayout->takeAt(0))) {
+            if (item->widget()) {
+                delete item->widget();  // Eliminar el widget contenido
+            }
+            delete item;  // Eliminar el item
+        }
+    } else {
+        // Si no hay un layout, crear uno nuevo y asignarlo
+        QVBoxLayout* newLayout = new QVBoxLayout();
+        ui->widgetPubli_7->setLayout(newLayout);
+        existingLayout = newLayout;  // Asignamos el nuevo layout a existingLayout
+    }
+
+    // Crear un QLabel para mostrar la imagen
+    QLabel* imageLabel = new QLabel();
+    QPixmap pixmap(imagePath);
+    if (!pixmap.isNull()) {
+        imageLabel->setPixmap(pixmap);
+        imageLabel->setScaledContents(true);  // Escalar la imagen al tamaño del QLabel
+
+        // Crear el QScrollArea para contener el QLabel
+        QScrollArea* scrollArea = new QScrollArea();
+        scrollArea->setWidgetResizable(true);  // Permitir redimensionar
+        scrollArea->setWidget(imageLabel);     // Asignar el QLabel al scroll area
+
+        // Añadir el scrollArea al layout existente
+        existingLayout->addWidget(scrollArea);
+    } else {
+        qDebug() << "Error: No se pudo cargar la imagen desde la ruta: " << imagePath;
+        QLabel* errorLabel = new QLabel("No se pudo cargar la imagen.");
+        existingLayout->addWidget(errorLabel);
+    }
+}
+
+
+void admin::on_nuevoReporteBtn_clicked()
+{
+    AppData& appData = AppData::getInstance();
+    ListaAdyacencia& lista = appData.getGrafo();
+
+    lista.graph_listaEnlazada();
+    lista.graph();
+    graficarBlockchainAdmin();
+
+    ImagenAdyacencia("reportes/graph_lista_enlazada.png");
+    ImagenGrafo("reportes/graph.png");
+    ImagenBlockChain("reportes/bloqueChain.png");
+
+}
+

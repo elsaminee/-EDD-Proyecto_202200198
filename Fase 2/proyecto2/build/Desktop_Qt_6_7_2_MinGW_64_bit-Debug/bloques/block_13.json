@@ -1,0 +1,15 @@
+{
+  "INDEX": 13,
+  "TIMESTAMP": "25-10-2024::22:19:04",
+  "NONCE": "8544",
+   "DATA": [{
+"correo": "lp@example.com",
+"contenido": "El ejercicio diario es clave para una vida saludable, nunca lo dudes.",
+"fecha": "14/08/2024",
+"hora": "06:15",
+"imagen": "",
+"comentarios": []
+}],
+  "PREVIOUSHASH": "0000bc0be987acbe447ab55c57e796d89757c0817ca7bb9d42d1f13ff91e8afe",
+  "HASH": "000099e3e160e3aef86a7acefbe02c136f3dfb5f9dbd5081013ee9b4983d64dd"
+}

@@ -1,0 +1,20 @@
+graph G {
+node [style=filled, fontcolor=black, fontsize=12];
+"f2@gmail.com" [color=blue, fillcolor=lightblue, shape=circle, style=filled];
+"jm@example.com" [color=green, fillcolor=lightgreen, shape=circle, style=filled];
+"f2@gmail.com" -- "jm@example.com";
+"jg@example.com" [color=green, fillcolor=lightgreen, shape=circle, style=filled];
+"f2@gmail.com" -- "jg@example.com";
+"mr@example.com" [color=green, fillcolor=lightgreen, shape=circle, style=filled];
+"f2@gmail.com" -- "mr@example.com";
+"sg@example.com" [color=green, fillcolor=lightgreen, shape=circle, style=filled];
+"f2@gmail.com" -- "sg@example.com";
+"ah@example.com" [color=green, fillcolor=lightgreen, shape=circle, style=filled];
+"f2@gmail.com" -- "ah@example.com";
+"ml@example.com" [color=green, fillcolor=lightgreen, shape=circle, style=filled];
+"f2@gmail.com" -- "ml@example.com";
+"lp@example.com" [color=green, fillcolor=lightgreen, shape=circle, style=filled];
+"f2@gmail.com" -- "lp@example.com";
+"cg@example.com" [color=green, fillcolor=lightgreen, shape=circle, style=filled];
+"f2@gmail.com" -- "cg@example.com";
+}

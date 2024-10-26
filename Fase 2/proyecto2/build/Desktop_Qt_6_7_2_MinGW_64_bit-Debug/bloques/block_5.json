@@ -1,0 +1,15 @@
+{
+  "INDEX": 5,
+  "TIMESTAMP": "25-10-2024::22:19:02",
+  "NONCE": "74070",
+   "DATA": [{
+"correo": "lp@example.com",
+"contenido": "Día perfecto para una caminata por el parque, disfrutando de la naturaleza.",
+"fecha": "15/08/2024",
+"hora": "10:57",
+"imagen": "",
+"comentarios": []
+}],
+  "PREVIOUSHASH": "0000d84fcbc0b345d62fef34da343f58238719ebe41cbcdbd7f36cc4c4954848",
+  "HASH": "0000f9b2ba26b5df300175edb8ad7f55fd4d192a082aab86172c566c3cfbeac0"
+}

@@ -1,0 +1,15 @@
+{
+  "INDEX": 17,
+  "TIMESTAMP": "25-10-2024::22:19:05",
+  "NONCE": "25221",
+   "DATA": [{
+"correo": "mr@example.com",
+"contenido": "El camino hacia el éxito está lleno de retos, pero vale la pena.",
+"fecha": "15/08/2024",
+"hora": "14:55",
+"imagen": "",
+"comentarios": []
+}],
+  "PREVIOUSHASH": "000014628fce9212cda366c1bc8af916003c647d0b035283fd4baa5d9247d38f",
+  "HASH": "00003afe23f788700e0d258a8df2d7868082405be202905152a7980133b91b9d"
+}

@@ -2,6 +2,9 @@
 #include "ui_crearpublicacion.h"
 #include <QFileDialog>
 #include <QMessageBox>
+#include <qjsonarray.h>
+#include <qjsondocument.h>
+#include <qjsonobject.h>
 #include "AppData.h"
 
 crearPublicacion::crearPublicacion(QWidget *parent, const QString& correo)
@@ -16,6 +19,114 @@ crearPublicacion::~crearPublicacion()
 {
     delete ui;
 }
+
+void crearPublicacion::graficarBlockchain() {
+    QString carpeta = QDir::currentPath() + "/bloques/";
+    QDir directorio(carpeta);
+    qDebug() << "Buscando en:" << carpeta;
+
+    if (!directorio.exists()) {
+        qDebug() << "La carpeta 'bloques' no existe en el directorio de ejecución.";
+        return;
+    }
+
+    QFile archivoDot("reportes/bloqueChain.dot");
+    if (!archivoDot.open(QFile::WriteOnly | QFile::Text)) {
+        qDebug() << "No se pudo crear el archivo DOT";
+        return;
+    }
+
+    QTextStream salida(&archivoDot);
+    salida << "digraph G {\n";
+    salida << "  node [shape=record];\n";
+    salida << " rankdir=LR";
+
+    int contador = 1;
+    QString previoHash;
+
+    while (true) {
+        QString nombreArchivo = carpeta + "block_" + QString::number(contador) + ".json";
+        QFile file(nombreArchivo);
+
+        if (!file.exists()) {
+            qDebug() << "Archivo no encontrado:" << nombreArchivo;
+            break;
+        }
+
+        if (file.open(QFile::ReadOnly)) {
+            QByteArray jsonData = file.readAll();
+            file.close();
+
+            QJsonDocument doc = QJsonDocument::fromJson(jsonData);
+            if (!doc.isObject()) {
+                qDebug() << "Formato JSON inválido en:" << nombreArchivo;
+                break;
+            }
+
+            QJsonObject blockObj = doc.object();
+
+            int index = blockObj.value("INDEX").toInt();
+            QString nonce = blockObj.value("NONCE").toString();
+            QString timestamp = blockObj.value("TIMESTAMP").toString();
+            QString currentHash = blockObj.value("HASH").toString();
+            QString previousHash = blockObj.value("PREVIOUSHASH").toString();
+
+            salida << "  block" << index << " [label=\"";
+            salida << "INDEX: " << index << " | TIMESTAMP: " << timestamp << " | NONCE:  " << nonce << " \\n \\n HASH: " << currentHash << "\\n \\n  PREVIOUSHASH: " << previousHash;
+
+            if (blockObj.contains("DATA") && blockObj["DATA"].isArray()) {
+                QJsonArray publicacionesArray = blockObj["DATA"].toArray();
+                salida << " | ";
+
+                for (const QJsonValue &v : publicacionesArray) {
+                    QJsonObject publicacionObj = v.toObject();
+                    QString correo = publicacionObj.value("correo").toString();
+                    QString contenido = publicacionObj.value("contenido").toString();
+
+                    salida << " Correo: " << correo << " \\n \\n Contenido: " << contenido;
+
+                    if (publicacionObj.contains("comentarios") && publicacionObj["comentarios"].isArray()) {
+                        QJsonArray comentariosArray = publicacionObj["comentarios"].toArray();
+                        salida << " \n \n Comentarios: [";
+
+                        for (const QJsonValue &commentValue : comentariosArray) {
+                            QJsonObject comentarioObj = commentValue.toObject();
+                            QString comentarioCorreo = comentarioObj.value("correo").toString();
+                            QString comentarioTexto = comentarioObj.value("comentario").toString();
+                            salida << " Correo: " << comentarioCorreo << " | Comentario: " << comentarioTexto << " ";
+                        }
+                        salida << "]";
+                    }
+                    salida << "  ";
+                }
+                salida << "]";
+            }
+            salida << "\"];\n";
+
+            // Enlazar con el bloque anterior
+            if (contador > 1) {
+                salida << "  block" << contador - 1 << " -> block" << contador << ";\n";
+            }
+
+            previoHash = currentHash; // Actualizar el hash previo para el próximo bloque
+        } else {
+            qDebug() << "No se pudo abrir el archivo:" << nombreArchivo;
+        }
+        contador++;
+    }
+
+    salida << "}\n";
+    archivoDot.close();
+
+    // Crear el archivo PNG usando Graphviz
+    std::string command = "dot -Tpng reportes/bloqueChain.dot -o reportes/bloqueChain.png";
+    if (system(command.c_str()) == -1) {
+        qDebug() << "Error al ejecutar el comando Graphviz.";
+    } else {
+        qDebug() << "Imagen de la blockchain generada exitosamente: bloqueChain.png";
+    }
+}
+
 
 void crearPublicacion::on_seleccionarImagenBtn_clicked()
 {
@@ -80,9 +191,13 @@ void crearPublicacion::on_agregarPublicacionBtn_clicked()
         );
     QMessageBox::information(this, "Publicación Agregada", "La publicación ha sido agregada correctamente.");
 
+    publicacionGlobal.sendToBlockchain(publicacionGlobal);
+    graficarBlockchain();
+
 
 
 }
+
 
 
 void crearPublicacion::on_cerrarBtn_clicked()

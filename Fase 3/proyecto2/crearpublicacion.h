@@ -19,6 +19,7 @@ private slots:
     void on_seleccionarImagenBtn_clicked();
 
     void on_agregarPublicacionBtn_clicked();
+    void graficarBlockchain();
 
     void on_cerrarBtn_clicked();
 

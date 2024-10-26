@@ -899,4 +899,62 @@ void user::actualizarPanelConImagen(const QString& imagePath) {
     }
 }
 
+void user::actualizarImagenAmigos(const QString& imagePath) {
+    // Obtener el layout existente en el widget "widgetPubli"
+    QLayout* existingLayout = ui->widgetPubli_4->layout();
+
+    // Si existe un layout previo, eliminar sus elementos pero no el layout completo
+    if (existingLayout) {
+        QLayoutItem* item;
+        while ((item = existingLayout->takeAt(0))) {
+            if (item->widget()) {
+                delete item->widget();  // Eliminar el widget contenido
+            }
+            delete item;  // Eliminar el item
+        }
+    } else {
+        // Si no hay un layout, crear uno nuevo y asignarlo
+        QVBoxLayout* newLayout = new QVBoxLayout();
+        ui->widgetPubli_4->setLayout(newLayout);
+        existingLayout = newLayout;  // Asignamos el nuevo layout a existingLayout
+    }
+
+    // Crear un QLabel para mostrar la imagen
+    QLabel* imageLabel = new QLabel();
+    QPixmap pixmap(imagePath);
+    if (!pixmap.isNull()) {
+        imageLabel->setPixmap(pixmap);
+        imageLabel->setScaledContents(true);  // Escalar la imagen al tamaño del QLabel
+
+        // Crear el QScrollArea para contener el QLabel
+        QScrollArea* scrollArea = new QScrollArea();
+        scrollArea->setWidgetResizable(true);  // Permitir redimensionar
+        scrollArea->setWidget(imageLabel);     // Asignar el QLabel al scroll area
+
+        // Añadir el scrollArea al layout existente
+        existingLayout->addWidget(scrollArea);
+    } else {
+        qDebug() << "Error: No se pudo cargar la imagen desde la ruta: " << imagePath;
+        QLabel* errorLabel = new QLabel("No se pudo cargar la imagen.");
+        existingLayout->addWidget(errorLabel);
+    }
+}
+
+void user::on_sugerirBtn_clicked()
+{
+    AppData& appData = AppData::getInstance();
+    ListaAdyacencia& amistades = appData.getGrafo();
+
+    // Obtener la lista de sugerencias en formato string
+    ListaSugerencia sugerencias = amistades.sugerirAmigos(userCorreo.toStdString());
+    string resultado = sugerencias.obtenerSugerencias();
+
+    // Convertir `resultado` de std::string a QString y establecerlo en el label
+    ui->labelSugerencias->setText(QString::fromStdString(resultado));
+
+    amistades.graph_user(userCorreo.toStdString());
+
+    QString rutaImagen = QDir::currentPath() + "/reportes/graph_usuario.png";
+    actualizarImagenAmigos(rutaImagen);
+}
 

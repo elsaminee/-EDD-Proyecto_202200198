@@ -58,6 +58,10 @@ private slots:
 
     void on_reporteUser_btn_2_clicked();
 
+    void on_sugerirBtn_clicked();
+
+    void actualizarImagenAmigos(const QString& imagePath);
+
 private:
     Ui::user *ui;
     QString userCorreo;
